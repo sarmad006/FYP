@@ -1,0 +1,13 @@
+Main Entities
+IPFS
+Smart Contract
+Super User (Portal) adds Hospital (Predefined 1 Receptionist with Multiple Doctor) 
+Recepionist (Portal) Fill/Send Form to Respective Doctor
+Doctor (Portal)(Treatment) ==> output admit/discharge severe/mild Update Form
+
+Pickle File will be sent automatically from Local Storage to Global Server
+Assumption
+Volatile Area: can be change
+
+
+
