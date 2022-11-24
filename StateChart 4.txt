@@ -1,6 +1,0 @@
-1 Hospital registers on registeration page
-2 Hospital submits id of receptionist and doctors 
-3 SuperUser accepts/reject hospital request
-3.0.1 Reject Use Case ended
-3.1.1 Acceptes added on blockchain network stores the mapping of receptionist and doctors
-4 Use Case ended  
