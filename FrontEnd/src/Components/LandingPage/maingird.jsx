@@ -1,8 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import "./maingird.css";
-class counter extends Component {
-  render() {
+
+const LandingComponent=() => {
+  
     return (
+      <>
       <div>
         <nav id="Maingird-nav">
           <a href="blank" className="top_Nav_Span_Left">
@@ -56,8 +58,9 @@ class counter extends Component {
         </div>
         <button>Register</button>
       </div>
+      </>
     );
   }
-}
 
-export default counter;
+
+export default LandingComponent;
