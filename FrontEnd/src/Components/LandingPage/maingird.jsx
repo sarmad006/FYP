@@ -2,8 +2,7 @@ import React from "react";
 import "./maingird.css";
 
 const LandingComponent=() => {
-  
-    return (
+  return (
       <>
       <div>
         <nav id="Maingird-nav">
