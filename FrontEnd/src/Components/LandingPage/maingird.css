@@ -9,6 +9,11 @@ body{
     margin-top: 2%;
     font-family: 'Poppins', sans-serif;
 }
+img{
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+}
 
 .top_Nav_Span_Left{
     color: #5bab23;
@@ -17,7 +22,7 @@ body{
 
 .top_Nav_Span_Middle{
     color: white;
-    margin-left: 23%;
+    margin-left: 23.2%;
     margin-right: 21%;
 }
 
@@ -28,7 +33,7 @@ body{
 }
 
 #dedocSpansDiv{
-    margin-top: 5%; 
+    margin-top: 2%; 
     font-size: 50px;
     margin-left: 30%;
     font-weight: 1;
@@ -37,8 +42,6 @@ body{
     font-size: 120px;
     font-style: bold;
 }
-
-
 
 #decentralizedDoctors{
     margin-left: 24.5%;
@@ -63,7 +66,7 @@ body{
     margin-left: 6%;
     margin-right: 4%;
     font-family: 'Poppins', sans-serif;
-    font-weight: 1000;
+    font-weight: 1;
 }
 
 #lowerleftSpanOfLowerBody{
@@ -86,9 +89,8 @@ body{
 #lowerMiddleSpanOfLowerBody{
     margin-left: 10%;
     margin-right: 10%;
-    background-color: blue;
-
 }
+
 #lowerRightSpanOfLowerBody{
     display: inline-block;
     margin-left: 1%;
@@ -100,5 +102,4 @@ button{
     font-size: 25px;
     border-radius: 2cm;
     margin-left: 45%;
-
 }
