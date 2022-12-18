@@ -1,39 +1,19 @@
 import React from "react";
 import "./maingird.css";
+import Nav from "./Nav";
 
 const LandingComponent = () => {
   return (
     <>
       <div>
-        <nav id="Maingird-nav">
-          <a href="blank" className="top_Nav_Span_Left">
-            Home
-          </a>
-          <a
-            href="blank"
-            className="top_Nav_Span_Left"
-            style={{ color: "#e2b04d" }}
-          >
-            Login with Metamask
-          </a>
-          <span className="top_Nav_Span_Middle">D E D O C</span>
-          <a href="blank" className="top_Nav_Span_Right">
-            Register
-          </a>
-          <a href="blank" className="top_Nav_Span_Right">
-            Contact Us
-          </a>
-          <a href="blank" className="top_Nav_Span_Right">
-            About
-          </a>
-          <span className="top_Nav_Span_Right">
-            <img src={ require('../Images/MetaMask_Fox.png') } alt="MetaMask" />
-          </span>
-        </nav>
+        <Nav />
+        <div id="combine">
         <div id="dedocSpansDiv">DEDOC</div>
         <span id="decentralizedDoctors">Decentralized Doctors</span>
+        </div>
         <div id="lowerBody">
           <span id="lowerleftSpanOfLowerBody">
+          
             <span className="lowerParagraphUpper">
               DEDOC uses AI to find the right treatment for every patient
             </span>
@@ -42,20 +22,20 @@ const LandingComponent = () => {
             </p>
           </span>
           <span id="lowerMiddleSpanOfLowerBody">
-            <img src={ require('../Images/pic_2.png') } alt = "MetaMask pic 2" />
+            <img src='./image/lock.svg' style={{height:"250px",width:"250px"}} alt = "MetaMask pic 2" />
           </span>
           <span id="lowerRightSpanOfLowerBody">
             <p className="lowerParagraphUpper">
-              We use Federated Learning to train Machine Learning Models.
+              We use Federated Learning to train Machine Learning &nbsp; Models.
             </p>
             <p className="lowerParagraphLower">
-              Patients Data remains secure
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              and safe always.
+              Patients Data remains secure &nbsp;&nbsp;&nbsp; and safe always.
+              {/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
+              
             </p>
           </span>
         </div>
-        <button>Register</button>
+        <button id="btn">REGISTER</button>
       </div>
     </>
   );

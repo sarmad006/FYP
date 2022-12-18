@@ -16,7 +16,7 @@ function App() {
     <Route path="/new" element={<Sidebar/>}></Route>
     <Route path="/doctor" element={<Home/>}></Route>
     <Route path="/recommendation" element={<Recommendation/>}></Route>
-    <Route path="/" element={<RegisterComponent/>}></Route>
+    <Route path="/reg" element={<RegisterComponent/>}></Route>
    </Routes>
    </BrowserRouter>
   );

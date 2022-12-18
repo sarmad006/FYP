@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Nav from "./Nav";
 import "./register.css"
 
 class RegisterComponent extends Component
@@ -7,31 +8,7 @@ class RegisterComponent extends Component
     {
         return(
             <div>
-                <nav id="Maingird-nav">
-                <a href="blank" className="top_Nav_Span_Left">
-                    Home
-                </a>
-                <a
-                    href="blank"
-                    className="top_Nav_Span_Left"
-                    style={{ color: "#e2b04d" }}
-                >
-                    Login with Metamask
-                </a>
-                <span className="top_Nav_Span_Middle">D E D O C</span>
-                <a href="blank" className="top_Nav_Span_Right">
-                    Register
-                </a>
-                <a href="blank" className="top_Nav_Span_Right">
-                    Contact Us
-                </a>
-                <a href="blank" className="top_Nav_Span_Right">
-                    About
-                </a>
-                <span className="top_Nav_Span_Right">
-                    <img src={ require('../Images/MetaMask_Fox.png') } alt="MetaMask" />
-                </span>
-                </nav>
+                <Nav />
                 <div id="reg_desc">
                     <span class="reg_desc_span">Thankyou for choosing us , You're just one step away from becoming part of a</span>
                     <span class="reg_desc_span">Global Network , Where all the magic happens ,</span>
