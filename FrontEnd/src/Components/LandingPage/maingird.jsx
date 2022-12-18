@@ -1,9 +1,9 @@
 import React from "react";
 import "./maingird.css";
 
-const LandingComponent=() => {
+const LandingComponent = () => {
   return (
-      <>
+    <>
       <div>
         <nav id="Maingird-nav">
           <a href="blank" className="top_Nav_Span_Left">
@@ -27,7 +27,7 @@ const LandingComponent=() => {
             About
           </a>
           <span className="top_Nav_Span_Right">
-            <img src="" alt="Image1" />
+            <img src={ require('../Images/MetaMask_Fox.png') } alt="MetaMask" />
           </span>
         </nav>
         <div id="dedocSpansDiv">DEDOC</div>
@@ -42,7 +42,7 @@ const LandingComponent=() => {
             </p>
           </span>
           <span id="lowerMiddleSpanOfLowerBody">
-            <img src="" alt="image2" />
+            <img src={ require('../Images/pic_2.png') } alt = "MetaMask pic 2" />
           </span>
           <span id="lowerRightSpanOfLowerBody">
             <p className="lowerParagraphUpper">
@@ -57,9 +57,8 @@ const LandingComponent=() => {
         </div>
         <button>Register</button>
       </div>
-      </>
-    );
-  }
-
+    </>
+  );
+};
 
 export default LandingComponent;
