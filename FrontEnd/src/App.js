@@ -4,7 +4,7 @@ import LandingPage from './Pages/LandingPage';
 import Sidebar from './Components/Sidebar';
 import Home from './Pages/Doctors/Home';
 import Recommendation from './Pages/Doctors/Recommendation';
-import RegisterComponent from "./Components/LandingPage/register";
+
 
 
 function App() {
