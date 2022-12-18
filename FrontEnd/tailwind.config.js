@@ -5,7 +5,7 @@ module.exports = {
   ],
   theme: {
     letterSpacing: {
-      widest: '0.10em'
+      widest: '0.05em'
     },
     extend: {},
   },
