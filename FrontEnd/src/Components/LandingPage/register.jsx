@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import Nav from "./Nav";
 import "./register.css"
+import { useWeb3React } from "@web3-react/core";
+import { Link } from "react-router-dom";
 
-class RegisterComponent extends Component
-{
-    render()
+const RegisterComponent = () =>
     {
+      
         return(
             <div>
                 <Nav />
@@ -15,7 +16,7 @@ class RegisterComponent extends Component
                     <span class="reg_desc_span">LETS GO !</span>
                 </div>
                 <form action="" id="reg_input">
-                    <span id="reg_input_first_span">
+                    <span id="reg_input_first_span" class="bg-gradient-to-r from-gradx1 to-gradx2 text-white text-2xl">
                         Kindly Enter your Hospital Details
                     </span>
                     <span id="reg_input_box">
@@ -40,8 +41,8 @@ class RegisterComponent extends Component
                     </span>
                     <span id="reg_input_box">
                         <span className="reg_input_upper_box">
-                            <label htmlFor="">City</label>
-                            <input type="text" />
+                            <label htmlFor="">Email</label>
+                            <input type="email" />
                         </span>
                         <span className="reg_input_lower_box">
                             <label htmlFor="">Doctors</label>
@@ -52,12 +53,12 @@ class RegisterComponent extends Component
                             <label htmlFor="">City</label>
                             <input type="text" />
                     </span>
-                    <button>
+                    <Link to='/thnx'><button>
                         NEXT
-                    </button>
+                    </button></Link>
                 </form>
             </div>
         )
     }
-}
+
 export default RegisterComponent;

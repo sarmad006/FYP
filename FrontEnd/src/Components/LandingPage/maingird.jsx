@@ -15,7 +15,7 @@ const LandingComponent = () => {
           <span id="lowerleftSpanOfLowerBody">
           
             <span className="lowerParagraphUpper">
-              DEDOC uses AI to find the right treatment for every patient
+              DEDOC uses AI to find the right treatment for every<br></br>patient
             </span>
             <p className="lowerParagraphLower">
               The future of collaboration starts here
@@ -26,10 +26,10 @@ const LandingComponent = () => {
           </span>
           <span id="lowerRightSpanOfLowerBody">
             <p className="lowerParagraphUpper">
-              We use Federated Learning to train Machine Learning &nbsp; Models.
+              We use Federated Learning to train Machine Learning <br></br>Models.
             </p>
             <p className="lowerParagraphLower">
-              Patients Data remains secure &nbsp;&nbsp;&nbsp; and safe always.
+              Patients Data remains secure <br></br>and safe always.
               {/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
               
             </p>

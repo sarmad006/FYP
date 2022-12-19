@@ -1,0 +1,29 @@
+@import url('https://fonts.cdnfonts.com/css/morena');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;600&family=Poppins&display=swap');
+
+#mainheading{
+    font-family: 'Morena', sans-serif;
+    font-size: 6.5rem;
+    letter-spacing: 0.3rem;
+}
+
+#main_heading_span{
+    margin-top: -3%;
+    font-family: 'Morena', sans-serif;
+    font-size: 6.5rem;
+    letter-spacing: 0.3rem;
+}
+
+.Application_Received_1{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    font-size: 1.7rem;
+    text-align: left;
+    padding-left: 10%;
+    padding-right: 10%;
+    color: aliceblue;
+    padding-top: 3%;
+    width: 80%;
+    margin-left: 10%;
+    letter-spacing: 0.2rem;
+}
