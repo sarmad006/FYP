@@ -2,6 +2,7 @@ import { useWeb3React } from "@web3-react/core";
 import { useState, useEffect } from "react";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { Link } from "react-router-dom";
+import MetaMask from "../../context/Metamask";
 
 const injected = new InjectedConnector();
 
@@ -36,7 +37,7 @@ const Nav = () => {
   }
 
   return (
-    <div>
+    <div class="sm:hidden lg:block tb:block xl:block sm:flex-col">
       <nav id="Maingird-nav" className="mx-20">
         <Link
           to="/"
@@ -48,7 +49,7 @@ const Nav = () => {
         <div class="-ml-20">
           {hasMetamask ? (
             active ? (
-              <h3 class="text-limgreen">Connected to MetaMask</h3>
+              <h3 class="text-limgreen xl:mr-20 lg:ml-20">Connected to MetaMask</h3>
             ) : (
               <a
                 href="#"
@@ -66,7 +67,7 @@ const Nav = () => {
 
         <span
           className="top_Nav_Span_Middle "
-          class="w-80 text-white text-center"
+          class="w-80 text-white text-center xl:mr-40"
         >
           DEDOC
         </span>
@@ -74,7 +75,7 @@ const Nav = () => {
           <div>
             {active ? (
               <Link
-                to="/reg"
+                to="/login"
                 className="top_Nav_Span_Right"
                 class="text-white -ml-5 hover:text-indigo-300"
               >
@@ -100,6 +101,7 @@ const Nav = () => {
             </a>
           </div>
           <div>
+          
             <Link
               to="/about"
               className="top_Nav_Span_Right"

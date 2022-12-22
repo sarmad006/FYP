@@ -16,7 +16,7 @@ const RegisterComponent = () =>
                     <span class="reg_desc_span">LETS GO !</span>
                 </div>
                 <form action="" id="reg_input">
-                    <span id="reg_input_first_span" class="bg-gradient-to-r from-gradx1 to-gradx2 text-white text-2xl">
+                    <span id="reg_input_first_span" class="bg-gradient-to-r from-gradx1 to-gradx2 font-bold text-white py-1 text-2xl drop-shadow-2xl">
                         Kindly Enter your Hospital Details
                     </span>
                     <span id="reg_input_box">

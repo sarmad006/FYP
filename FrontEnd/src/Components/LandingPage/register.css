@@ -50,7 +50,7 @@ img{
 
 #reg_input{
 
-    box-shadow: 5px 5px 10px inset #b721ff,5px 5px 10px #b721ff,-2px -2px 10px #b721ff;
+    box-shadow: 5px 5px 10px #b721ff,5px 5px 10px #b721ff,-2px -2px 10px #b721ff;
     margin-top: 20%;
     margin-left: 25%;
     margin-bottom: 4%;
@@ -64,14 +64,15 @@ img{
 #reg_input_first_span{
     display:block;
     text-align: center;
-    font-size: x-large;
     margin: 10px;
     margin-left: 20%;
     margin-top: 5%;
     border-radius: 15px;
-    height: 40px;
-    width: 60%;
+    height: 42px;
+    width: 62%;
     justify-content: center;
+    color:#2a2c3f;
+    font-family: 'Poppins', sans-serif;
 }
 
 #reg_input_box{  

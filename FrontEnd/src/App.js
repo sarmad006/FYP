@@ -9,6 +9,9 @@ import { Web3Provider } from "@ethersproject/providers";
 import RegisterComponent from "./Components/LandingPage/register";
 import Thankyou from "./Components/LandingPage/Thankyou";
 import About from "./Components/LandingPage/About";
+import Demo from "./context/Demo";
+import MetaMask from "./context/Metamask";
+import Login from "./Components/LandingPage/Login";
 
 const getLibrary = (provider) => {
   return new Web3Provider(provider);
@@ -18,17 +21,21 @@ function App() {
   return (
     // @Sarmad add this in Route <RegisterComponent/>
     <Web3ReactProvider getLibrary={getLibrary}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />}></Route>
-          <Route path="/new" element={<Sidebar />}></Route>
-          <Route path="/doctor" element={<Home />}></Route>
-          <Route path="/recommendation" element={<Recommendation />}></Route>
-          <Route path="/reg" element={<RegisterComponent />}></Route>
-          <Route path="/thnx" element={<Thankyou />}></Route>
-          <Route path="/about" element={<About />}></Route>
-        </Routes>
-      </BrowserRouter>
+      <MetaMask>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LandingPage />}></Route>
+            <Route path="/new" element={<Sidebar />}></Route>
+            <Route path="/doctor" element={<Home />}></Route>
+            <Route path="/recommendation" element={<Recommendation />}></Route>
+            <Route path="/reg" element={<RegisterComponent />}></Route>
+            <Route path="/thnx" element={<Thankyou />}></Route>
+            <Route path="/about" element={<About />}></Route>
+            <Route path="/demo" element={<Demo />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+          </Routes>
+        </BrowserRouter>
+      </MetaMask>
     </Web3ReactProvider>
   );
 }

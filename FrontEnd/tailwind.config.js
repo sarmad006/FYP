@@ -10,7 +10,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        'poppins': ['Poppins'],
+        'poppins': ['Poppins'],//2a2c3f
      },
      colors:{
         purple: "#918DEC",
@@ -27,7 +27,8 @@ module.exports = {
       md: '768px',
       tb:'900px',
       lg: '1366px',
-      xl:'1440px'
+      xl:'1536px',
+      sam:'1600px'
     }
   },
   plugins: [],
