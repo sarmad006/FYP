@@ -125,7 +125,7 @@ input:active {
     color: blue;
 }
 
-button{
+#btn_special{
     background-color: #fce24c;
     color: black;
     border-radius: 5px;

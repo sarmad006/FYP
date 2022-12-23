@@ -40,7 +40,7 @@ const Login = () => {
               </div>
               <div id="field">
                 <label class="text-slate-100">Metamask Address</label>
-                <input id="inp" type="text" value={add} readOnly></input>
+                <input id="inp" type="text" defaultValue={add} readOnly></input>
                 <label class="mt-4 text-slate-100">Password</label>
                 <input id="inp" type="password"></input>
               </div>

@@ -19,7 +19,7 @@ const MetaMask = (props) => {
   
 
   const state = {
-    address: "No address yet",
+    address: null,
   };
   // useEffect(async () => {
   //   if (typeof window.ethereum !== "undefined") {

@@ -24,7 +24,7 @@ const Nav = () => {
       setHasMetamask(true);
       setAcc(account);
     }
-  });
+  },[]);
 
   async function connect() {
     try {
