@@ -60,7 +60,7 @@ const RegisterComponent = () => {
           <input id="input_special" type="text" />
         </span>
         <Link to="/thnx">
-          <button
+          <button id="btn_special"
             className="rounded-full bg-limgreen text-sm font-poppins drop-shadow-2xl tracking-widest w-1/7 btn_special"
           >
             NEXT

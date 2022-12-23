@@ -67,7 +67,7 @@ const Recommendation = () => {
           <div className='flex flex-col justify-center items-center'>
             <label for="first_name" class="block mb-2 text-sm  text-white">{item.title}</label>
             <div className='border-2 border-violet-500 border-b-0 p-2 rounded-xl shadow-2xl'>
-            <input type="text" id="first_name" class="bg-transparent w-32 border-b-2 border-purple-600 " required/>
+            <input type="text" id="first_name" class="bg-transparent w-32 border-b-2 border-darkPurple " required/>
             </div>
         </div>
          ))}

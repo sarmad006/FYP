@@ -10,14 +10,12 @@ import Thankyou from "./Components/LandingPage/Thankyou";
 import About from "./Components/LandingPage/About";
 import MetaMask from "./context/Metamask";
 import Login from "./Components/LandingPage/Login";
-<<<<<<< HEAD
 import Receptionist from "./Pages/Receptionist/Home";
-=======
 import { useContext, useEffect } from "react";
 import metaContext from "./context/metaContext";
 import Prediction from "./Pages/Doctors/Prediction";
 import RegisteredHospitals from "./Pages/superUser/RegisteredHospitals";
->>>>>>> 486a3670e0c8666a718047db6faade4a3bde5556
+import ModelReq from "./Pages/Receptionist/ModelReq";
 
 const getLibrary = (provider) => {
   return new Web3Provider(provider);
@@ -56,7 +54,7 @@ function App() {
             <Route path="/doctor/prediction" element={<Prediction/>}></Route>
             <Route path="/superuser/hospitals" element={<RegisteredHospitals/>}></Route>
             <Route path="/recep" element={<Receptionist />}></Route>
-
+            <Route path="/modelr" element={<ModelReq />}></Route>
             </Route>
           </Routes>
         </BrowserRouter>
