@@ -125,12 +125,8 @@ input:active {
     color: blue;
 }
 
-<<<<<<< HEAD
-.btn_special{
-=======
 #btn_special{
     background-color: #fce24c;
->>>>>>> 486a3670e0c8666a718047db6faade4a3bde5556
     color: black;
     width: 100px;
     height: 30px;

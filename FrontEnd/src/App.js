@@ -49,18 +49,15 @@ function App() {
             <Route path="/thanks" element={<Thankyou />}></Route>
             <Route path="/about" element={<About />}></Route>
             <Route path="/login" element={<Login />}></Route>
-<<<<<<< HEAD
-            <Route path="/recep" element={<Receptionist />}></Route> Receptionist
-
-=======
             {/* Only Authenticated Routes goes here */}
             <Route element={<ProtectedRoute/>}>
             <Route path="/doctor" element={<Home/>}></Route>
             <Route path="/doctor/recommendation" element={<Recommendation/>}></Route>
             <Route path="/doctor/prediction" element={<Prediction/>}></Route>
             <Route path="/superuser/hospitals" element={<RegisteredHospitals/>}></Route>
+            <Route path="/recep" element={<Receptionist />}></Route>
+
             </Route>
->>>>>>> 486a3670e0c8666a718047db6faade4a3bde5556
           </Routes>
         </BrowserRouter>
       </MetaMask>
