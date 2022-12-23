@@ -19,7 +19,11 @@ const MetaMask = (props) => {
   
 
   const state = {
+<<<<<<< HEAD
     address: "No address yet"
+=======
+    address: null,
+>>>>>>> 486a3670e0c8666a718047db6faade4a3bde5556
   };
   // useEffect(async () => {
   //   if (typeof window.ethereum !== "undefined") {

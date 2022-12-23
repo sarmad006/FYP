@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./maingird.css";
+import styles from "./maingrid.css";
 import Nav from "./Nav";
 
 const LandingComponent = () => {
