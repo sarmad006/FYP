@@ -100,6 +100,7 @@ main{
     text-align: center;
     box-shadow: none;
     border-bottom: 2px solid white;
+    background-color: #2a2c3f;
     border-radius:20px;
     height:35px;
     padding-left:15px;
@@ -107,3 +108,9 @@ main{
     margin-left: 10%;
 }
 
+#btn1{
+    color: black;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+}

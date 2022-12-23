@@ -1,0 +1,28 @@
+@import url('https://fonts.cdnfonts.com/css/morena');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;600&family=Poppins&display=swap');
+
+.Box{
+    padding-top: 5%;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    text-align: center;
+    border-radius: 1rem;
+    width: 20%;
+    border: 2px solid #918DEC;
+}
+
+.btn{
+    margin-left: 0%;
+    margin-top: 15%;
+    margin-bottom: 10%;
+    border-radius: 1rem;
+}
+
+.head{
+    font-size: 20px;
+}
+
+#homesvg{
+    align-items: center;
+    margin-left: 26.7%;
+}

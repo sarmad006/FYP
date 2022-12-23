@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Tags from "../Tags";
+import { useContext } from "react";
 
 const Navbar = () => {
   return (
@@ -11,8 +13,7 @@ const Navbar = () => {
         </div>
         <div className="text-center ">
           <h1 className="font-medium text-white text-1xl tracking-widest">
-            DEDOC
-          </h1>
+            DEDOC </h1>
         </div>
         <div className="flex flex-row gap-x-8 w-60">
           <div>
@@ -22,7 +23,7 @@ const Navbar = () => {
           </div>
           {/* <input type="image" src="./metamask.svg" height="30" width="30"/> */}
           <div>
-            <img src={require("../Images/MetaMask_Fox.png")} alt="MetaMask" />
+            <Link to='/reg'><img src={require("../Images/MetaMask_Fox.png")} alt="MetaMask" /></Link>
   
           </div>
           <div className="bg-green-300 mt-3 w-2.5 h-2.5 rounded-full"></div>

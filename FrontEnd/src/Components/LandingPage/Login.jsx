@@ -44,7 +44,7 @@ const Login = () => {
                 <label class="mt-4 text-slate-100">Password</label>
                 <input id="inp" type="password"></input>
               </div>
-              <button class="font-poppins bg-slate-200 rounded-full mt-6 ml-2 w-120 text-sm drop-shadow-2xl tracking-widest">
+              <button id="btn1" class="font-poppins bg-slate-200 rounded-full mt-6 ml-2 w-120 text-sm drop-shadow-2xl tracking-widest">
                 Login
               </button>
             </div>

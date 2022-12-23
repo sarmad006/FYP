@@ -24,7 +24,7 @@ const About = () => {
       </div>
       <div id="Lower_Body">
         <p className="Heading_Paragraph">
-          How does federated learning solve the main chal lenges of machine
+          How does federated learning solve the main challenges of machine
           learning in healthcare ?
         </p>
         <p className="Text_Paragraph">

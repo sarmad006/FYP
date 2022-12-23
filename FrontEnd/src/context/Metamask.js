@@ -19,7 +19,7 @@ const MetaMask = (props) => {
   
 
   const state = {
-    address: "No address yet",
+    address: "No address yet"
   };
   // useEffect(async () => {
   //   if (typeof window.ethereum !== "undefined") {
@@ -36,12 +36,13 @@ const MetaMask = (props) => {
       return account
     } catch (e) {
       console.log(e);
-    }
+    }  
   }
   let x;
   const accountSet = async()=>{
     x = await connect();
-    setAcn({"address":x})
+    setAcn({"address":x
+  })
   }
 
   return (

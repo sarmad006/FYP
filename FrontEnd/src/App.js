@@ -12,6 +12,7 @@ import About from "./Components/LandingPage/About";
 import Demo from "./context/Demo";
 import MetaMask from "./context/Metamask";
 import Login from "./Components/LandingPage/Login";
+import Receptionist from "./Pages/Receptionist/Home";
 
 const getLibrary = (provider) => {
   return new Web3Provider(provider);
@@ -33,6 +34,8 @@ function App() {
             <Route path="/about" element={<About />}></Route>
             <Route path="/demo" element={<Demo />}></Route>
             <Route path="/login" element={<Login />}></Route>
+            <Route path="/recep" element={<Receptionist />}></Route> Receptionist
+
           </Routes>
         </BrowserRouter>
       </MetaMask>
