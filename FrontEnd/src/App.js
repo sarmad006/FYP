@@ -18,6 +18,10 @@ import RegisteredHospitals from "./Pages/superUser/RegisteredHospitals";
 import ModelReq from "./Pages/Receptionist/ModelReq";
 import SuperUser from "./Pages/superUser/Home";
 import ActiveModels from "./Pages/superUser/ActiveModels";
+import PatientEntry from "./Pages/Receptionist/PatientEntry";
+import Ratings from "./Pages/Receptionist/Ratings";
+import Disease from "./Pages/superUser/Disease"
+import AggregateModel from "./Pages/superUser/AggregateModel"
 
 const getLibrary = (provider) => {
   return new Web3Provider(provider);
@@ -34,10 +38,6 @@ return <Navigate to={redirectPath} replace/>
 };
 
 function App() {
-  
-
-    
-
   return (
     // @Sarmad add this in Route <RegisterComponent/>
     <Web3ReactProvider getLibrary={getLibrary}>
@@ -57,8 +57,13 @@ function App() {
             <Route path="/superuser" element={<SuperUser/>}></Route>
             <Route path="/superuser/hospitals" element={<RegisteredHospitals/>}></Route>
             <Route path="/superuser/models" element={<ActiveModels/>}></Route>
-            <Route path="/recep" element={<Receptionist />}></Route>
-            <Route path="/modelr" element={<ModelReq />}></Route>
+            <Route path="/superuser/disease" element={<Disease/>}></Route>
+            <Route path="/superuser/aggregate" element={<AggregateModel/>}></Route>
+            <Route exact path="/recep" element={<Receptionist />}></Route>
+            <Route path="recep/modelr" element={<ModelReq />}></Route>
+            <Route path="recep/entry" element={<PatientEntry />}></Route>
+            <Route path="recep/rating" element={<Ratings />}></Route>
+
             </Route>
           </Routes>
         </BrowserRouter>

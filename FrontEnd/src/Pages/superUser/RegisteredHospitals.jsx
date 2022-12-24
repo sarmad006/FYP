@@ -7,8 +7,8 @@ const RegisteredHospitals = () => {
 
     const [RegisteredH,setRegisteredH]=useState([
         {
-            name:"Agha Khan Hospital",
-            location:"karachi"
+            name:"AKU Hospital",
+            location:"Karachi"
         },
         {
             name:"Liaquat Hospital",
@@ -31,12 +31,12 @@ const RegisteredHospitals = () => {
   return (
     <div>
     <Navbar/>   
-    <div className='grid grid-cols-12'>
+    <div className='grid grid-cols-12 '>
     <Sidebar/>
        
-   <div className='col-span-10'>
-       <div className='flex justify-center mt-6 mb-12'>
-       <h1 className='bg-green-400  text-black text-3xl  font-bold py-1.5 px-5 rounded-3xl tracking-wide'>
+   <div className='col-span-10 px-4 mb-8'>
+       <div className='flex justify-center mt-6 mb-10'>
+       <h1 className='bg-indigo-300  text-white text-3xl font-thin font-poppins py-1.5 px-5 rounded-3xl tracking-widest'>
        Registered Hospitals
        </h1>
        </div>
