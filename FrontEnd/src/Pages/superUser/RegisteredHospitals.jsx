@@ -40,7 +40,7 @@ const RegisteredHospitals = () => {
        Registered Hospitals
        </h1>
        </div>
-       <div className='flex flex-col gap-y-10 ml-20'>
+       <div className='flex flex-col gap-y-10 '>
         {RegisteredH.map((hospital)=>(
             <Registered name={hospital.name} location={hospital.location}/>
         ))}

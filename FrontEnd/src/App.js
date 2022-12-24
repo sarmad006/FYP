@@ -16,6 +16,8 @@ import metaContext from "./context/metaContext";
 import Prediction from "./Pages/Doctors/Prediction";
 import RegisteredHospitals from "./Pages/superUser/RegisteredHospitals";
 import ModelReq from "./Pages/Receptionist/ModelReq";
+import SuperUser from "./Pages/superUser/Home";
+import ActiveModels from "./Pages/superUser/ActiveModels";
 
 const getLibrary = (provider) => {
   return new Web3Provider(provider);
@@ -52,7 +54,9 @@ function App() {
             <Route path="/doctor" element={<Home/>}></Route>
             <Route path="/doctor/recommendation" element={<Recommendation/>}></Route>
             <Route path="/doctor/prediction" element={<Prediction/>}></Route>
+            <Route path="/superuser" element={<SuperUser/>}></Route>
             <Route path="/superuser/hospitals" element={<RegisteredHospitals/>}></Route>
+            <Route path="/superuser/models" element={<ActiveModels/>}></Route>
             <Route path="/recep" element={<Receptionist />}></Route>
             <Route path="/modelr" element={<ModelReq />}></Route>
             </Route>
