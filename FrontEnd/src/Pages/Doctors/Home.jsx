@@ -17,7 +17,7 @@ const Home = () => {
         Available Models
         </div>
         </div>
-        <div className='grid md:grid-cols-1 tb:grid-cols-2 xs:grid-cols-1 sm:grid-cols-1  lg:grid-cols-3 gap-10 mt-12 px-40'>
+        <div className='grid md:grid-cols-1 tb:grid-cols-2 xs:grid-cols-1 sm:grid-cols-1  lg:grid-cols-3 gap-x-28 gap-y-8 mt-12 px-40'>
          <Model/>       
 
        </div>

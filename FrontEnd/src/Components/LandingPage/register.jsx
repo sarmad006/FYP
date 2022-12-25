@@ -27,40 +27,40 @@ const RegisterComponent = () => {
         </span>
         <span id="reg_input_box">
           <span className="reg_input_upper_box">
-            <label htmlFor="">Name</label>
+            <label id="reg_label" htmlFor="">Name</label>
             <input id="input_special" type="text" />
           </span>
           <span className="reg_input_lower_box">
-            <label htmlFor="">MetaMask Address</label>
+            <label id="reg_label" htmlFor="">MetaMask Address</label>
             <input id="input_special" type="text" />
           </span>
         </span>
         <span id="reg_input_box">
           <span className="reg_input_upper_box">
-            <label htmlFor="">Country</label>
+            <label id="reg_label" htmlFor="">Country</label>
             <input id="input_special" type="text" />
           </span>
           <span className="reg_input_lower_box">
-            <label htmlFor="">Department</label>
+            <label id="reg_label" htmlFor="">Department</label>
             <input id="input_special" type="text" />
           </span>
         </span>
         <span id="reg_input_box">
           <span className="reg_input_upper_box">
-            <label htmlFor="">Email</label>
+            <label id="reg_label" htmlFor="">Email</label>
             <input id="input_special" type="email" />
           </span>
           <span className="reg_input_lower_box">
-            <label htmlFor="">Doctors</label>
+            <label id="reg_label" htmlFor="">Doctors</label>
             <input id="input_special" type="text" />
           </span>
         </span>
         <span id="reg_input_email">
-          <label htmlFor="">City</label>
+          <label id="reg_label" htmlFor="">City</label>
           <input id="input_special" type="text" />
         </span>
         <Link to="/thnx">
-          <button
+          <button id="btn_special"
             className="rounded-full bg-limgreen text-sm font-poppins drop-shadow-2xl tracking-widest w-1/7 btn_special"
           >
             NEXT

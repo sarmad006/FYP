@@ -10,14 +10,18 @@ import Thankyou from "./Components/LandingPage/Thankyou";
 import About from "./Components/LandingPage/About";
 import MetaMask from "./context/Metamask";
 import Login from "./Components/LandingPage/Login";
-<<<<<<< HEAD
 import Receptionist from "./Pages/Receptionist/Home";
-=======
 import { useContext, useEffect } from "react";
 import metaContext from "./context/metaContext";
 import Prediction from "./Pages/Doctors/Prediction";
 import RegisteredHospitals from "./Pages/superUser/RegisteredHospitals";
->>>>>>> 486a3670e0c8666a718047db6faade4a3bde5556
+import ModelReq from "./Pages/Receptionist/ModelReq";
+import SuperUser from "./Pages/superUser/Home";
+import ActiveModels from "./Pages/superUser/ActiveModels";
+import PatientEntry from "./Pages/Receptionist/PatientEntry";
+import Ratings from "./Pages/Receptionist/Ratings";
+import Disease from "./Pages/superUser/Disease"
+import AggregateModel from "./Pages/superUser/AggregateModel"
 
 const getLibrary = (provider) => {
   return new Web3Provider(provider);
@@ -34,10 +38,6 @@ return <Navigate to={redirectPath} replace/>
 };
 
 function App() {
-  
-
-    
-
   return (
     // @Sarmad add this in Route <RegisterComponent/>
     <Web3ReactProvider getLibrary={getLibrary}>
@@ -54,8 +54,15 @@ function App() {
             <Route path="/doctor" element={<Home/>}></Route>
             <Route path="/doctor/recommendation" element={<Recommendation/>}></Route>
             <Route path="/doctor/prediction" element={<Prediction/>}></Route>
+            <Route path="/superuser" element={<SuperUser/>}></Route>
             <Route path="/superuser/hospitals" element={<RegisteredHospitals/>}></Route>
-            <Route path="/recep" element={<Receptionist />}></Route>
+            <Route path="/superuser/models" element={<ActiveModels/>}></Route>
+            <Route path="/superuser/disease" element={<Disease/>}></Route>
+            <Route path="/superuser/aggregate" element={<AggregateModel/>}></Route>
+            <Route exact path="/recep" element={<Receptionist />}></Route>
+            <Route path="recep/modelr" element={<ModelReq />}></Route>
+            <Route path="recep/entry" element={<PatientEntry />}></Route>
+            <Route path="recep/rating" element={<Ratings />}></Route>
 
             </Route>
           </Routes>

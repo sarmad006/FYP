@@ -13,6 +13,7 @@ module.exports = {
         'poppins': ['Poppins'],//2a2c3f
      },
      colors:{
+        borderPurple: "#b983f7",
         purple: "#918DEC",
         limgreen:"#a1fa17",
         orangee:"#dea74b",
