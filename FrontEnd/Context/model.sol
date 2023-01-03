@@ -1,34 +1,32 @@
 pragma solidity ^0.8.13;
 contract Model{
     
-   bytes32 public disease;
+   string public disease;
    uint8 public accuracy;
    uint8 public epoch;
    uint8 public testData;
    uint8 public trainData;
-   bool public aggregation;
+   bool  public aggregation;
  
-
-constructor() public payable{
-    
-}
-
-  function setResults(uint8 tempAccuracy,uint8 tempEpoch,uint8 temptestData,uint8 tmeptrainData) public {
-    accuracy=tempAccuracy;
-    epoch=tempEpoch;
-    testData=temptestData;
-    trainData=temptrainData;
+  constructor(string memory Name) {
+   disease=Name;
   }
 
-  function setAggregation(bool tempAggregation) public{
-      aggregation=Aggregation;
+  function setResults(uint8 modelAccuracy,uint8 modelEpoch,uint8 modeltestData,uint8 modeltrainData) public {
+    accuracy=modelAccuracy;
+    epoch=modelEpoch;
+    testData=modeltestData;
+    trainData=modeltrainData;
   }
 
+  function setAggregation(bool modelAggregation) public{
+      aggregation=modelAggregation;
+  }
   function getAggregation() public view returns(bool){
-      return aggregation;
+    return aggregation;
+  }
+  function getDiseaseName() public view returns(string memory){
+    return disease;
   }
 
-  function setdisease(bytes32 temp_disease){
-      disease = temp_disease;
-  }
 }

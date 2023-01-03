@@ -1,10 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Model from '../../Components/Doctor/Models/Model'
 import Navbar from '../../Components/Navbar'
 import Sidebar from '../../Components/Sidebar'
-
+import { ethers } from 'ethers'
+import { ContractAddress } from '../../Contracts/ContractAddress'
+import ContractAbi from "../../Contracts/ContractAbi.json"
 
 const Home = () => {
+
+  useEffect(()=>{
+   
+    ConnectContract();
+
+
+  },[])
+
+  const ConnectContract=async()=>{
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const Contract=new ethers.Contract(ContractAddress,ContractAbi,signer);
+    const setModel=await Contract.setModel("malaria");
+    const getInfo=await Contract.ModelsOfHospital("malaria");
+    
+  
+  }
+
   return (
     <div>
      <Navbar/>   

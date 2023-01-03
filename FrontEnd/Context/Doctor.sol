@@ -1,11 +1,13 @@
 pragma solidity ^0.8.13;
 
 contract Doctor{
-    bytes32 Name;
-    bytes32 Specialist;
+    string public Name;
+    string public Specialist;
 
-    retrivePatientData()
-    {
-        
+    constructor(string memory _name,string memory _specialist){
+        Name=_name;
+        Specialist=_specialist;
     }
+
+   
 }
