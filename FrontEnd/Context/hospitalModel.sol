@@ -16,7 +16,7 @@ struct modelData{
    uint8  epoch;
    uint8  testData;
    uint8  trainData;
-   bool   aggregation;
+   bool  aggregation;
 } 
 modelData public userModel;
 
