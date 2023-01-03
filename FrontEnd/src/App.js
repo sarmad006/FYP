@@ -30,10 +30,10 @@ const getLibrary = (provider) => {
 const ProtectedRoute = ({ redirectPath = '/',children }) => {
  const account=useContext(metaContext);
  console.log(account)
- if(account.acn.address)
- {
-return <Navigate to={redirectPath} replace/>
- }
+//  if(account.acn.address)
+//  {
+// return <Navigate to={redirectPath} replace/>
+//  }
   return children?children:<Outlet/>;
 };
 

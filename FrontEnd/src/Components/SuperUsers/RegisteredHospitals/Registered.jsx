@@ -2,6 +2,10 @@ import React from 'react'
 
 const Registered = ({name,location}) => {
   return (
+    <>
+    {name==="Muhammad Khizer Jilani" ? "" :(
+
+    
     <div className='border-4 border-indigo-300  rounded-2xl px-6 py-4'>
     <div className='flex justify-between items-center '>
       <h2 className='text-gray-200 text-2xl tracking-widest w-96 font-poppins'>{name}</h2>
@@ -17,6 +21,8 @@ const Registered = ({name,location}) => {
     </div>
    
    </div>
+    )}
+   </>
   )
 }
 

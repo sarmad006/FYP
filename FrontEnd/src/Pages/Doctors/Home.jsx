@@ -1,50 +1,28 @@
-import React, { useEffect } from 'react'
-import Model from '../../Components/Doctor/Models/Model'
-import Navbar from '../../Components/Navbar'
-import Sidebar from '../../Components/Sidebar'
-import { ethers } from 'ethers'
-import { ContractAddress } from '../../Contracts/ContractAddress'
-import ContractAbi from "../../Contracts/ContractAbi.json"
+import React, { useEffect } from "react";
+import Model from "../../Components/Doctor/Models/Model";
+import Navbar from "../../Components/Navbar";
+import Sidebar from "../../Components/Sidebar";
 
 const Home = () => {
-
-  useEffect(()=>{
-   
-    ConnectContract();
-
-
-  },[])
-
-  const ConnectContract=async()=>{
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const Contract=new ethers.Contract(ContractAddress,ContractAbi,signer);
-    const setModel=await Contract.setModel("malaria");
-    const getInfo=await Contract.ModelsOfHospital("malaria");
-    
-  
-  }
-
   return (
     <div>
-     <Navbar/>   
-     <div className='grid grid-cols-12 mb-10'>
-     <Sidebar/>
-        
-    <div className='col-span-10'>
-        <div className='flex justify-center'>
-        <div className='bg-gradient-to-r from-gradx1 to-gradx2 text-white text-2xl mt-8 font-light mr-2 px-12 py-1 rounded-lg tracking-wider font-poppins'>
-        Available Models
-        </div>
-        </div>
-        <div className='grid md:grid-cols-1 tb:grid-cols-2 xs:grid-cols-1 sm:grid-cols-1  lg:grid-cols-3 gap-x-28 gap-y-8 mt-12 px-40'>
-         <Model/>       
+      <Navbar />
+      <div className="grid grid-cols-12 mb-10">
+        <Sidebar />
 
-       </div>
+        <div className="col-span-10">
+          <div className="flex justify-center">
+            <div className="bg-gradient-to-r from-gradx1 to-gradx2 text-white text-2xl mt-8 font-light mr-2 px-12 py-1 rounded-lg tracking-wider font-poppins">
+              Available Models
+            </div>
+          </div>
+          <div className="grid md:grid-cols-1 tb:grid-cols-2 xs:grid-cols-1 sm:grid-cols-1  lg:grid-cols-3 gap-x-28 gap-y-8 mt-12 px-40">
+            <Model />
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-    </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

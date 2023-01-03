@@ -2,7 +2,7 @@ pragma solidity ^0.8.13;
 pragma experimental ABIEncoderV2;
 
 
-contract Superuser {
+contract superUser {
     constructor() {
         
     }
