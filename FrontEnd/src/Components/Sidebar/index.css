@@ -1,0 +1,25 @@
+.sidebarDiv{
+    background-color: #918dec;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(0px,auto);
+    align-items: center;
+}
+.sidebarDivul{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(100px,auto);
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.sidebarDivLi{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(0px,auto);
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
