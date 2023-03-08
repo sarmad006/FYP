@@ -22,6 +22,7 @@ import PatientEntry from "./Pages/Receptionist/PatientEntry";
 import Ratings from "./Pages/Receptionist/Ratings";
 import Disease from "./Pages/superUser/Disease"
 import AggregateModel from "./Pages/superUser/AggregateModel"
+import RetrieveModel from "./Pages/Receptionist/RetrieveModel";
 
 const getLibrary = (provider) => {
   return new Web3Provider(provider);
@@ -63,7 +64,7 @@ function App() {
             <Route path="recep/modelr" element={<ModelReq />}></Route>
             <Route path="recep/entry" element={<PatientEntry />}></Route>
             <Route path="recep/rating" element={<Ratings />}></Route>
-
+           <Route path="/recep/retrieveModel" element={<RetrieveModel/>}></Route>
             </Route>
           </Routes>
         </BrowserRouter>

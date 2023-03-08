@@ -4,26 +4,26 @@ import "./register.css";
 import metaContext from "../../context/metaContext";
 import { useContext, useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ethers } from "ethers";
-import { abi } from "../../Contracts/abi";
+import abi  from "../../Contracts/abi.json";
 import axios from "axios";
+import { contractAddress } from "../../Contracts/contractAddress";
+
 
 const RegisterComponent = () => {
+  const location=useLocation()
   const API_KEY = "c303a8d05f40b047e81f";
-  const API_Secret =
-    "869916f5afead162492bf1d096a41082e189f911afc0e007b9f2feee7a56abc5";
-  const JWT_token =
-    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiIxZWY5NzU1Yy02NjNjLTRkMDUtYTY1NS1kNjRmZjFlOGM2YWIiLCJlbWFpbCI6ImtoaXplcmppbGFuaUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJpZCI6IkZSQTEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX0seyJpZCI6Ik5ZQzEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiZDRlMzlkMzhhODgyOTVkNWJiMDkiLCJzY29wZWRLZXlTZWNyZXQiOiJlYjAzZDhlZTM4NDRiZDIwN2RiYzg3MDQ5M2FlMjlmMmE2NmMwZTEyMzU0MGIxZWIzNjU3MmZhMGNhMGJkNDUyIiwiaWF0IjoxNjc4MTk5MDg1fQ.2CJ7itaFc-K8VX7GbQqiu1VzSkrh68O3TfYH2IwJY8M";
+  const API_Secret ="869916f5afead162492bf1d096a41082e189f911afc0e007b9f2feee7a56abc5";
   const [add, setAdd] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     country: "",
     city: "",
-    department: "",
-    doctors: "",
+    phone:""
   });
+  const [fileHash,setHash]=useState("");
   const con = useContext(metaContext);
 
   useEffect(() => {
@@ -46,12 +46,14 @@ const RegisterComponent = () => {
     window.location.reload(false);
     // do something with new account here
   }
-  async function registerHospital() {
-    var f = new File([""], "hospitalOne.txt", { type: "text/plain" });
+  async function registerHospital(e) {
+    e.preventDefault()
+    var f = new File([""], `${formData.name}.txt`, { type: "text/plain" });
     let formdata = new FormData();
     formdata.append("file", f);
+    let res;
     try {
-      const resFile = await axios({
+      res = await axios({
         method: "post",
         url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
         data: formdata,
@@ -61,6 +63,9 @@ const RegisterComponent = () => {
           "Content-Type": "multipart/form-data",
         },
       });
+      console.log(res.data.IpfsHash)
+      setHash(res.data.IpfsHash)
+      console.log(formData)
     } catch (error) {
       console.log(error);
     }
@@ -68,21 +73,24 @@ const RegisterComponent = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const Contract = new ethers.Contract(
-      "0x850b6847086159d5d9031cD9ee41e4872557ef47",
+     contractAddress,
       abi,
       signer
     );
     let tx;
+   
     try {
       tx = await Contract.registerHospital(
         formData.name,
         formData.city,
         formData.email,
-        formData.department,
-        formData.doctors,
+        formData.phone,
+        res.data.IpfsHash,
         add
+
       );
       console.log(tx);
+      location('/thanks')
     } catch (error) {
       console.log(error);
     }
@@ -196,15 +204,13 @@ const RegisterComponent = () => {
             onChange={handleChange}
           />
         </span>
-        <Link to="/thanks">
           <button
             id="btn_special"
             className="rounded-full bg-limgreen text-sm font-poppins drop-shadow-2xl tracking-widest w-1/7 btn_special"
-            onClick={registerHospital}
+            onClick={(e)=>registerHospital(e)}
           >
             NEXT
           </button>
-        </Link>
       </form>
     </div>
   );

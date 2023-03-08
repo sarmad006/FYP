@@ -15,7 +15,7 @@ const Sidebar = () => {
           </li>
           <li className='sidebarDivLi'>
             <RiFileCloudLine fontSize={20}/>
-            <a href="http://" target="_blank" rel="noopener noreferrer">Retrive Model </a>
+            <a href="/recep/retrieveModel" target="" rel="noopener noreferrer">Retrive Model </a>
           </li>
           <li className='sidebarDivLi'>
           <MdOutlineFileUpload fontSize={20}/>

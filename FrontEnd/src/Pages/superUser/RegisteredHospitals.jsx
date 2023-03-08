@@ -7,7 +7,7 @@ import { useContext, useEffect } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { Link } from "react-router-dom";
 import { ethers } from "ethers";
-import { abi } from "../../Contracts/abi";
+import abi from '../../Contracts/abi.json'
 
 const RegisteredHospitals = () => {
   const [add, setAdd] = useState("");
