@@ -8,6 +8,7 @@ import { ethers } from "ethers";
 import { contractAddress } from '../../Contracts/contractAddress'
 import abi from '../../Contracts/abi.json'
 import metaContext from '../../context/metaContext'
+import FileSaver from 'file-saver';
 
 const RetrieveModel = () => {
     const con = useContext(metaContext);
@@ -44,6 +45,22 @@ const RetrieveModel = () => {
           }
 
     }
+    
+
+    
+      const downloadFile = () => {
+        axios.get(`https://gateway.pinata.cloud/ipfs/QmbQMKw9VojdxRW4Dnd2s6gAqRaBsrbcNQDHvMbaGhsnUf`, {
+          responseType: 'blob',
+        })
+          .then(response => {
+            FileSaver.saveAs(response.data, 'filename.json');
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
+    
+
   return (
     <div>
     <Navbar />
@@ -54,19 +71,9 @@ const RetrieveModel = () => {
             <div className="bg-gradient-to-r from-gradx1 to-gradx2 text-white text-2xl mt-8 font-light mr-2 px-12 py-1 rounded-lg tracking-wider font-poppins">
               Available Models
             </div>
-            <div className="block max-w-md p-6 bg-gray-100 border border-gray-200 rounded-lg shadow-2xl">
-            <div className='flex px-8 items-center justify-between gap-x-20 '>
-             <div className='flex items-center flex-col'>
-             <BsFileEarmarkTextFill fontSize={60} color="blue"/>
-             <p className=' text-blue-600 font-medium '>Model.txt</p>
-             </div>
-             <span className='items-center p-4 rounded-full bg-blue-700 cursor-pointer' onClick={getModel}>
-             <FiDownload  fontSize={16} color="blue"/>
-             </span>
-            </div>
-
-
-            </div>
+            <button onClick={downloadFile}>
+      Download File
+    </button>
           </div>
       </div>
       </div>
@@ -74,4 +81,4 @@ const RetrieveModel = () => {
   )
 }
 
-export default RetrieveModel
+export default RetrieveModel;

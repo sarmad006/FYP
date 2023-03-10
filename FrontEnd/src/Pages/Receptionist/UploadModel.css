@@ -1,0 +1,45 @@
+.uploadModel{
+    font-family: Arial, sans-serif;
+    height:auto;
+  }
+
+.uploadModelDiv {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px rgba(112, 109, 109, 0.2);
+}
+.uploadModelh1_1 {
+    text-align: center;
+    color: #333;
+    margin-top: 0;
+}
+.uploadModelDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.uploadModelFileToUpload{
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 16px;
+    color: #666;
+}
+#uploadModelSubmit{
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #4CAF50;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+#uploadModelSubmit:hover {
+    background-color: #3e8e41;
+}

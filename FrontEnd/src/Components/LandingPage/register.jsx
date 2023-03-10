@@ -48,7 +48,7 @@ const RegisterComponent = () => {
   }
   async function registerHospital(e) {
     e.preventDefault()
-    var f = new File([""], `${formData.name}.txt`, { type: "text/plain" });
+    var f = new File([formData.name], `${formData.name}.pkl`, { type: "text/plain" });
     let formdata = new FormData();
     formdata.append("file", f);
     let res;

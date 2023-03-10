@@ -11,22 +11,16 @@ const Sidebar = () => {
        <ul className="sidebarDivul">
           <li className='sidebarDivLi'>
           <AiOutlineHome fontSize={20}/>
-            <a href="http://" target="_blank" rel="noopener noreferrer">Home</a>
+            <a href="http://localhost:3000/" target="_blank" rel="noopener noreferrer">Home</a>
           </li>
           <li className='sidebarDivLi'>
             <RiFileCloudLine fontSize={20}/>
-            <a href="/recep/retrieveModel" target="" rel="noopener noreferrer">Retrive Model </a>
+            <a href="http://localhost:3000/recep/retrieveModel" target="" rel="noopener noreferrer">Retrive Model </a>
           </li>
           <li className='sidebarDivLi'>
           <MdOutlineFileUpload fontSize={20}/>
-          <a href="http://" target="_blank" rel="noopener noreferrer">Upload Model </a>
+          <a href="http://" target="http://localhost:3000/recep/UploadModel" rel="noopener noreferrer">Upload Model </a>
           </li>
-          {/* <li className='sidebarDivLi'>
-          <a href="http://" target="_blank" rel="noopener noreferrer">Home <AiOutlineHome fontSize={20}/></a>
-          </li>
-          <li className='sidebarDivLi'>
-          <a href="http://" target="_blank" rel="noopener noreferrer">Home <AiOutlineHome fontSize={20}/></a>
-          </li> */}
        </ul>
     </div>    
   )
