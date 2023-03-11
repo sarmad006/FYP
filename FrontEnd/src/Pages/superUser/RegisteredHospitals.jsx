@@ -39,7 +39,7 @@ const RegisteredHospitals = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const Contract = new ethers.Contract(
-      "0x850b6847086159d5d9031cD9ee41e4872557ef47",
+      "0x11db3f5068de393b3bD2A144Be97a129e76b3cFa",
       abi,
       signer
     );
@@ -51,6 +51,7 @@ const RegisteredHospitals = () => {
       setRegHospital(tx);
     } catch (error) {
       console.log(error);
+      console.log("failing ....")
     }
   }
 

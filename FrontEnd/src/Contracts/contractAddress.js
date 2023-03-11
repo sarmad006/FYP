@@ -1,1 +1,3 @@
-export const contractAddress="0xC694554ADbB1e07f6F8C686314319A7590dfc4ce"
+export const contractAddress="0x11db3f5068de393b3bD2A144Be97a129e76b3cFa"
+
+//0x11db3f5068de393b3bD2A144Be97a129e76b3cFa aurora testnet

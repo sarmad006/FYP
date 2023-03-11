@@ -71,7 +71,7 @@ const RetrieveModel = () => {
             <div className="bg-gradient-to-r from-gradx1 to-gradx2 text-white text-2xl mt-8 font-light mr-2 px-12 py-1 rounded-lg tracking-wider font-poppins">
               Available Models
             </div>
-            <button onClick={downloadFile}>
+            <button className="text-white bg-borderPurple p-3 rounded-full" onClick={downloadFile}>
       Download File
     </button>
           </div>
