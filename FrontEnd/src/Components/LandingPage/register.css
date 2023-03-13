@@ -54,7 +54,7 @@ img{
     margin-top: 20%;
     margin-left: 25%;
     margin-bottom: 4%;
-    height: 56vh;
+    height: 50vh;
     width: 50%;
     display: inline-block;
     border-radius: 12px;
@@ -129,7 +129,7 @@ input:active {
     color: black;
     width: 100px;
     height: 30px;
-    margin-top: 4%;
+    margin-top: 8%;
     margin-left: 42.5%;
     text-align: center;
     font-weight: bold;

@@ -123,86 +123,33 @@ const RegisterComponent = () => {
         </span>
         <span id="reg_input_box">
           <span className="reg_input_upper_box">
-            <label id="reg_label" htmlFor="">
-              Hospital Name
-            </label>
-            <input
-              name="name"
-              id="input_special"
-              type="text"
-              onChange={handleChange}
-            />
+            <label id="reg_label" htmlFor=""> Hospital Name </label>
+            <input name="name" id="input_special" type="text" onChange={handleChange}/>
           </span>
           <span className="reg_input_lower_box">
-            <label id="reg_label" htmlFor="">
-              Hospital wallet Address
-            </label>
-            <input
-              id="input_special"
-              type="text"
-              defaultValue={add}
-              readOnly
-            ></input>
+            <label id="reg_label" htmlFor="">Hospital wallet Address</label>
+            <input id="input_special" type="text" defaultValue={add} readOnly></input>
           </span>
         </span>
         <span id="reg_input_box">
           <span className="reg_input_upper_box">
-            <label id="reg_label" htmlFor="">
-              Country
-            </label>
-            <input
-              id="input_special"
-              type="text"
-              name="country"
-              onChange={handleChange}
-            />
+            <label id="reg_label" htmlFor="">Country</label>
+            <input id="input_special" type="text" name="country" onChange={handleChange}/>
           </span>
           <span className="reg_input_lower_box">
-            <label id="reg_label" htmlFor="">
-              Phone Number
-            </label>
-            <input
-              id="input_special"
-              type="phone"
-              name="phone"
-              onChange={handleChange}
-            />
+            <label id="reg_label" htmlFor="">Phone Number</label>
+            <input id="input_special" type="phone" name="phone" onChange={handleChange}/>
           </span>
         </span>
         <span id="reg_input_box">
-          <span className="reg_input_upper_box">
-            <label id="reg_label" htmlFor="">
-              Email
-            </label>
-            <input
-              id="input_special"
-              type="email"
-              name="email"
-              onChange={handleChange}
-            />
+          <span id="reg_input_upper_box">
+            <label id="reg_label" htmlFor="">City</label>
+            <input id="input_special" type="text" name="city" onChange={handleChange} />
           </span>
-          {/* <span className="reg_input_lower_box">
-            <label id="reg_label" htmlFor="">
-              Doctors
-            </label>
-            <input
-              id="input_special"
-              type="number"
-              name="doctors"
-              onChange={handleChange}
-            />
-          </span> */}
-        </span>
-        <span id="reg_input_email">
-          <label id="reg_label" htmlFor="">
-            City
-          </label>
-          <input
-            id="input_special"
-            type="text"
-            name="city"
-            onChange={handleChange}
-          />
+          <span className="reg_input_lower_box">
+            <label id="reg_label" htmlFor=""> Email</label>
+            <input id="input_special" type="email" name="email" onChange={handleChange}/>
+          </span>
         </span>
           <button
             id="btn_special"
