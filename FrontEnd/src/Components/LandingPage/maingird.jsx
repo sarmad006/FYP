@@ -39,7 +39,7 @@ const LandingComponent = () => {
             </p>
           </span>
         </div>
-        <button id="btn">REGISTER</button>
+        <button id="btnMainGrid">REGISTER</button>
       </div>
     </>
   );

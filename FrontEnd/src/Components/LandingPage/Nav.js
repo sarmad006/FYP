@@ -61,7 +61,15 @@ const Nav = () => {
               </a>
             )
           ) : (
-            <h3>Install MetaMask</h3>
+            <a
+                href="
+                https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
+                target = "_blank"
+                className="top_Nav_Span_Left"
+                class="text-white hover:text-orangee px-10 w-80"
+              >
+                Install MetaMask
+              </a>
           )}
         </div>
 

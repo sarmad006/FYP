@@ -2,9 +2,11 @@ import "./Login.css";
 import metaContext from "../../context/metaContext";
 import { useContext, useEffect, useState } from "react";
 import Nav from "./Nav";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-  const [add, setAdd] = useState("");
+  const [address, setAddress] = useState("");
+  const [password, setpassword] = useState("");
   const con = useContext(metaContext);
 
   useEffect(() => {
@@ -15,17 +17,35 @@ const Login = () => {
       });
       console.log("hello");
     }
-  }, [add]);
+  }, [address]);
 
   const fetchAddress = async () => {
     await con.accountSet();
-    setAdd(con.acn.address);
+    setAddress(con.acn.address);
   };
 
   async function getAccount() {
     const accounts = await window.ethereum.enable();
     window.location.reload(false);
     // do something with new account here
+  }
+
+  function updatePassword(e){
+      setpassword(e.target.value);
+  }
+
+  function checkAddressPassword(){
+    // send address + password to smart contract and receive SuperUser/Hospital Against it    
+    window.location.replace("/about");
+    let str = "";
+    if(str == "SuperUser")
+       window.location.replace("SuperUser");
+    else if(str == "Hospital"){
+      window.location.replace("/Hospital");
+    }
+    else{
+      return <p>Either Address or Password is Incorrect</p>
+    }
   }
 
   return (
@@ -40,12 +60,12 @@ const Login = () => {
               </div>
               <div id="field">
                 <label class="text-slate-100">Metamask Address</label>
-                <input id="inp" type="text" defaultValue={add} readOnly></input>
+                <input id="inp" type="text" defaultValue={address} readOnly></input>
                 <label class="mt-4 text-slate-100">Password</label>
-                <input id="inp" type="password"></input>
+                <input id="inp" type="password" onChange={updatePassword}></input>
               </div>
-              <button id="btn1" class="font-poppins bg-slate-200 rounded-full mt-6 ml-2 w-120 text-sm drop-shadow-2xl tracking-widest">
-                Login
+              <button id="btn1" onClick={checkAddressPassword} class="font-poppins bg-slate-200 rounded-full mt-6 ml-2 w-120 text-sm drop-shadow-2xl tracking-widest">
+                  Login
               </button>
             </div>
           </div>
