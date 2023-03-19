@@ -3,12 +3,21 @@
 
 .Box{
     padding-top: 5%;
-    padding-left: 2.5%;
-    padding-right: 2.5%;
+    padding-left: 0.5%;
+    padding-right: 0.5%;
+    padding-bottom: 5%;
     text-align: center;
     border-radius: 1rem;
     width: 20%;
     border: 2px solid #918DEC;
+}
+.Box2{
+    text-align: center;
+    border-radius: 1rem;
+    width: 20%;
+    border: 2px solid #918DEC;
+    margin-left: 40%;
+    margin-top: 1%;
 }
 
 .btn{
@@ -25,4 +34,11 @@
 #homesvg{
     align-items: center;
     margin-left: 26.7%;
+}
+
+#hospitalInfo{
+    color: white;
+    display: block;
+    margin-left:40%;
+    margin-top: 5%;
 }

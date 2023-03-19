@@ -6,9 +6,9 @@ import { useContext, useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { Link, useLocation } from "react-router-dom";
 import { ethers } from "ethers";
-import abi  from "../../Contracts/abi.json";
+import abi  from "../../Contracts/hospital.json";
 import axios from "axios";
-import { contractAddress } from "../../Contracts/contractAddress";
+import { hospitalAddress } from "../../Contracts/contractAddress";
 
 
 const RegisterComponent = () => {
@@ -73,7 +73,7 @@ const RegisterComponent = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const Contract = new ethers.Contract(
-     contractAddress,
+      hospitalAddress,
       abi,
       signer
     );

@@ -24,6 +24,9 @@ import Disease from "./Pages/superUser/Disease"
 import AggregateModel from "./Pages/superUser/AggregateModel"
 import RetrieveModel from "./Pages/Receptionist/RetrieveModel";
 import UploadModel from "./Pages/Receptionist/UploadModel";
+import UpdateModel from "./Pages/Receptionist/updateModel";
+import UploadGlobalModel from "./Pages/superUser/UploadGlobalModel";
+import UpdateGlobalModel from "./Pages/superUser/UpdateGlobalModel";
 
 const getLibrary = (provider) => {
   return new Web3Provider(provider);
@@ -61,12 +64,16 @@ function App() {
             <Route path="/superuser/models" element={<ActiveModels/>}></Route>
             <Route path="/superuser/disease" element={<Disease/>}></Route>
             <Route path="/superuser/aggregate" element={<AggregateModel/>}></Route>
+            <Route path="/superuser/UploadModel" element={<UploadGlobalModel/>}></Route>
+            <Route path="/superuser/UpdateModel" element={<UpdateGlobalModel/>}></Route>
             <Route exact path="/recep" element={<Receptionist />}></Route>
             <Route path="recep/modelr" element={<ModelReq />}></Route>
             <Route path="recep/entry" element={<PatientEntry />}></Route>
             <Route path="recep/rating" element={<Ratings />}></Route>
            <Route path="/recep/retrieveModel" element={<RetrieveModel/>}></Route>
-           <Route path="/recep/UploadModel" element={<UploadModel/>}></Route>
+           <Route path="/recep/UploadModel" element=  {<UploadModel/>}></Route>
+           <Route path="/recep/UpdateModel" element=  {<UpdateModel/>}></Route>
+            
             </Route>
           </Routes>
         </BrowserRouter>

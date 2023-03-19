@@ -1,18 +1,17 @@
 import React from 'react'
-import './UploadModel.css'
+import './UploadGlobalModel.css'
 import Navbar from '../../Components/Navbar'
 import Sidebar from '../../Components/Sidebar'
-import "./home.css"
 import {useState } from "react";
 import axios from "axios";
-import { hospitalAddress } from "../../Contracts/contractAddress";
+import { superuserAddress } from "../../Contracts/contractAddress";
 import metaContext from "../../context/metaContext";
 import { useContext, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import abi  from "../../Contracts/hospital.json";
+import abi  from "../../Contracts/superuser.json";
 import { ethers } from "ethers";
 
-const UploadModel = () => {
+const UploadGlobalModel = () => {
 
     const API_KEY = "c303a8d05f40b047e81f";
     const API_Secret ="869916f5afead162492bf1d096a41082e189f911afc0e007b9f2feee7a56abc5";
@@ -23,7 +22,8 @@ const UploadModel = () => {
     const [jsonHash,setJsonHash] = useState("");
     const [formData, setFormData] = useState({
       name: "",
-      accuracy: ""
+      accuracy: "",
+      modelsCombined: ""
     });
     const con = useContext(metaContext);
     const [address, setAddress] = useState("");
@@ -54,18 +54,19 @@ const UploadModel = () => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const Contract = new ethers.Contract(
-      hospitalAddress,
+      superuserAddress,
       abi,
       signer
     );
     console.log(Contract);
     let tx;
     try{
-      tx = await Contract.addLocalModel(
+      tx = await Contract.registerModel(
         formData.name,
         modelHash,
         jsonHash,
-        formData.accuracy
+        formData.accuracy,
+        formData.modelsCombined
       )
       console.log(tx);
 
@@ -148,13 +149,13 @@ const UploadModel = () => {
             <Sidebar/>
                     {pending?(<div className='col-span-10'>
                         <div className='uploadModelDiv'>
-                        <h1 className="uploadModelh1_1">Upload Your File</h1>
+                        <h1 className="uploadModelh1_1">Upload Your Global Model</h1>
                         <h1>{address}</h1>
                         <input type="file" accept=".pkl" name="fileToUpload" required className="uploadModelFileToUpload" onChange={handleFileChange1}></input>
                         <label htmlFor="">Please Upload Pickle File</label>
                         <input type="file" accept=".json" name="fileToUpload" required className="uploadModelFileToUpload" onChange={handleFileChange2}></input>
                         <label htmlFor="">Please Upload JSON File</label>
-                        <input type="submit" value="Upload File" name="submit" id="uploadModelSubmit" onClick={handleUpload}></input>
+                        <input type="submit" value="Update Files" name="submit" id="uploadModelSubmit" onClick={handleUpload}></input>
                         </div>
                     </div>):(
                     <div className='col-span-10'>
@@ -164,17 +165,12 @@ const UploadModel = () => {
                         <input type="text" name="name" required className="uploadModelFileToUpload2" onChange={handleChange}></input>
                         <label htmlFor="">Accuracy</label>
                         <input type="number" name="accuracy" required className="uploadModelFileToUpload2" onChange={handleChange}></input>
+                        <label htmlFor="">Models Combined</label>
+                        <input type="number" name="modelsCombined" required className="uploadModelFileToUpload2" onChange={handleChange}></input>
                         <label htmlFor="">Model Hash</label>
                         <input type="text" required className="uploadModelFileToUpload2" defaultValue={modelHash} readOnly></input>
                         <label htmlFor="">JSON Hash</label>
                         <input type="text" required className="uploadModelFileToUpload2" defaultValue={jsonHash} readOnly></input>
-                        <h1>
-                          {formData.accuracy}
-                          Modle{modelHash}
-                          <br />
-                          Josn{jsonHash}
-                          {formData.name}
-                        </h1>
                         <input type="submit" value="Send" name="submit" id="uploadModelSubmit" onClick={uploadLModel}></input>
                         </div>
                         
@@ -184,13 +180,4 @@ const UploadModel = () => {
   )
 }
 
-export default UploadModel;
-
-
-
-
-
-
-
-
-
+export default UploadGlobalModel;
