@@ -7,7 +7,9 @@ import { useContext, useEffect } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { Link } from "react-router-dom";
 import { ethers } from "ethers";
-import abi from '../../Contracts/abi.json'
+import abi from '../../Contracts/hospital.json'
+import { hospitalAddress } from "../../Contracts/contractAddress";
+
 
 const RegisteredHospitals = () => {
   const [add, setAdd] = useState("");
@@ -39,13 +41,14 @@ const RegisteredHospitals = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const Contract = new ethers.Contract(
-      "0x11db3f5068de393b3bD2A144Be97a129e76b3cFa",
+      hospitalAddress,
       abi,
       signer
     );
     console.log(Contract);
     let tx;
     try {
+      console.log(add)
       tx = await Contract.getHospitals();
       console.log(tx);
       setRegHospital(tx);
@@ -89,11 +92,15 @@ const RegisteredHospitals = () => {
             <h1 className="bg-indigo-300  text-white text-3xl font-thin font-poppins py-1.5 px-5 rounded-3xl tracking-widest">
               Registered Hospitals
             </h1>
+            <h1 className="text-white">{add}</h1>
           </div>
           <div className="flex flex-col gap-y-10 ">
             {regHospitals.map((hospital) => (
               <Registered name={hospital.name} location={hospital.city} />
             ))}
+          </div>
+          <div>
+              {/* {regHospitals} */}
           </div>
         </div>
       </div>

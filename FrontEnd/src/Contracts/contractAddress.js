@@ -1,3 +1,8 @@
-export const contractAddress="0x11db3f5068de393b3bD2A144Be97a129e76b3cFa"
+export const contractAddress="0x11db3f5068de393b3bD2A144Be97a129e76b3cFa";
+export const modelAddress="0xC55B7753bAB3e64c72098133850667595Af398B7";
+export const hospitalAddress="0xBCDdbaCda3f3F350e421E92f2b8D73e2b2C8701a";
+export const superuserAddress="0xdFCBf665873c991A9BF5ae4C5619526ae4b55953";
+
+
 
 //0x11db3f5068de393b3bD2A144Be97a129e76b3cFa aurora testnet
