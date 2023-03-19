@@ -13,6 +13,9 @@ import FileSaver from 'file-saver';
 const RetrieveModel = () => {
     const con = useContext(metaContext);
     const [address,setAddress]=useState("")
+    const [hospital,setHospital]=useState([])
+    const [index,setIndex]=useState("")
+    const [pending,setPending]=useState(true)
     const fetchAddress = async () => {
         await con.accountSet();
         setAddress(con.acn.address);
@@ -23,7 +26,7 @@ const RetrieveModel = () => {
           fetchAddress();
         }},[])
 
-    
+        const hexToDecimal = (hex) => parseInt(hex, 16);
 
     const getModel=async()=>{
         const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -34,11 +37,16 @@ const RetrieveModel = () => {
           signer
         );
         let tx;
+        console.log("Connected")
        
         try {
+            
             tx = await Contract.getIndex(address);
-            console.log(tx._hex);
+            console.log(hexToDecimal(tx._hex));
+            setIndex(hexToDecimal(tx._hex));
             let allHospitals= await Contract.getHospitals()
+            setHospital(allHospitals);
+            setPending(false);
             console.log(allHospitals[parseInt(tx._hex)])
           } catch (error) {
             console.log(error);
@@ -46,8 +54,8 @@ const RetrieveModel = () => {
 
     }
     
+      const ipfs ="QmbQMKw9VojdxRW4Dnd2s6gAqRaBsrbcNQDHvMbaGhsnUf"
 
-    
       const downloadFile = () => {
         axios.get(`https://gateway.pinata.cloud/ipfs/QmbQMKw9VojdxRW4Dnd2s6gAqRaBsrbcNQDHvMbaGhsnUf`, {
           responseType: 'blob',
@@ -68,10 +76,15 @@ const RetrieveModel = () => {
       <Sidebar />
       <div className="col-span-10">
           <div className="flex justify-center flex-col items-center space-y-40">
-            <div className="bg-gradient-to-r from-gradx1 to-gradx2 text-white text-2xl mt-8 font-light mr-2 px-12 py-1 rounded-lg tracking-wider font-poppins">
+            <div className="bg-gradient-to-r from-gradx1 to-gradx2 text-cdwhite text-2xl mt-8 font-light mr-2 px-12 py-1 rounded-lg tracking-wider font-poppins">
               Available Models
             </div>
-            <button className="text-white bg-borderPurple p-3 rounded-full" onClick={downloadFile}>
+            <div className="text-white">
+              <h1>IPFS Hash : {ipfs}</h1>
+              <button onClick={getModel}>Get INDEX {address}</button>
+              {pending?(<h1>Fetching Data</h1>):(<h1>{hospital[index].name}</h1>)}
+            </div>
+            <button className="text-white bg-borderPurple p-3 rounded-full " onClick={downloadFile}>
       Download File
     </button>
           </div>
