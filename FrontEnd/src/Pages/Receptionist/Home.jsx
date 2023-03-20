@@ -62,7 +62,7 @@ const Receptionist = () => {
     }
     let tx2;
     try {
-      tx2 = await Contract.hospitals(number);
+      tx2 = await Contract.hospitals(tx);
       console.log(tx2);
       setInfo(tx2);
 

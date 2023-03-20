@@ -27,6 +27,8 @@ import UploadModel from "./Pages/Receptionist/UploadModel";
 import UpdateModel from "./Pages/Receptionist/updateModel";
 import UploadGlobalModel from "./Pages/superUser/UploadGlobalModel";
 import UpdateGlobalModel from "./Pages/superUser/UpdateGlobalModel";
+import GetSpecificModel from "./Pages/Receptionist/GetSpecificModel";
+import ModelController from "./Pages/Receptionist/ModelController";
 
 const getLibrary = (provider) => {
   return new Web3Provider(provider);
@@ -73,6 +75,8 @@ function App() {
            <Route path="/recep/retrieveModel" element={<RetrieveModel/>}></Route>
            <Route path="/recep/UploadModel" element=  {<UploadModel/>}></Route>
            <Route path="/recep/UpdateModel" element=  {<UpdateModel/>}></Route>
+           <Route path="/recep/GetSModel" element=  {<GetSpecificModel/>}></Route>
+           <Route path="/recep/ModelController" element=  {<ModelController />}></Route>
             
             </Route>
           </Routes>
