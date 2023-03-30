@@ -71,13 +71,6 @@ const GetSpecificModel = () => {
           }
     }
     
-    
-
-
-    
-
-    
-      
 
       const downloadFileIpfs = () => {
         let ipfsi = "https://gateway.pinata.cloud/ipfs/"
