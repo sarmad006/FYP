@@ -4,12 +4,9 @@ import Navbar from "../../Components/Navbar";
 import Registered from "../../Components/SuperUsers/RegisteredHospitals/Registered";
 import metaContext from "../../context/metaContext";
 import { useContext, useEffect } from "react";
-import { useWeb3React } from "@web3-react/core";
-import { Link } from "react-router-dom";
-import { ethers } from "ethers";
-import abi from '../../Contracts/hospital.json'
+import abi from "../../Contracts/hospital.json";
 import { hospitalAddress } from "../../Contracts/contractAddress";
-
+import getContractInstance from "../../Contracts/ContractInstance";
 
 const RegisteredHospitals = () => {
   const [add, setAdd] = useState("");
@@ -38,48 +35,19 @@ const RegisteredHospitals = () => {
     // do something with new account here
   }
   async function getHospital() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const Contract = new ethers.Contract(
-      hospitalAddress,
-      abi,
-      signer
-    );
+    const Contract = getContractInstance(abi, hospitalAddress);
     console.log(Contract);
     let tx;
     try {
-      console.log(add)
+      console.log(add);
       tx = await Contract.getHospitals();
       console.log(tx);
       setRegHospital(tx);
     } catch (error) {
       console.log(error);
-      console.log("failing ....")
+      console.log("failing ....");
     }
   }
-
-  const [RegisteredH, setRegisteredH] = useState([
-    {
-      name: "AKU Hospital",
-      location: "Karachi",
-    },
-    {
-      name: "Liaquat Hospital",
-      location: "Karachi",
-    },
-    {
-      name: "Bloomsbury Hospital",
-      location: "London",
-    },
-    {
-      name: "SKMH",
-      location: "Lahore",
-    },
-    {
-      name: "Lincoln Hospital",
-      location: "NewYork",
-    },
-  ]);
 
   return (
     <div>
@@ -92,16 +60,13 @@ const RegisteredHospitals = () => {
             <h1 className="bg-indigo-300  text-white text-3xl font-thin font-poppins py-1.5 px-5 rounded-3xl tracking-widest">
               Registered Hospitals
             </h1>
-            <h1 className="text-white">{add}</h1>
           </div>
           <div className="flex flex-col gap-y-10 ">
             {regHospitals.map((hospital) => (
               <Registered name={hospital.name} location={hospital.city} />
             ))}
           </div>
-          <div>
-              {/* {regHospitals} */}
-          </div>
+          <div>{/* {regHospitals} */}</div>
         </div>
       </div>
     </div>

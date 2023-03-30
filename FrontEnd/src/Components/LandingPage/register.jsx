@@ -10,9 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const RegisterComponent = () => {
   const location = useNavigate();
-  // const API_KEY = "c303a8d05f40b047e81f";
-  // const API_Secret =
-  //   "869916f5afead162492bf1d096a41082e189f911afc0e007b9f2feee7a56abc5";
+  
   const [openSnackbar, closeSnackbar] = useSnackbar();
   const form = useRef();
   const [isActive, setLoader] = useState(false);

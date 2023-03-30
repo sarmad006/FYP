@@ -37,7 +37,7 @@ import GetSpecificModel from "./Pages/Receptionist/GetSpecificModel";
 import ModelController from "./Pages/Receptionist/ModelController";
 import LatestHash from "./Pages/superUser/LatestHash";
 import SnackbarProvider from "react-simple-snackbar";
-import RegisterHospital from "./Pages/superUser/registerHospital"
+import RegisterHospital from "./Pages/superUser/registerHospital";
 
 const getLibrary = (provider) => {
   return new Web3Provider(provider);
@@ -66,7 +66,6 @@ function App() {
               <Route path="/thanks" element={<Thankyou />}></Route>
               <Route path="/about" element={<About />}></Route>
               <Route path="/login" element={<Login />}></Route>
-              <Route path="/reg/admit" element={<RegisterHospital/>}> </Route>
               {/* Only Authenticated Routes goes here */}
               <Route element={<ProtectedRoute />}>
                 <Route path="/doctor" element={<Home />}></Route>
@@ -78,6 +77,9 @@ function App() {
                   path="/doctor/prediction"
                   element={<Prediction />}
                 ></Route>
+                <Route path="/superuser/reg" element={<RegisterHospital />}>
+                  {" "}
+                </Route>
                 <Route path="/superuser" element={<SuperUser />}></Route>
                 <Route
                   path="/superuser/hospitals"
