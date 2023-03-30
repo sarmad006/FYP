@@ -1,0 +1,136 @@
+@import url('https://fonts.cdnfonts.com/css/morena');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;600&family=Poppins&display=swap');
+body{
+    background-color:  #2a2c3f;
+}
+
+#Maingird-nav{
+    font-size: 50;
+    margin-top: 2%;
+    font-family: 'Poppins', sans-serif;
+}
+img{
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+}
+
+.top_Nav_Span_Left{
+    color: #5bab23;
+    margin-left: 3%;
+}
+
+.top_Nav_Span_Middle{
+    color: white;
+    margin-left: 23.2%;
+    margin-right: 21%;
+}
+
+.top_Nav_Span_Right{
+    color: white;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+#reg_desc{
+    position: absolute;
+    top: 15%;
+    left: 8%;
+    text-align: center;
+    font-size:xx-large;
+    color: #56f9b2;
+    padding-left: 20px;
+    padding-right: 20px;
+    border:2px solid;
+    border-radius: 15px;
+}
+
+.reg_desc_span{
+    display: block;
+}
+
+#reg_input_reg_hospital{
+
+    box-shadow: 5px 5px 10px #918DEC,5px 5px 10px #918DEC,-2px -2px 10px #918DEC;
+    margin-top: 05%;
+    margin-left: 20%;
+    margin-bottom: 4%;
+    height: 60vh;
+    width: 55%;
+    display: inline-block;
+    border-radius: 12px;
+    
+}
+
+#reg_input_first_span{
+    display:block;
+    text-align: center;
+    margin: 10px;
+    margin-left: 20%;
+    margin-top: 5%;
+    border-radius: 15px;
+    height: 42px;
+    width: 62%;
+    justify-content: center;
+    color:#2a2c3f;
+    font-family: 'Poppins', sans-serif;
+}
+
+#reg_input_box{  
+    margin-left: 22.5px;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+
+.reg_input_upper_box{
+    display: block;
+}
+
+.reg_input_lower_box{
+    display: block;
+    margin-top: 20px;
+}
+
+#reg_label{
+    color: #a8a2ae;
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#input_special{
+    box-shadow: -5px -5px 10px #918DEC;
+    background-color: #2a2c3f;
+    color: white;
+    border-radius: 20px;
+    height: 35px;
+    padding-left: 15px;
+    width: 75%;
+    margin-left: 12.5%;
+    border-bottom: 2px solid #918DEC ;
+    outline: none;
+}
+/* input:focus,
+input:active {
+        border-color: transparent;
+        border-bottom: 2px solid #1c87c9;
+} */
+/*Help url https://www.w3docs.com/snippets/css/how-to-remove-and-style-the-border-outline-around-text-input-boxes-in-google-chrome.html*/
+
+#reg_input_email{
+    padding-top: 2.5%;
+    margin: auto;
+    width: 200px;
+    display: block;
+    color: blue;
+}
+
+#btn_special{
+    color: black;
+    width: 100px;
+    height: 30px;
+    margin-top: 8%;
+    margin-left: 42.5%;
+    text-align: center;
+    font-weight: bold;
+}

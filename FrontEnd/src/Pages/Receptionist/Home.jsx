@@ -93,26 +93,7 @@ const Receptionist = () => {
                 City : {info.city}
           </div>
           <img id="homesvg" src="./image/line.svg" style={{ height: "120px", width: "550px" }} alt="MetaMask pic 2"/>
-          {/* <div claame="flex justify-center gap-x-8">
-            <div className="text-white font-poppins Box flex flex-col items-center">
-              <h1 className="head">
-                Record <br /> Patient
-              </h1>
-              <button className="bg-limgreen btn w-20 text-black font-semibold">Click</button>
-            </div>
-            <div className="text-white font-poppins Box flex flex-col items-center">
-              <h1 className="head">
-                Request <br /> Super-User
-              </h1>
-              <button className="bg-limgreen btn w-20 text-black font-semibold">Click</button>
-            </div>
-            <div className="text-white font-poppins Box flex flex-col items-center">
-              <h1 className="head">
-                View <br /> Models
-              </h1>
-              <button className="bg-limgreen btn w-20 text-black font-semibold">Click</button>
-            </div>
-          </div> */}
+          
         </div>
       </div>
      </div>
