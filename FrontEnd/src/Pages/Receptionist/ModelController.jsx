@@ -77,6 +77,7 @@ const ModelController = () => {
 
     function handleClick2(id) {
         navigate('/recep/GetSModel',{state:id})
+        console.log(id)
         
     }
 
@@ -89,7 +90,7 @@ const ModelController = () => {
       <div className="col-span-10">
         <div id="Div1" className="flex justify-center mt-20">
           <h1 className="bg-gradient-to-r from-gradx1 to-gradx2 text-white text-3xl  font-poppins mr-2 py-1 px-8 rounded-2xl tracking-widest">
-            Get Models 
+            Get Null Models 
           </h1>
         </div>
         {pending?(<h1>Fetching</h1>):(
@@ -108,7 +109,7 @@ const ModelController = () => {
                 </h1>
               </div>
               <div className="flex gap-x-12">
-                <button className="bg-limgreen px-8 rounded-full text-black font-medium" onClick={()=>handleClick2(item.name)}>
+                <button className="bg-limgreen px-8 rounded-full text-black font-medium" onClick={()=>handleClick2(item)}>
                  Download
                 </button>
                 <button className="bg-slate-100 px-8 rounded-full text-black font-medium" onClick={()=>handleClick(item.id)}>

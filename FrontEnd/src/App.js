@@ -29,6 +29,7 @@ import UploadGlobalModel from "./Pages/superUser/UploadGlobalModel";
 import UpdateGlobalModel from "./Pages/superUser/UpdateGlobalModel";
 import GetSpecificModel from "./Pages/Receptionist/GetSpecificModel";
 import ModelController from "./Pages/Receptionist/ModelController";
+import LatestHash from "./Pages/superUser/LatestHash";
 
 const getLibrary = (provider) => {
   return new Web3Provider(provider);
@@ -68,6 +69,7 @@ function App() {
             <Route path="/superuser/aggregate" element={<AggregateModel/>}></Route>
             <Route path="/superuser/UploadModel" element={<UploadGlobalModel/>}></Route>
             <Route path="/superuser/UpdateModel" element={<UpdateGlobalModel/>}></Route>
+            <Route path="/superuser/latest" element=  {<LatestHash />}></Route>
             <Route exact path="/recep" element={<Receptionist />}></Route>
             <Route path="recep/modelr" element={<ModelReq />}></Route>
             <Route path="recep/entry" element={<PatientEntry />}></Route>
@@ -77,6 +79,7 @@ function App() {
            <Route path="/recep/UpdateModel" element=  {<UpdateModel/>}></Route>
            <Route path="/recep/GetSModel" element=  {<GetSpecificModel/>}></Route>
            <Route path="/recep/ModelController" element=  {<ModelController />}></Route>
+           
             
             </Route>
           </Routes>

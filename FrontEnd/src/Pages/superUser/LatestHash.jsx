@@ -11,10 +11,10 @@ import mabi from '../../Contracts/model.json'
 import metaContext from '../../context/metaContext'
 import FileSaver from 'file-saver';
 import { useLocation } from 'react-router-dom';
-import "./GetSpecificModel.css";
 
 
-const GetSpecificModel = () => {
+
+const LatestHash = () => {
     const con = useContext(metaContext);
     const [address,setAddress]=useState("");
     const [hospital,setHospital]=useState("");
@@ -63,6 +63,7 @@ const GetSpecificModel = () => {
             allHospitals= await Contract.getLatestHashes(location.state)
             setHospital(allHospitals);
             console.log(hospital[0])
+            console.log(hospital[1])
             setipfsHash(hospital[0])
             setjsonHash(hospital[1])
            
@@ -81,7 +82,7 @@ const GetSpecificModel = () => {
 
       const downloadFileIpfs = () => {
         let ipfsi = "https://gateway.pinata.cloud/ipfs/"
-        let ipfs1 = ipfsi+location.state.ipfsHash;
+        let ipfs1 = ipfsi+ipfsHash;
         console.log(ipfs1);
         console.log("Hello world bay")
         axios.get(ipfs1, {
@@ -99,7 +100,7 @@ const GetSpecificModel = () => {
         let ipfsi = "https://gateway.pinata.cloud/ipfs/"
         jsonHash.trimStart();
         var substring = jsonHash.slice(1);
-        let ipfs = ipfsi+location.state.jsonHash;
+        let ipfs = ipfsi+jsonHash;
         
 
         console.log(ipfs);
@@ -129,12 +130,14 @@ const GetSpecificModel = () => {
       <div className="col-span-10">
           <div className="flex justify-center flex-col items-center space-y-20">
             <div className="bg-gradient-to-r from-gradx1 to-gradx2 text-cdwhite text-2xl mt-8 font-light mr-2 px-12 py-1 rounded-lg tracking-wider font-poppins">
-              {location.state.name} Model
+              Latest {location.state} Model
             </div>
+           
+            
             <div className="text-white" id ="datadetails">
               
-              <h1>IPFS Hash : {location.state.ipfsHash}</h1>
-              <h1>JSON Hash : {location.state.jsonHash}</h1>
+              <h1>IPFS Hash : {ipfsHash}</h1>
+              <h1>JSON Hash : {jsonHash}</h1>
               {/*  */}
               <div className='datadetailssec2'>
               <button className="text-white bg-purple p-3 rounded-full" id="btnsp1" onClick={getModel}>Get Hashes</button>
@@ -153,4 +156,4 @@ const GetSpecificModel = () => {
   )
 }
 
-export default GetSpecificModel;
+export default LatestHash;

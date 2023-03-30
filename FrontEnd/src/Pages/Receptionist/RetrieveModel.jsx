@@ -119,17 +119,20 @@ const RetrieveModel = () => {
         console.log("Connected to 4 contract")
       if(setfetch && recieved){
         console.log("Connected to 5 contract")  
-      tx3 = await Contract3.getLIpfs(location.state)
+      tx3 = await Contract3.LModel(selectedOption,location.state,version);
       console.log("got the hash");
       console.log(tx3)
-      tx4 = await Contract3.getLJson(location.state)
+      // tx4 = await Contract3.getLJson(location.state)
       // console.log(selectedOption)
       // console.log(version)
       console.log(tx3);
       console.log("got the Jsonhash");
-      console.log(tx4)
-      setipfsHash(tx3);
-      setjsonHash(tx4);
+      // console.log(tx4)
+      setipfsHash(tx3.ipfsHash);
+      setjsonHash(tx3.jsonHash);
+      console.log(ipfsHash);
+      console.log(jsonHash);
+      // setjsonHash(tx4);
       }
         
       } catch (error) {
@@ -185,7 +188,7 @@ const RetrieveModel = () => {
       }
 
       function downloadFile(){
-        // downloadFileIpfs();
+        downloadFileIpfs();
         downloadFileJson();
       }
     

@@ -80,6 +80,11 @@ const ActiveModels = () => {
         
     }
 
+    function handleClick3(id) {
+      navigate('/superuser/latest',{state:id})
+      
+  }
+
 
   return (
     <div>
@@ -108,6 +113,9 @@ const ActiveModels = () => {
                 </h1>
               </div>
               <div className="flex gap-x-12">
+              <button className="bg-purple px-8 rounded-full text-black font-medium" onClick={()=>handleClick3(item.name)}>
+                  Latest
+                </button>
                 <button className="bg-limgreen px-8 rounded-full text-black font-medium" onClick={()=>handleClick2(item.name)}>
                   Aggregate
                 </button>
