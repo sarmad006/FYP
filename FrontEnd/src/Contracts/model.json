@@ -107,6 +107,11 @@
 				"internalType": "uint256",
 				"name": "version",
 				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "aggregated",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -183,7 +188,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "addGModel",
+		"name": "addGlobalModel",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -209,9 +214,14 @@
 				"internalType": "uint256",
 				"name": "_accuracy",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_hospitalAddress",
+				"type": "address"
 			}
 		],
-		"name": "addLmodel",
+		"name": "addLocalModel",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -244,7 +254,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "aggregateGModel",
+		"name": "aggregateGlobalModel",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -294,7 +304,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "getCustomGIpfs",
+		"name": "getGlobalIpfs",
 		"outputs": [
 			{
 				"internalType": "string",
@@ -318,7 +328,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "getCustomGJson",
+		"name": "getGlobalJson",
 		"outputs": [
 			{
 				"internalType": "string",
@@ -342,7 +352,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "getCustomGModelInfo",
+		"name": "getGlobalModelInfo",
 		"outputs": [
 			{
 				"internalType": "string",
@@ -379,9 +389,14 @@
 				"internalType": "uint256",
 				"name": "ver",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_hospitalAddress",
+				"type": "address"
 			}
 		],
-		"name": "getCustomLIpfs",
+		"name": "getLocalIpfs",
 		"outputs": [
 			{
 				"internalType": "string",
@@ -403,9 +418,14 @@
 				"internalType": "uint256",
 				"name": "ver",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_hospitalAddress",
+				"type": "address"
 			}
 		],
-		"name": "getCustomLJson",
+		"name": "getLocalJson",
 		"outputs": [
 			{
 				"internalType": "string",
@@ -427,148 +447,14 @@
 				"internalType": "uint256",
 				"name": "_version",
 				"type": "uint256"
-			}
-		],
-		"name": "getCustomLModelInfo",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
 			},
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
+				"internalType": "address",
+				"name": "_hospitalAddress",
+				"type": "address"
 			}
 		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			}
-		],
-		"name": "getGIpfs",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			}
-		],
-		"name": "getGJson",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			}
-		],
-		"name": "getLIpfs",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			}
-		],
-		"name": "getLJson",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			}
-		],
-		"name": "getLatestGModelInfo",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			}
-		],
-		"name": "getLatestLModelInfo",
+		"name": "getLocalModelInfo",
 		"outputs": [
 			{
 				"internalType": "string",
@@ -784,9 +670,14 @@
 				"internalType": "uint256",
 				"name": "_accuracy",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_hospitalAddress",
+				"type": "address"
 			}
 		],
-		"name": "updateLmodel",
+		"name": "updateLocalModel",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"

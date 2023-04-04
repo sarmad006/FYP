@@ -3,46 +3,22 @@
 pragma solidity ^0.8.13;
 pragma experimental ABIEncoderV2;
 
-import "./Hospital.sol";
-import "./SuperUser.sol";
 
 contract Authorization{
     
-    Authorization authorization;
-    Hospital hospital;
-    SuperUser superUser;
-
-    constructor(Authorization _authorization,superUser,hospital) {
-        authorization = _authorization;
-        superUser = _superUser;
-        hospital = _hospital
-    }
-
-    function login(address _address)public view returns(string memory){
- 
-        string memory superUserIsExist;
-        string memory HospitalIsExist;
-
-        superUserIsExist = superUserLogin(_address);
-        if(loginAddress != "NotExist"){
-            return superUserIsExist;
+        mapping (address => bool) isSuperUser;
+        mapping (address => bool) isHospital;
+    
+     function Authenticate(address _user)external view returns(string memory) {
+            if(isSuperUser[_user]){
+                return "SuperUser";
+            }
+            else if(isHospital[_user]){
+                return "Hospital";
+            }
+            else{
+                return "Account Doesn't Exists";
+            }
         }
 
-        HospitalIsExist = hospitalLogin(_address);
-        if(loginAddress != "NotExist"){
-            return HospitalIsExist;
-        }
-
-        return "Not Exist";   
-    }
-
-    function registerHospital(address _address)
-    {       
-        
-    }
-
-    function registerSuperuser(address _address)
-    {
-
-    }
 }

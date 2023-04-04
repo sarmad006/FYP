@@ -4,15 +4,17 @@ pragma solidity ^0.8.13;
 pragma experimental ABIEncoderV2;
 
 import "./Model.sol";
-
+import "./Authorization.sol";
 // contract address : 0xBCDdbaCda3f3F350e421E92f2b8D73e2b2C8701a
 
 contract Hospital {
 
     Model model;
+    Authorization authorization;
 
-    constructor(Model _model) {
+    constructor(Model _model,Authorization _authorization) {
         model = _model;
+        authorization = _authorization;
     }
 
     uint public counter=0;
@@ -81,6 +83,7 @@ contract Hospital {
         );
             registeredHospital[msg.sender]=true;
             index[msg.sender]=counter;
+            authorization.isHospital[msg.sender]=true;
             counter++;
     }
 

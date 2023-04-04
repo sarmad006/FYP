@@ -5,6 +5,11 @@
 				"internalType": "contract Model",
 				"name": "_model",
 				"type": "address"
+			},
+			{
+				"internalType": "contract Authorization",
+				"name": "_authorization",
+				"type": "address"
 			}
 		],
 		"stateMutability": "nonpayable",
@@ -23,60 +28,26 @@
 				"type": "uint256"
 			}
 		],
-		"name": "CustomModelInfo",
+		"name": "GlobalModelInfo",
 		"outputs": [
 			{
 				"internalType": "string",
-				"name": "",
+				"name": "name",
 				"type": "string"
 			},
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "accuracy",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "modelsCombined",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_modelName",
-				"type": "string"
-			}
-		],
-		"name": "LatestModelInfo",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
+				"name": "version",
 				"type": "uint256"
 			}
 		],
@@ -114,6 +85,25 @@
 		"name": "aggregateModel",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			}
+		],
+		"name": "getVersion",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -169,31 +159,7 @@
 				"type": "uint256"
 			}
 		],
-		"name": "retrieveCustomModelHashes",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			}
-		],
-		"name": "retrieveModelHashes",
+		"name": "retrieveGlobalModelHashes",
 		"outputs": [
 			{
 				"internalType": "string",
