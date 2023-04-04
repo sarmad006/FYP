@@ -9,6 +9,23 @@ import { useLocation } from "react-router-dom";
 //918dec bg color
 const Sidebar = () => {
   const location = useLocation();
+  const hospital = [
+    {
+      name: "Home",
+      icon: <AiOutlineHome />,
+      path: "/recep/ModelController",
+    },
+    {
+      name: "Retrieve Model",
+      icon: <BsHospital />,
+      path: "/recep/retrieveModel",
+    },
+    {
+      name: "Upload Model",
+      icon: <AiOutlineForm />,
+      path: "/recep/UploadModel",
+    },
+  ];
   const superUser = [
     {
       name: "Home",
@@ -33,8 +50,17 @@ const Sidebar = () => {
           superUser.map((item) => (
             <li className="sidebarDivLi">
               {item.icon}
-              
-               <a href={item.path}>{item.name}</a> 
+
+              <a href={item.path}>{item.name}</a>
+            </li>
+          ))}
+
+        {location.pathname.includes("recep") &&
+          hospital.map((item) => (
+            <li className="sidebarDivLi">
+              {item.icon}
+
+              <a href={item.path}>{item.name}</a>
             </li>
           ))}
       </ul>

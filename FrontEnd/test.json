@@ -1,0 +1,6 @@
+{
+    "name":"Liver",
+    "accuracy":"80",
+    "batch" : 2000,
+    "attributes" : 9
+}

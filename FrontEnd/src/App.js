@@ -77,9 +77,7 @@ function App() {
                   path="/doctor/prediction"
                   element={<Prediction />}
                 ></Route>
-                <Route path="/superuser/reg" element={<RegisterHospital />}>
-                  {" "}
-                </Route>
+                <Route path="/superuser/reg" element={<RegisterHospital />}/>
                 <Route path="/superuser" element={<SuperUser />}></Route>
                 <Route
                   path="/superuser/hospitals"
