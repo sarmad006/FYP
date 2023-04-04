@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   const [address, setAddress] = useState("");
-  const [password, setpassword] = useState("");
   const con = useContext(metaContext);
 
   useEffect(() => {
@@ -30,17 +29,14 @@ const Login = () => {
     // do something with new account here
   }
 
-  function updatePassword(e){
-      setpassword(e.target.value);
-  }
-
   function checkAddressPassword(){
     // send address + password to smart contract and receive SuperUser/Hospital Against it    
     window.location.replace("/about");
+    // address => BlockChain
     let str = "";
-    if(str == "SuperUser")
-       window.location.replace("SuperUser");
-    else if(str == "Hospital"){
+    if(str === "SuperUser")
+       window.location.replace("/SuperUser");
+    else if(str === "Hospital"){
       window.location.replace("/Hospital");
     }
     else{
@@ -61,8 +57,6 @@ const Login = () => {
               <div id="field">
                 <label class="text-slate-100">Metamask Address</label>
                 <input id="inp" type="text" defaultValue={address} readOnly></input>
-                <label class="mt-4 text-slate-100">Password</label>
-                <input id="inp" type="password" onChange={updatePassword}></input>
               </div>
               <button id="btn1" onClick={checkAddressPassword} class="font-poppins bg-slate-200 rounded-full mt-6 ml-2 w-120 text-sm drop-shadow-2xl tracking-widest">
                   Login

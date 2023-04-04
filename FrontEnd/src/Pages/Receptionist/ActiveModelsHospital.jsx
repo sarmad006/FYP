@@ -11,7 +11,7 @@ import { ethers } from "ethers";
 import { useNavigate } from 'react-router-dom';
 
 
-const ActiveModels = () => {
+const ActiveModelsHospital = () => {
 
 
     const [models,setmodels]=useState([]);
@@ -71,8 +71,6 @@ const ActiveModels = () => {
     const navigate = useNavigate ();
     function handleClick(id) {
       navigate('/superuser/disease',{state:models[parseInt(id._hex)]})
-      // console.log(parseInt(id._hex))
-      // console.log(models[parseInt(id._hex)])
     }
 
     function handleClick2(id) {
@@ -80,8 +78,12 @@ const ActiveModels = () => {
     }
 
     function handleClick3(id) {
-      navigate('/superuser/latest',{state:id})
+      navigate("/recep/retrieveModel",{state:id})
   }
+
+    function handleClick4(id) {
+        navigate("/recep/UpdateModel",{state:id})
+    }
 
 
   return (
@@ -92,7 +94,7 @@ const ActiveModels = () => {
       <div className="col-span-10">
         <div id="Div1" className="flex justify-center mt-20">
           <h1 className="bg-gradient-to-r from-gradx1 to-gradx2 text-white text-3xl  font-poppins mr-2 py-1 px-8 rounded-2xl tracking-widest">
-            Global Models 
+            My Local Models 
           </h1>
         </div>
         {pending?(<h1>Fetching</h1>):(
@@ -110,12 +112,15 @@ const ActiveModels = () => {
                   </span> 
                 </h1>
               </div>
-              <div className="flex gap-x-12">
+              <div className="flex gap-x-4">
+              <button className="bg-purple px-8 rounded-full text-black font-medium" onClick={()=>handleClick4(item.name)}>
+                  Get Global Model
+                </button>
+              <button className="bg-purple px-8 rounded-full text-black font-medium" onClick={()=>handleClick4(item.name)}>
+                  Update Model
+                </button>
               <button className="bg-purple px-8 rounded-full text-black font-medium" onClick={()=>handleClick3(item.name)}>
                   Get Model
-                </button>
-                <button className="bg-limgreen px-8 rounded-full text-black font-medium" onClick={()=>handleClick2(item.name)}>
-                  Aggregate
                 </button>
                 <button className="bg-slate-100 px-8 rounded-full text-black font-medium" onClick={()=>handleClick(item.id)}>
                   Details
@@ -130,4 +135,4 @@ const ActiveModels = () => {
   )
 }
 
-export default ActiveModels
+export default ActiveModelsHospital;

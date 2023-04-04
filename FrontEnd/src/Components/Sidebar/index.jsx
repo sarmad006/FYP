@@ -18,7 +18,7 @@ const Sidebar = () => {
     {
       name: "Retrieve Model",
       icon: <BsHospital />,
-      path: "/recep/retrieveModel",
+      path: "/recep/models",
     },
     {
       name: "Upload Model",
@@ -42,6 +42,11 @@ const Sidebar = () => {
       icon: <AiOutlineForm />,
       path: "/superuser/reg",
     },
+    {
+      name: "Model",
+      icon: <AiOutlineForm />,
+      path: "/superuser/models"
+    }
   ];
   return (
     <div className="sidebarDiv">
