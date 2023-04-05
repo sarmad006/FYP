@@ -9,13 +9,13 @@ import { Link, useLocation } from "react-router-dom";
 import abi  from "../../Contracts/model.json";
 import { ethers } from "ethers";
 import { useNavigate } from 'react-router-dom';
+import UploadModal from "../../Components/receptionist/Modals/UploadModal";
 
 
 const ActiveModelsHospital = () => {
-
-
     const [models,setmodels]=useState([]);
-
+    const[UpdateModal,setUpdateModal]=useState(false)
+    const [selectedModel,setSelectedModel]=useState(false)
     const con = useContext(metaContext);
     const [address, setAddress] = useState("");
     const [pending,setpending]= useState(true);
@@ -80,14 +80,15 @@ const ActiveModelsHospital = () => {
     function handleClick3(id) {
       navigate("/recep/retrieveModel",{state:id})
   }
-
-    function handleClick4(id) {
-        navigate("/superuser/latest",{state:id})
-    }
+  function handleClick4(id) {
+    navigate("/superuser/latest",{state:id})
+}
+  
 
 
   return (
     <div>
+      {UpdateModal && <UploadModal setIsActive={setUpdateModal} selectedModel={selectedModel}/>}
     <Navbar />
     <div className="grid grid-cols-12 mb-10 ">
       <Sidebar />
@@ -113,11 +114,14 @@ const ActiveModelsHospital = () => {
                 </h1>
               </div>
               <div className="flex gap-x-4">
-              <button className="bg-purple px-8 rounded-full text-black font-medium" onClick={()=>handleClick4(item.name)}>
-                  Get Global Model
+              <button className="bg-purple px-8 rounded-full text-black font-medium" onClick={()=>{
+                setSelectedModel(item)
+                setUpdateModal(true)
+                }}>
+                  Update Model
                 </button>
               <button className="bg-purple px-8 rounded-full text-black font-medium" onClick={()=>handleClick4(item.name)}>
-                  Update Model
+                  Get Global Model
                 </button>
               <button className="bg-purple px-8 rounded-full text-black font-medium" onClick={()=>handleClick3(item.name)}>
                   Get Model

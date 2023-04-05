@@ -77,13 +77,13 @@ const RegisterHospital = () => {
     if (fileHash) {
       const Contract = getContractInstance(abi, hospitalAddress);
       let tx;
+      console.log(formData)
       try {
         tx = await Contract.registerHospital(
           formData.name,
           formData.city,
           formData.email,
           formData.phone,
-          res.data.IpfsHash,
           formData.address
         );
         openSnackbar("Hospital has been registered");

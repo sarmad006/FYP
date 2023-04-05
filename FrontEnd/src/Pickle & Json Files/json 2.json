@@ -1,1 +1,4 @@
-json 2
+{
+    "name" : "liver",
+    "accuracy":80
+}

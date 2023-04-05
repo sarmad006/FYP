@@ -29,6 +29,8 @@ const UploadModel = () => {
   const con = useContext(metaContext);
   const [address, setAddress] = useState("");
   const [openSnackbar, closeSnackbar] = useSnackbar();
+  const [selectedDisease,setSelectedDisease]=useState("none")
+  const [options,setOptions]=useState([]);
 
   useEffect(() => {
     if (typeof window.ethereum !== "undefined") {
@@ -38,8 +40,8 @@ const UploadModel = () => {
       });
       const modelContract = getContractInstance(modelAbi, modelAddress);
       modelContract
-        .registerLModel("liver disease", address)
-        .then((res) => console.log(res));
+        .getModels()
+        .then((res) => setOptions(res));
     }
   }, [address]);
 
@@ -159,8 +161,20 @@ const UploadModel = () => {
 
         {stepper === 1 && (
           <div className="col-span-10">
-            <div className="flex justify-center  flex-col items-center space-y-4 px-20">
+            <div className="flex justify-center space-y-4  flex-col items-center px-28">
+                <select
+                 value={selectedDisease}
+                 onChange={(e)=>setSelectedDisease(e.target.value)}
+                  className="block py-2.5 mb-6 px-0 w-40 text-center shadow-2xl focus:shadow-2xl text-md text-white bg-transparent border-2 rounded-lg border-purple appearance-none focus:outline-none"
+                >
+                  <option className="text-black" value="none">Disease Model</option>
+                  {options.map((item)=>(
+                  <option className="text-black "  value={item.name}>{item.name}</option>
+                  ))}
+                </select>
+              
               <Stepper />
+
               {file ? (
                 <div className="flex justify-center pt-20 flex-col space-y-4 items-center text-purple">
                   <AiOutlineFileText fontSize={80} />
@@ -247,7 +261,17 @@ const UploadModel = () => {
         )}
         {stepper === 2 && (
           <div className="col-span-10">
-            <div className="flex justify-center  flex-col items-center space-y-4 px-20">
+            <div className="flex justify-center  flex-col items-center space-y-4 px-28">
+            <select
+                 value={selectedDisease}
+                 onChange={(e)=>setSelectedDisease(e.target.value)}
+                  className="block py-2.5 mb-6 px-0 w-40 text-center shadow-2xl focus:shadow-2xl text-md text-white bg-transparent border-2 rounded-lg border-purple appearance-none focus:outline-none"
+                >
+                  <option className="text-black" value="none">Disease Model</option>
+                  {options.map((item)=>(
+                  <option className="text-black "  value={item.name}>{item.name}</option>
+                  ))}
+                </select>
               <Stepper value={stepper} />
               {file1 ? (
                 <div className="flex justify-center pt-20 flex-col space-y-4 items-center text-purple">
@@ -335,14 +359,24 @@ const UploadModel = () => {
         )}
         {stepper === 3 && (
           <div className="col-span-10">
-            <div className="flex justify-center  flex-col items-center space-y-4 px-20">
+            <div className="flex justify-center  flex-col items-center space-y-4 px-28">
+            <select
+                 value={selectedDisease}
+                 onChange={(e)=>setSelectedDisease(e.target.value)}
+                  className="block py-2.5 mb-6 px-0 w-40 text-center shadow-2xl focus:shadow-2xl text-md text-white bg-transparent border-2 rounded-lg border-purple appearance-none focus:outline-none"
+                >
+                  <option className="text-black" value="none">Disease Model</option>
+                  {options.map((item)=>(
+                  <option className="text-black "  value={item.name}>{item.name}</option>
+                  ))}
+                </select>
               <Stepper value={3} />
 
               <form className="pt-12">
                 <div className="relative z-0 w-full mb-6 group">
                   <input
                     type="text"
-                    className="block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    className="block py-2.5 px-0 w-full text-md text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     value={metadata.name.toLowerCase()}
                     readOnly
                   />
@@ -356,7 +390,7 @@ const UploadModel = () => {
                 <div className="relative z-0 w-full mb-6 group">
                   <input
                     type="text"
-                    className="block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    className="block py-2.5 px-0 w-full text-md text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     value={metadata.accuracy}
                     readOnly
                   />
@@ -370,7 +404,7 @@ const UploadModel = () => {
                 <div className="relative z-0 w-full mb-6 group">
                   <input
                     type="text"
-                    className="block py-2.5 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    className="block py-2.5 px-0 w-full text-md text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" "
                     value={metadata.batch}
                     readOnly
@@ -387,7 +421,7 @@ const UploadModel = () => {
                     <input
                       type="text"
                       value={metadata.attributes}
-                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      className="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                       readOnly
                     />
                     <label

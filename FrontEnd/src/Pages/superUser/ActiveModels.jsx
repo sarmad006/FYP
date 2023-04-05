@@ -82,6 +82,10 @@ const ActiveModels = () => {
     function handleClick3(id) {
       navigate('/superuser/latest',{state:id})
   }
+  function handleClick4(id) {
+    navigate("/superuser/latest",{state:id})
+}
+  
 
 
   return (

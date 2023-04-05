@@ -21,7 +21,7 @@ const LatestHash = () => {
   const con = useContext(metaContext);
   const [address, setAddress] = useState("");
   const [hospital, setHospital] = useState("");
-  const [index, setIndex] = useState("");
+  const [index, setIndex] = useState(0);
   const [pending, setPending] = useState(true);
   const [fetch, setfetch] = useState(false);
   const [recieved, setrecieved] = useState(false);
