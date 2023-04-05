@@ -82,7 +82,7 @@ const ActiveModelsHospital = () => {
   }
 
     function handleClick4(id) {
-        navigate("/recep/UpdateModel",{state:id})
+        navigate("/superuser/latest",{state:id})
     }
 
 
