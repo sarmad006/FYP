@@ -5,20 +5,23 @@ import { BsFileEarmarkTextFill } from "react-icons/bs";
 import { FiDownload } from "react-icons/fi";
 import axios from "axios";
 import { ethers } from "ethers";
-import { hospitalAddress, modelAddress } from "../../Contracts/contractAddress";
+import {
+  contractAddress,
+  hospitalAddress,
+  modelAddress,
+  superuserAddress,
+} from "../../Contracts/contractAddress";
 import abi from "../../Contracts/hospital.json";
-import mabi from "../../Contracts/model.json";
 import metaContext from "../../context/metaContext";
 import FileSaver from "file-saver";
 import { useLocation } from "react-router-dom";
-import "./RetrieveModel.css";
 import getContractInstance from "../../Contracts/ContractInstance";
 
-const RetrieveModel = () => {
+const LatestHash = () => {
   const con = useContext(metaContext);
   const [address, setAddress] = useState("");
   const [hospital, setHospital] = useState("");
-  const [index, setIndex] = useState("");
+  const [index, setIndex] = useState(0);
   const [pending, setPending] = useState(true);
   const [fetch, setfetch] = useState(false);
   const [recieved, setrecieved] = useState(false);
@@ -27,8 +30,15 @@ const RetrieveModel = () => {
   const [jsonHash, setjsonHash] = useState("");
   const location = useLocation();
   const [version, setversion] = useState(0);
+  const [arr, setArr] = useState([]);
+  // const [hospitalObjectName,setHospitalObjectName] = useState([]);
+  // const [hospitalObjectAddress,setHospitalObjectAddress] = useState([]);
+  const [fet,setfet] = useState(false)
   let x = [];
   let y = [];
+
+  let hospitalObjectName = [];
+  let hospitalObjectAddress = [];
 
   const fetchAddress = async () => {
     await con.accountSet();
@@ -38,95 +48,93 @@ const RetrieveModel = () => {
   useEffect(() => {
     if (typeof window.ethereum !== "undefined") {
       fetchAddress();
-      getModel();
+      // getModelVersion();
+      getHospital();
+      // populateDropDown();
+      console.log("hlelow")
       // getVersion();
     }
-  }, []);
+  },[]);
+
+  
+
 
   const hexToDecimal = (hex) => parseInt(hex, 16);
 
-  async function getModel() {
-    const Contract = getContractInstance(abi, hospitalAddress);
-    console.log(Contract);
-    let allHospitals;
+  async function getModelVersion() {
+    let contract = getContractInstance(abi, superuserAddress);
+    console.log(contract);
+
+    let tx;
     try {
-      allHospitals = await Contract.getHospitals();
-      console.log(allHospitals);
-      allHospitals = allHospitals.filter((item) => item.metamask === address);
-      console.log(allHospitals);
-      // setHospital(allHospitals);
-      // if (hospital.length > 0) {
-      //   for (let index = 0; index < hospital.length; index++) {
-      //     x.push(hospital[index].name);
-      //   }
-      //   for (let index = 0; index < hospital.length; index++) {
-      //     console.log(x[index]);
-      //   }
-      //   setfetch(true);
-      // }
+    
+      tx = await contract.getVersion(location.state);
+      console.log("version Recieved");
+      console.log(tx);
+      console.log(hexToDecimal(tx._hex));
+      setversion(hexToDecimal(tx._hex));
+      setfetch(true);
+      if (fetch) {
+        for (let i = 0; i < version; i++) {
+          x.push(i);
+        }
+        console.log("Array has been populated");
+        setArr(x);
+        setPending(true);
+      }
     } catch (error) {
       console.log(error);
     }
   }
-  async function getVersion() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const Contract2 = new ethers.Contract(modelAddress, mabi, signer);
-    console.log("Connected to 2 contract");
-    console.log(Contract2);
-    let tx2;
+
+  async function getHospital() {
+    let contract = getContractInstance(abi, hospitalAddress);
+    console.log(contract);
+    let tx;
     try {
-      if (setfetch) {
-        tx2 = await Contract2.LVersion(location.state, selectedOption);
-        console.log("got the Version");
-        console.log(tx2);
-        setversion(parseInt(tx2._hex) - 1);
-        console.log(version);
-      }
-    } catch (error) {}
+      tx = await contract.getHospitals();
+      console.log("hospital Received");
+      console.log(tx);
+      let length =  tx.length
+      console.log("This is the lenght",length)
+
+        for(let i=0 ; i<tx.length ; i++)
+        {
+          console.log("tx length", tx.length)
+          hospitalObjectName.push(tx[i].name)
+          hospitalObjectAddress.push(tx[i].metamask)
+        }
+        setPending(true)
+        console.log("Name received")
+        console.log(hospitalObjectName)
+        setArr(hospitalObjectName)
+        console.log("Address Received")
+        console.log(hospitalObjectAddress)
+    } catch (error) {
+      console.log(error);
+    }
+  
   }
 
-  async function getHash() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const Contract3 = new ethers.Contract(modelAddress, mabi, signer);
-
-    console.log(Contract3);
-    console.log("Connected to 3 contract");
-    let tx3;
-    let tx4;
-    try {
-      console.log("Connected to 4 contract");
-      if (setfetch && recieved) {
-        console.log("Connected to 5 contract");
-        tx3 = await Contract3.LModel(selectedOption, location.state, version);
-        console.log("got the hash");
-        console.log(tx3);
-        // tx4 = await Contract3.getLJson(location.state)
-        // console.log(selectedOption)
-        // console.log(version)
-        console.log(tx3);
-        console.log("got the Jsonhash");
-        // console.log(tx4)
-        setipfsHash(tx3.ipfsHash);
-        setjsonHash(tx3.jsonHash);
-        console.log(ipfsHash);
-        console.log(jsonHash);
-        // setjsonHash(tx4);
-      }
-    } catch (error) {}
-  }
-
-  const handleChange = (event) => {
-    // console.log(event.target.value);
-    setSelectedOption(event.target.value);
-    console.log(selectedOption);
-    getVersion();
-    console.log(version);
-    setrecieved(true);
+  const handleSelect = (event) => {
+    if (pending) {
+      setIndex(event.target.value);
+    }
   };
 
-  const ipfs = "";
+
+
+  let tx2
+  const getHash=async ()=>{
+    let contract = getContractInstance(abi, superuserAddress);
+    tx2 = await contract.retrieveGlobalModelHashes(location.state,index)
+    console.log(location.state)
+    console.log(index)
+    console.log("Hashes Recieved")
+    console.log(tx2)
+    setipfsHash(tx2[0])
+    setjsonHash(tx2[1])
+  }
 
   const downloadFileIpfs = () => {
     let ipfsi = "https://gateway.pinata.cloud/ipfs/";
@@ -148,8 +156,9 @@ const RetrieveModel = () => {
   const downloadFileJson = () => {
     let ipfsi = "https://gateway.pinata.cloud/ipfs/";
     jsonHash.trimStart();
-    let substring = jsonHash.slice(1);
-    let ipfs = ipfsi + substring;
+    var substring = jsonHash.slice(1);
+    let ipfs = ipfsi + jsonHash;
+
     console.log(ipfs);
     console.log("Hello world json ");
     axios
@@ -168,7 +177,7 @@ const RetrieveModel = () => {
     downloadFileIpfs();
     downloadFileJson();
   }
-
+  console.log(arr.length)
   return (
     <div>
       <Navbar />
@@ -177,10 +186,33 @@ const RetrieveModel = () => {
         <div className="col-span-10">
           <div className="flex justify-center flex-col items-center space-y-20">
             <div className="bg-gradient-to-r from-gradx1 to-gradx2 text-cdwhite text-2xl mt-8 font-light mr-2 px-12 py-1 rounded-lg tracking-wider font-poppins">
-              {location.state} Model Aggregation
+              Download {location.state} Model
             </div>
+
+            <div>
+              <h1 className="text-white font-poppins text-2xl">
+                Total Versions Available : {version}
+              </h1>
+          
+              <h1 className="text-white font-poppins text-2xl">
+                Version Selected : {index}
+              </h1>
+              <h1>{hospitalObjectName.length}
+              </h1>
+            </div>
+            {pending && arr.length>0? (
+              <select onChange={handleSelect}>
+                {arr.map((num) => (
+                  <option key={num} value={num}>
+                  <label>Name : </label>
+                    {num}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <h1 className="text-white">Fetching Data</h1>
+            )}
             <div className="text-white" id="datadetails">
-              <h1>Version : {version}</h1>
               <h1>IPFS Hash : {ipfsHash}</h1>
               <h1>JSON Hash : {jsonHash}</h1>
               {/*  */}
@@ -188,32 +220,10 @@ const RetrieveModel = () => {
                 <button
                   className="text-white bg-purple p-3 rounded-full"
                   id="btnsp1"
-                  onClick={getModel}
+                  onClick={getHash}
                 >
-                  Get INDEX
+                  Get Hashes
                 </button>
-                <button
-                  className="text-white bg-borderPurple p-3 rounded-full"
-                  id="btnsp2"
-                  onClick={() => getHash()}
-                >
-                  Check Hash
-                </button>
-              </div>
-              <div className="selectoptionspd">
-                {fetch ? (
-                  <select onChange={handleChange} value={selectedOption}>
-                    <option value="">Select an option</option>
-                    {hospital.map((option) => (
-                      <option key={option} value={option.metamask}>
-                        {option.name}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  <h1>Not</h1>
-                )}
-                <h1 className="text-white mt-2">{selectedOption}</h1>
               </div>
               <button
                 className="text-white bg-borderPurple p-3 rounded-full "
@@ -229,4 +239,4 @@ const RetrieveModel = () => {
   );
 };
 
-export default RetrieveModel;
+export default LatestHash;
