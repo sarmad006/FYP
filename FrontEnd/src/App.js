@@ -39,6 +39,7 @@ import LatestHash from "./Pages/superUser/LatestHash";
 import SnackbarProvider from "react-simple-snackbar";
 import RegisterHospital from "./Pages/superUser/registerHospital";
 import ActiveModelsHospital from "./Pages/Receptionist/ActiveModelsHospital";
+import CustomModel from "./Pages/Receptionist/CustomModel";
 
 const getLibrary = (provider) => {
   return new Web3Provider(provider);
@@ -132,6 +133,10 @@ function App() {
                 <Route
                   path="/recep/ModelController"
                   element={<ModelController />}
+                ></Route>
+                <Route
+                  path="/recep/CustomModel"
+                  element={<CustomModel />}
                 ></Route>
               </Route>
             </Routes>
