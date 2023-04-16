@@ -12,6 +12,7 @@ import {
   superuserAddress,
 } from "../../Contracts/contractAddress";
 import abi from "../../Contracts/hospital.json";
+import modelabi from "../../Contracts/model.json";
 import metaContext from "../../context/metaContext";
 import FileSaver from "file-saver";
 import { useLocation } from "react-router-dom";
@@ -20,25 +21,23 @@ import getContractInstance from "../../Contracts/ContractInstance";
 const LatestHash = () => {
   const con = useContext(metaContext);
   const [address, setAddress] = useState("");
-  const [hospital, setHospital] = useState("");
-  const [index, setIndex] = useState(0);
+  const [hospital, setHospital] = useState([]);
+  const [index, setIndex] = useState(null);
   const [pending, setPending] = useState(true);
   const [fetch, setfetch] = useState(false);
   const [recieved, setrecieved] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState(0);
   const [ipfsHash, setipfsHash] = useState("");
   const [jsonHash, setjsonHash] = useState("");
   const location = useLocation();
   const [version, setversion] = useState(0);
   const [arr, setArr] = useState([]);
+  const [switcher,setswitcher]=useState(false);
   // const [hospitalObjectName,setHospitalObjectName] = useState([]);
   // const [hospitalObjectAddress,setHospitalObjectAddress] = useState([]);
   const [fet,setfet] = useState(false)
   let x = [];
   let y = [];
-
-  let hospitalObjectName = [];
-  let hospitalObjectAddress = [];
 
   const fetchAddress = async () => {
     await con.accountSet();
@@ -50,66 +49,55 @@ const LatestHash = () => {
       fetchAddress();
       // getModelVersion();
       getHospital();
+      
       // populateDropDown();
       console.log("hlelow")
       // getVersion();
     }
-  },[]);
+  },[arr,version,switcher]);
 
   
 
 
   const hexToDecimal = (hex) => parseInt(hex, 16);
 
-  async function getModelVersion() {
-    let contract = getContractInstance(abi, superuserAddress);
-    console.log(contract);
-
+  async function getModelVersion(z) {
+    let contract = getContractInstance(modelabi, modelAddress);
     let tx;
+    let tx2;
+    let check
     try {
-    
-      tx = await contract.getVersion(location.state);
-      console.log("version Recieved");
-      console.log(tx);
-      console.log(hexToDecimal(tx._hex));
-      setversion(hexToDecimal(tx._hex));
-      setfetch(true);
-      if (fetch) {
-        for (let i = 0; i < version; i++) {
-          x.push(i);
-        }
-        console.log("Array has been populated");
-        setArr(x);
-        setPending(true);
+      tx = await contract.registerLModel(location.state,z);
+      console.log("Bool Value Recieved");
+      check=tx
+      if(check){
+        tx2 = await contract.LVersion(location.state,index)
+        setversion(hexToDecimal(tx2._hex));
+        console.log(hexToDecimal(tx2._hex));
+        let num = version
+        setfetch(true);
+         
       }
     } catch (error) {
       console.log(error);
     }
   }
 
+  function populateArray(num){
+    for (let i = 0; i < num; i++) {
+      x.push(i);
+    }
+    console.log("Array has been populated");
+    setArr(x); 
+  }
+
   async function getHospital() {
     let contract = getContractInstance(abi, hospitalAddress);
-    console.log(contract);
     let tx;
     try {
       tx = await contract.getHospitals();
-      console.log("hospital Received");
-      console.log(tx);
-      let length =  tx.length
-      console.log("This is the lenght",length)
-
-        for(let i=0 ; i<tx.length ; i++)
-        {
-          console.log("tx length", tx.length)
-          hospitalObjectName.push(tx[i].name)
-          hospitalObjectAddress.push(tx[i].metamask)
-        }
-        setPending(true)
-        console.log("Name received")
-        console.log(hospitalObjectName)
-        setArr(hospitalObjectName)
-        console.log("Address Received")
-        console.log(hospitalObjectAddress)
+      setHospital(tx);
+      setPending(true)  
     } catch (error) {
       console.log(error);
     }
@@ -117,23 +105,35 @@ const LatestHash = () => {
   }
 
   const handleSelect = (event) => {
-    if (pending) {
+    console.log("Off")
+    if (pending) { // This checks if all hospitals are loaded into the hospital array
       setIndex(event.target.value);
+      setswitcher(true)
+      getModelVersion(index)
+      if(fetch){ // This checks if we have retrieved number of versions avaolable of model of a particular hospital
+      populateArray(version)
+    }      
     }
+  };
+
+  const handleSelect2 = (event) => {
+    if (fetch) {
+      setSelectedOption(event.target.value);
+    }
+    
   };
 
 
 
-  let tx2
+  let tx4,tx5
   const getHash=async ()=>{
-    let contract = getContractInstance(abi, superuserAddress);
-    tx2 = await contract.retrieveGlobalModelHashes(location.state,index)
-    console.log(location.state)
-    console.log(index)
+    let contract = getContractInstance(modelabi, modelAddress);
+    tx4 = await contract.getLocalIpfs(location.state,selectedOption,index)
+    tx5 = await contract.getLocalJson(location.state,selectedOption,index)
     console.log("Hashes Recieved")
-    console.log(tx2)
-    setipfsHash(tx2[0])
-    setjsonHash(tx2[1])
+    console.log(tx4)
+    setipfsHash(tx4)
+    setjsonHash(tx5)
   }
 
   const downloadFileIpfs = () => {
@@ -191,27 +191,36 @@ const LatestHash = () => {
 
             <div>
               <h1 className="text-white font-poppins text-2xl">
-                Total Versions Available : {version}
+                Total Versions Available : {arr.length}
               </h1>
           
               <h1 className="text-white font-poppins text-2xl">
-                Version Selected : {index}
-              </h1>
-              <h1>{hospitalObjectName.length}
+                Hospital Selected : {index}
               </h1>
             </div>
-            {pending && arr.length>0? (
+            {pending? (
               <select onChange={handleSelect}>
-                {arr.map((num) => (
-                  <option key={num} value={num}>
+                {hospital.map((num) => (
+                  <option key={num} value={num.metamask}>
                   <label>Name : </label>
-                    {num}
+                    {num.name}
                   </option>
                 ))}
               </select>
             ) : (
               <h1 className="text-white">Fetching Data</h1>
             )}
+            {
+              arr.length>0 && switcher?(<select onChange={handleSelect2}>
+                {arr.map((num) => (
+                  <option key={num} value={num}>
+                  <label>Version : </label>
+                    {num}
+                  </option>
+                ))}
+              </select>):("")
+            }
+            <h1 className="text-white text-2xl font-poppins">Selected Version : {selectedOption} </h1>
             <div className="text-white" id="datadetails">
               <h1>IPFS Hash : {ipfsHash}</h1>
               <h1>JSON Hash : {jsonHash}</h1>
