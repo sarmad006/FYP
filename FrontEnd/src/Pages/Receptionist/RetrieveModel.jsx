@@ -20,44 +20,37 @@ import getContractInstance from "../../Contracts/ContractInstance";
 
 const LatestHash = () => {
   const con = useContext(metaContext);
-  const [address, setAddress] = useState("");
+  // const [address, setAddress] = useState("");
   const [hospital, setHospital] = useState([]);
   const [index, setIndex] = useState(null);
   const [pending, setPending] = useState(true);
-  const [fetch, setfetch] = useState(false);
-  const [recieved, setrecieved] = useState(false);
   const [selectedOption, setSelectedOption] = useState(0);
   const [ipfsHash, setipfsHash] = useState("");
   const [jsonHash, setjsonHash] = useState("");
   const location = useLocation();
-  const [version, setversion] = useState(0);
   const [arr, setArr] = useState([]);
-  const [switcher,setswitcher]=useState(false);
-  // const [hospitalObjectName,setHospitalObjectName] = useState([]);
-  // const [hospitalObjectAddress,setHospitalObjectAddress] = useState([]);
-  const [fet,setfet] = useState(false)
-  let x = [];
-  let y = [];
+  const [switcher, setswitcher] = useState(false);
 
-  const fetchAddress = async () => {
-    await con.accountSet();
-    setAddress(con.acn.address);
-  };
+  let x = [];
+  let version = 0;
+  let fetch = false;
+
+  // const fetchAddress = async () => {
+  //   await con.accountSet();
+  //   setAddress(con.acn.address);
+  // };
+
+  // useEffect(() => {
+  //   if (typeof window.ethereum !== "undefined") {
+  //     fetchAddress();
+  //   }
+  // },[arr,switcher]);
 
   useEffect(() => {
     if (typeof window.ethereum !== "undefined") {
-      fetchAddress();
-      // getModelVersion();
       getHospital();
-      
-      // populateDropDown();
-      console.log("hlelow")
-      // getVersion();
     }
-  },[arr,version,switcher]);
-
-  
-
+  }, []);
 
   const hexToDecimal = (hex) => parseInt(hex, 16);
 
@@ -65,30 +58,27 @@ const LatestHash = () => {
     let contract = getContractInstance(modelabi, modelAddress);
     let tx;
     let tx2;
-    let check
+
     try {
-      tx = await contract.registerLModel(location.state,z);
+      console.log("I am Location", location.state, "\nI am Z", z);
+      tx = await contract.registerLModel(location.state, z);
       console.log("Bool Value Recieved");
-      check=tx
-      if(check){
-        tx2 = await contract.LVersion(location.state,index)
-        setversion(hexToDecimal(tx2._hex));
-        console.log(hexToDecimal(tx2._hex));
-        let num = version
-        setfetch(true);
-         
+      if (tx) {
+        tx2 = await contract.LVersion(location.state, z);
+        version = hexToDecimal(tx2._hex);
+        fetch = true;
       }
     } catch (error) {
       console.log(error);
     }
   }
 
-  function populateArray(num){
+  function populateArray(num) {
     for (let i = 0; i < num; i++) {
       x.push(i);
     }
     console.log("Array has been populated");
-    setArr(x); 
+    setArr(x);
   }
 
   async function getHospital() {
@@ -96,51 +86,54 @@ const LatestHash = () => {
     let tx;
     try {
       tx = await contract.getHospitals();
+      console.log("Hospital Address", tx[0].metamask);
+
+      await getModelVersion(tx[0].metamask);
+      populateArray(version);
+      setswitcher(true);
+      setIndex(tx[0].metamask);
       setHospital(tx);
-      setPending(true)  
+
+      setPending(true);
     } catch (error) {
       console.log(error);
     }
-  
   }
 
-  const handleSelect = (event) => {
-    console.log("Off")
-    if (pending) { // This checks if all hospitals are loaded into the hospital array
+  const handleSelect = async (event) => {
+    console.log("i am pending", pending);
+    if (pending) {
+      // This checks if all hospitals are loaded into the hospital array
       setIndex(event.target.value);
-      setswitcher(true)
-      getModelVersion(index)
-      if(fetch){ // This checks if we have retrieved number of versions avaolable of model of a particular hospital
-      populateArray(version)
-    }      
+      setswitcher(true);
+      await getModelVersion(event.target.value);
+      setTimeout(() => {
+        if (fetch) {
+          // This checks if we have retrieved number of versions avaolable of model of a particular hospital
+          populateArray(version);
+        }
+      }, 0);
     }
   };
 
   const handleSelect2 = (event) => {
-    if (fetch) {
-      setSelectedOption(event.target.value);
-    }
-    
+    setSelectedOption(event.target.value);
   };
 
-
-
-  let tx4,tx5
-  const getHash=async ()=>{
-    let contract = getContractInstance(modelabi, modelAddress);
-    tx4 = await contract.getLocalIpfs(location.state,selectedOption,index)
-    tx5 = await contract.getLocalJson(location.state,selectedOption,index)
-    console.log("Hashes Recieved")
-    console.log(tx4)
-    setipfsHash(tx4)
-    setjsonHash(tx5)
-  }
+  const getHash = async () => {
+    let tx4, tx5, contract;
+    contract = getContractInstance(modelabi, modelAddress);
+    tx4 = await contract.getLocalIpfs(location.state, selectedOption, index);
+    tx5 = await contract.getLocalJson(location.state, selectedOption, index);
+    // console.log("Hashes Recieved")
+    // console.log(tx4)
+    setipfsHash(tx4);
+    setjsonHash(tx5);
+  };
 
   const downloadFileIpfs = () => {
     let ipfsi = "https://gateway.pinata.cloud/ipfs/";
     let ipfs1 = ipfsi + ipfsHash;
-    console.log(ipfs1);
-    console.log("Hello world bay");
     axios
       .get(ipfs1, {
         responseType: "blob",
@@ -156,11 +149,7 @@ const LatestHash = () => {
   const downloadFileJson = () => {
     let ipfsi = "https://gateway.pinata.cloud/ipfs/";
     jsonHash.trimStart();
-    var substring = jsonHash.slice(1);
     let ipfs = ipfsi + jsonHash;
-
-    console.log(ipfs);
-    console.log("Hello world json ");
     axios
       .get(ipfs, {
         responseType: "blob",
@@ -177,7 +166,8 @@ const LatestHash = () => {
     downloadFileIpfs();
     downloadFileJson();
   }
-  console.log(arr.length)
+
+  console.log(arr.length);
   return (
     <div>
       <Navbar />
@@ -193,16 +183,16 @@ const LatestHash = () => {
               <h1 className="text-white font-poppins text-2xl">
                 Total Versions Available : {arr.length}
               </h1>
-          
+
               <h1 className="text-white font-poppins text-2xl">
                 Hospital Selected : {index}
               </h1>
             </div>
-            {pending? (
+            {pending ? (
               <select onChange={handleSelect}>
                 {hospital.map((num) => (
                   <option key={num} value={num.metamask}>
-                  <label>Name : </label>
+                    <label>Name : </label>
                     {num.name}
                   </option>
                 ))}
@@ -210,17 +200,21 @@ const LatestHash = () => {
             ) : (
               <h1 className="text-white">Fetching Data</h1>
             )}
-            {
-              arr.length>0 && switcher?(<select onChange={handleSelect2}>
+            {arr.length > 0 && switcher ? (
+              <select onChange={handleSelect2}>
                 {arr.map((num) => (
                   <option key={num} value={num}>
-                  <label>Version : </label>
+                    <label>Version : </label>
                     {num}
                   </option>
                 ))}
-              </select>):("")
-            }
-            <h1 className="text-white text-2xl font-poppins">Selected Version : {selectedOption} </h1>
+              </select>
+            ) : (
+              ""
+            )}
+            <h1 className="text-white text-2xl font-poppins">
+              Selected Version : {selectedOption}{" "}
+            </h1>
             <div className="text-white" id="datadetails">
               <h1>IPFS Hash : {ipfsHash}</h1>
               <h1>JSON Hash : {jsonHash}</h1>
@@ -247,5 +241,4 @@ const LatestHash = () => {
     </div>
   );
 };
-
 export default LatestHash;
