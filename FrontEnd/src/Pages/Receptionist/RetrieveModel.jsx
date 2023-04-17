@@ -33,7 +33,7 @@ const LatestHash = () => {
 
   let x = [];
   let version = 0;
-  let fetch = false;
+  let fetch = false; // KHIZER : Kindly make this a useState Varaiable const[fetch,setfetch]=useState("false")
 
   // const fetchAddress = async () => {
   //   await con.accountSet();
@@ -66,7 +66,7 @@ const LatestHash = () => {
       if (tx) {
         tx2 = await contract.LVersion(location.state, z);
         version = hexToDecimal(tx2._hex);
-        fetch = true;
+        fetch = true; // KHIZER : setfetch(true)
       }
     } catch (error) {
       console.log(error);
@@ -89,6 +89,7 @@ const LatestHash = () => {
       console.log("Hospital Address", tx[0].metamask);
 
       await getModelVersion(tx[0].metamask);
+      // KHIZER : if(fetch) then run the populalte array function , this means we are checking if getModelVersion has retrieved total no of versions available
       populateArray(version);
       setswitcher(true);
       setIndex(tx[0].metamask);
