@@ -34,7 +34,7 @@ const LatestHash = () => {
   let x = [];
   let version = 0;
   let fetch = false; // KHIZER : Kindly make this a useState Varaiable const[fetch,setfetch]=useState("false")
-
+  let counter = 0;
   // const fetchAddress = async () => {
   //   await con.accountSet();
   //   setAddress(con.acn.address);
@@ -48,7 +48,9 @@ const LatestHash = () => {
 
   useEffect(() => {
     if (typeof window.ethereum !== "undefined") {
-      getHospital();
+      if(counter === 0)  
+        getHospital();
+      counter++;
     }
   }, []);
 
@@ -86,11 +88,13 @@ const LatestHash = () => {
     let tx;
     try {
       tx = await contract.getHospitals();
-      console.log("Hospital Address", tx[0].metamask);
+      // console.log("Hospital Address", tx[0].metamask);
 
       await getModelVersion(tx[0].metamask);
+      console.log("I am first")
       // KHIZER : if(fetch) then run the populalte array function , this means we are checking if getModelVersion has retrieved total no of versions available
-      populateArray(version);
+      if(fetch)
+        populateArray(version);
       setswitcher(true);
       setIndex(tx[0].metamask);
       setHospital(tx);
