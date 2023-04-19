@@ -19,8 +19,8 @@ import getContractInstance from "../../Contracts/ContractInstance";
 
 
 
-const CustomModel = () => { 
-    const con = useContext(metaContext);
+const CustomModel = () => {
+  const con = useContext(metaContext);
   const [address, setAddress] = useState("");
   const [hospital, setHospital] = useState("");
   const [index, setIndex] = useState(0);
@@ -34,22 +34,30 @@ const CustomModel = () => {
   const [version, setversion] = useState(0);
   const [arr, setArr] = useState([]);
   let x = [];
-  let val;
-  let fet;
+  let y = [];
 
   const fetchAddress = async () => {
-    await con.accountSet();
+    let tx = await con.accountSet();
+    console.log("I am tx",tx)
+    console.log("I am con",con.accountSet())
     setAddress(con.acn.address);
-    val = con.acn.address
+    console.log("I am con.acc.address",con.acn.address)
+    console.log("I am set address",address)
   };
 
   useEffect(() => {
     if (typeof window.ethereum !== "undefined") {
       fetchAddress();
-      getModelVersion();
-    }
-  },[version]);
+      setTimeout(() => {
+        getModelVersion(); 
+        console.log("I am con",con.accountSet())
+     
+      }, 5000);  
+      // populateDropDown();
 
+      // getVersion();
+    }
+  },[version],address,con);
 
   
 
@@ -58,19 +66,19 @@ const CustomModel = () => {
 
   async function getModelVersion() {
     let contract = getContractInstance(abi, modelAddress);
-    console.log(contract);
-    
+    console.log("Contract Assigned",contract);
+
     let tx;
+    console.log("I am location.state",location.state)
+    console.log("I am address" , address)
     try {
-      console.log("I am Val",val)
-      tx = await contract.LVersion(location.state,val);
-      console.log("version Recieved");
-      console.log(tx);
+      tx = await contract.LVersion(location.state,address);
+      console.log("version Recieved",tx,"value");
+      // console.log(tx);
       console.log(hexToDecimal(tx._hex));
       setversion(hexToDecimal(tx._hex));
       setfetch(true);
-      fet = true;
-      if (fet) {
+      if (fetch) {
         for (let i = 0; i < version; i++) {
           x.push(i);
         }
@@ -80,10 +88,8 @@ const CustomModel = () => {
       }
     } catch (error) {
       console.log(error);
-    } 
+    }
   }
-
-  
 
   const handleSelect = (event) => {
     if (setPending) {
@@ -143,34 +149,7 @@ const CustomModel = () => {
     downloadFileIpfs();
     downloadFileJson();
   }
-
-  
-  async function loader(){
-    console.log("Loader Loaded")
-    await fetchAddress();
-    await getModelVersion();
-  }
-
-  window.onload = function() {
-    var button = document.getElementById('myJogadroButton');
-    console.log("I am clicked jogadro button")
-          setTimeout(() => {
-            button.click();
-          }, 0);
-          setTimeout(() => {
-            button.click();
-          }, 1000);
-          setTimeout(() => {
-            button.click();
-          }, 2000);
-          setTimeout(() => {
-            button.click();
-          }, 3000);       
-  }
-
-
   console.log(arr.length)
-  
   return (
     <div>
       <Navbar />
@@ -179,11 +158,10 @@ const CustomModel = () => {
         <div className="col-span-10">
           <div className="flex justify-center flex-col items-center space-y-20">
             <div className="bg-gradient-to-r from-gradx1 to-gradx2 text-cdwhite text-2xl mt-8 font-light mr-2 px-12 py-1 rounded-lg tracking-wider font-poppins">
-              Get Local {location.state} Model 
+              Get Local {location.state} Model
             </div>
-            {/* don't remove button */}
-            <button id="myJogadroButton" onClick={loader}></button>
-            <div >
+
+            <div>
               <h1 className="text-white font-poppins text-2xl">
                 Total Versions Available : {version}
               </h1>
