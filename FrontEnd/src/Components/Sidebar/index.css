@@ -5,6 +5,7 @@
     grid-auto-rows: minmax(0px,auto);
     align-items: center;
     border-radius: 1em;
+    height: 80vh;
     
 }
 .sidebarDivul{

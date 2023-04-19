@@ -49,20 +49,20 @@ const Sidebar = () => {
     }
   ];
   return (
-    <div className="sidebarDiv">
-      <ul className="sidebarDivul">
+    <div className="flex justify-center items-center bg-[#918dec] rounded-xl ml-4 shadow-2xl h-[75vh]">
+      <ul className="flex flex-col space-y-20 py-20 w-full items-center px-8">
         {location.pathname.includes("superuser") &&
           superUser.map((item) => (
-            <li className="sidebarDivLi">
+            <li className="flex flex-col items-center space-y-1 font-medium ">
               {item.icon}
 
-              <a href={item.path}>{item.name}</a>
+              <a  href={item.path}>{item.name}</a>
             </li>
           ))}
 
         {location.pathname.includes("recep") &&
           hospital.map((item) => (
-            <li className="sidebarDivLi">
+            <li className="flex flex-col items-center space-y-1 font-medium">
               {item.icon}
 
               <a href={item.path}>{item.name}</a>

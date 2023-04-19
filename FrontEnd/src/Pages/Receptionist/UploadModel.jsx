@@ -14,7 +14,7 @@ import { AiOutlineFileText } from "react-icons/ai";
 import { BsFiletypeJson } from "react-icons/bs";
 import getContractInstance from "../../Contracts/ContractInstance";
 import Loader from "../../Components/utils/Loader";
-import { useSnackbar } from "react-simple-snackbar";
+import { toast } from "react-toastify";
 import modelAbi from "../../Contracts/model.json";
 import { modelAddress } from "../../Contracts/contractAddress";
 
@@ -28,7 +28,6 @@ const UploadModel = () => {
   const [metadata, setMetaData] = useState();
   const con = useContext(metaContext);
   const [address, setAddress] = useState("");
-  const [openSnackbar, closeSnackbar] = useSnackbar();
   const [selectedDisease,setSelectedDisease]=useState("none")
   const [options,setOptions]=useState([]);
 
@@ -65,15 +64,31 @@ const UploadModel = () => {
     let tx;
     try {
       tx = await Contract.addLocalModel(
-        metadata.name.toLowerCase(),
+        selectedDisease,
         modelHash,
         jsonHash,
         metadata.accuracy
       );
-      openSnackbar("Successfully uploaded Local Model");
+      toast.success("Successfully uploaded Local Model",{
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
     } catch (error) {
       console.log(error);
-      openSnackbar("error occured during transaction");
+      toast.error("error occured during transaction",{
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
     }
     setActive(false);
     setStepper(1);
@@ -127,7 +142,15 @@ const UploadModel = () => {
       setModelHash(response.data.IpfsHash);
     } catch (error) {
       console.log(error);
-      openSnackbar("Error uploading model");
+      toast.error("Error uploading model",{
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
     }
   };
   const sendJsonFileToPinata = async (e) => {
@@ -148,19 +171,27 @@ const UploadModel = () => {
       setJsonHash(response.data.IpfsHash);
     } catch (error) {
       console.log(error);
-      openSnackbar("error uploading metadata");
+      toast.error("error uploading metadata",{
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
     }
   };
 
   return (
-    <div className="uploadModel">
+    <div className="">
       {isActive && <Loader isActive={isActive} />}
       <Navbar />
-      <div className="grid grid-cols-12 mb-10 mt-20 mx-4">
+      <div className="grid grid-cols-12 mt-4 mb-10">
         <Sidebar />
 
         {stepper === 1 && (
-          <div className="col-span-10">
+          <div className="col-span-10 mt-8">
             <div className="flex justify-center space-y-4  flex-col items-center px-28">
                 <select
                  value={selectedDisease}

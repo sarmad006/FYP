@@ -6,6 +6,9 @@ import abi from "../../../Contracts/hospital.json";
 import { hospitalAddress } from "../../../Contracts/contractAddress";
 import getContractInstance from "../../../Contracts/ContractInstance";
 import { useNavigate } from "react-router-dom";
+import {toast} from "react-toastify"
+import axios from "axios";
+import Loader from "../../utils/Loader";
 
 const UploadModal = ({ setIsActive, selectedModel }) => {
   const navigate = useNavigate();
@@ -14,6 +17,47 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
   const [file1, setFile1] = useState("");
   const [metadata, setMetaData] = useState();
   const [modelExists, setModelExists] = useState(false);
+  const [modelHash, setModelHash] = useState("");
+  const [jsonHash, setJsonHash] = useState("");
+  const [isActive, setActive] = useState(false);
+
+  async function updateLModel() {
+    setActive(true);
+    const Contract = getContractInstance(abi, hospitalAddress);
+    console.log(Contract);
+    let tx;
+    try {
+      tx = await Contract.updateModel(
+       selectedModel.name,
+        modelHash,
+        jsonHash,
+        metadata.accuracy
+      );
+      toast.success("Successfully uploaded Local Model",{
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
+    } catch (error) {
+      console.log(error);
+      toast.error("error occured during transaction",{
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
+    }
+    setActive(false);
+    setStepper(1);
+    setFile("");
+  }
 
   const handleFileChange1 = (event) => {
     setFile(event.target.files[0]);
@@ -31,6 +75,73 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
     setMetaData(obj);
   }
 
+  const handleUpload = async () => {
+    await sendModelFileToPinata(file);
+    setTimeout(() => {
+      sendJsonFileToPinata(file1);
+    }, 3000);
+  };
+
+
+  const sendModelFileToPinata = async (e) => {
+    const formData = new FormData();
+    formData.append("file", e);
+
+    const url = "https://api.pinata.cloud/pinning/pinFileToIPFS";
+    const options = {
+      headers: {
+        pinata_api_key: `${process.env.REACT_APP_API_KEY}`,
+        pinata_secret_api_key: `${process.env.REACT_APP_API_Secret}`,
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    try {
+      const response = await axios.post(url, formData, options);
+      console.log(response);
+      setModelHash(response.data.IpfsHash);
+    } catch (error) {
+      console.log(error);
+      toast.error("Error uploading model",{
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
+    }
+  };
+  const sendJsonFileToPinata = async (e) => {
+    const formData = new FormData();
+    formData.append("file", e);
+
+    const url = "https://api.pinata.cloud/pinning/pinFileToIPFS";
+    const options = {
+      headers: {
+        pinata_api_key: `${process.env.REACT_APP_API_KEY}`,
+        pinata_secret_api_key: `${process.env.REACT_APP_API_Secret}`,
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    try {
+      const response = await axios.post(url, formData, options);
+      setJsonHash(response.data.IpfsHash);
+    } catch (error) {
+      console.log(error);
+      toast.error("error uploading metadata",{
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
+    }
+  };
   useEffect(() => {
     const contract = getContractInstance(abi, hospitalAddress);
     contract
@@ -39,6 +150,8 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
   }, []);
 
   return (
+    <>
+    {isActive && <Loader isActive={isActive} />}
     <div className="fixed top-32 left-[15%]  z-80 block w-full p-4 overflow-x-hidden overflow-y-auto  h-[calc(100%-1rem)] md:h-full">
       <div className="relative w-[70%] h-full md:h-auto">
         <div className="relative bg-gray-50 border-2 border-purple rounded-lg shadow pb-6">
@@ -183,6 +296,9 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
                       </div>
                     )}
                     <button
+                       onClick={async() =>{
+                        await handleUpload()
+                         setStepper(3)}}
                       type="button"
                       className="rounded-full bg-limgreen text-sm font-poppins drop-shadow-2xl tracking-widest px-6 py-2.5"
                     >
@@ -200,7 +316,7 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
                       <div className="relative z-0 w-full mb-6 group">
                         <input
                           type="text"
-                          className="block py-2.5 px-0 w-full text-md text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          className="block py-2.5 px-0 w-full text-md text-gray-600 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           value={metadata.name.toLowerCase()}
                           readOnly
                         />
@@ -214,7 +330,7 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
                       <div className="relative z-0 w-full mb-6 group">
                         <input
                           type="text"
-                          className="block py-2.5 px-0 w-full text-md text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                          className="block py-2.5 px-0 w-full text-md text-gray-600 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                           value={metadata.accuracy}
                           readOnly
                         />
@@ -243,6 +359,7 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
                       </div>
 
                       <button
+                       onClick={()=>updateLModel()}
                         type="button"
                         className="rounded-full bg-limgreen text-sm font-poppins drop-shadow-2xl tracking-widest px-6 py-2.5"
                       >
@@ -268,6 +385,7 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

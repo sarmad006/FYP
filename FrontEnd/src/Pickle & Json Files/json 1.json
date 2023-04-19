@@ -1,1 +1,6 @@
-json 1
+{
+    "name":"lung",
+    "accuracy":"60",
+    "batch":"20",
+    "attributes":"4"
+}

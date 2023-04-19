@@ -92,19 +92,19 @@ const getbill = (req, res) => {
 
     let message = {
         from : EMAIL,
-        to : userEmail,
+        to : email,
         subject: "Place Order",
         html: mail,
         attachments: [
             {   // utf-8 string as an attachment
                 filename: 'abc.json',
                 content: `{
-    "hospital" : ${obj.HospitalName},
-    "Country Name" : ${obj.CountryName},
-    "email" : ${obj.email},
-    "City" : ${obj.City},
-    "phone" : ${obj.phone},
-    "address" : ${obj.address}
+    "hospitalName" : "${obj.HospitalName}",
+    "country" : "${obj.CountryName}",
+    "email" : "${obj.email}",
+    "city" : "${obj.City}",
+    "phone" : "${obj.phone}",
+    "address" : "${obj.address}"
 }`
             },
         ]
@@ -115,6 +115,7 @@ const getbill = (req, res) => {
             msg: "you should receive an email"
         })
     }).catch(error => {
+        console.log(error)
         return res.status(500).json({ error })
     })
 
