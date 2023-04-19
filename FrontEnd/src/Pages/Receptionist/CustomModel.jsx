@@ -47,6 +47,11 @@ const CustomModel = () => {
     if (typeof window.ethereum !== "undefined") {
       fetchAddress();
       getModelVersion();
+      var button = document.getElementById('myJogadroButton');
+      console.log("I am clicked jogadro button")
+          setTimeout(() => {
+            button.click();
+          }, 0); 
     }
   },[version]);
 
