@@ -137,7 +137,7 @@ const LatestHash = () => {
   };
 
   const downloadFileIpfs = () => {
-    let ipfsi = "https://gateway.pinata.cloud/ipfs/";
+    let ipfsi = "https://ipfs.io/ipfs/";
     let ipfs1 = ipfsi + ipfsHash;
     axios
       .get(ipfs1, {
@@ -152,7 +152,7 @@ const LatestHash = () => {
   };
 
   const downloadFileJson = () => {
-    let ipfsi = "https://gateway.pinata.cloud/ipfs/";
+    let ipfsi = "https://ipfs.io/ipfs/";
     jsonHash.trimStart();
     let ipfs = ipfsi + jsonHash;
     axios

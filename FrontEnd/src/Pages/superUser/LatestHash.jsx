@@ -98,12 +98,13 @@ const LatestHash = () => {
   }
 
   const downloadFileIpfs = () => {
-    let ipfsi = "https://gateway.pinata.cloud/ipfs/";
+    let ipfsi = "https://ipfs.io/ipfs/";
     let ipfs1 = ipfsi + ipfsHash;
     console.log(ipfs1);
     console.log("Hello world bay");
     axios
       .get(ipfs1, {
+        crossdomain: true, 
         responseType: "blob",
       })
       .then((response) => {
@@ -115,7 +116,7 @@ const LatestHash = () => {
   };
 
   const downloadFileJson = () => {
-    let ipfsi = "https://gateway.pinata.cloud/ipfs/";
+    let ipfsi = "https://ipfs.io/ipfs/";
     jsonHash.trimStart();
     var substring = jsonHash.slice(1);
     let ipfs = ipfsi + jsonHash;
@@ -124,6 +125,7 @@ const LatestHash = () => {
     console.log("Hello world json ");
     axios
       .get(ipfs, {
+        crossdomain: true,
         responseType: "blob",
       })
       .then((response) => {

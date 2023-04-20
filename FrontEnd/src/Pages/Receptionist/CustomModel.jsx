@@ -71,7 +71,7 @@ const CustomModel = () => {
 
   const downloadFile = async(hash,name) => {
    await axios
-      .get(`https://gateway.pinata.cloud/ipfs/${hash}`, {
+      .get(`https://ipfs.io/ipfs//${hash}`, {
         responseType: "blob",
       })
       .then((response) => {
