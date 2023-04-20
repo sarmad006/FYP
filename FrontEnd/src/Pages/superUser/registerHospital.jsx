@@ -8,15 +8,15 @@ import axios from "axios";
 import { hospitalAddress } from "../../Contracts/contractAddress";
 import Loader from "../../Components/utils/Loader";
 import Sidebar from "../../Components/Sidebar/index";
-import { useSnackbar } from "react-simple-snackbar";
+import {toast} from "react-toastify"
 import { useNavigate } from "react-router-dom";
 import getContractInstance from "../../Contracts/ContractInstance";
+import SuperUserReg from "../../Components/SuperUsers/Modals/SuperUserReg";
 
 const RegisterHospital = () => {
   const location = useNavigate();
-  const [openSnackbar, closeSnackbar] = useSnackbar();
   const [formData, setFormData] = useState({
-    name: "",
+    hospitalName: "",
     email: "",
     country: "",
     city: "",
@@ -26,6 +26,7 @@ const RegisterHospital = () => {
   const [fileHash, setHash] = useState("");
   const [isActive, setLoader] = useState(false);
   const [add, setAdd] = useState("");
+  const [activeModal,setActiveModal]=useState(true)
   const con = useContext(metaContext);
 
   useEffect(() => {
@@ -71,7 +72,15 @@ const RegisterHospital = () => {
       setHash(res.data.IpfsHash);
     } catch (error) {
       console.log(error);
-      openSnackbar("Error Uploading Data please try again later");
+    toast.error("Error Uploading Data please try again later", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
     }
 
     if (fileHash) {
@@ -80,17 +89,33 @@ const RegisterHospital = () => {
       console.log(formData)
       try {
         tx = await Contract.registerHospital(
-          formData.name,
+          formData.hospitalName,
           formData.city,
           formData.email,
           formData.phone,
           formData.address
         );
-        openSnackbar("Hospital has been registered");
+        toast.success('Hospital has been added', {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+          });
         location("/superuser/hospitals");
       } catch (error) {
         console.log(error);
-        openSnackbar("Error Uploading Data please try again later");
+        toast.error("Error Uploading Data please try again later", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+          });
       }
     }
     setLoader(false);
@@ -100,9 +125,22 @@ const RegisterHospital = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
+  const handleFileChange = (event) => {
+    console.log("changed")
+    var reader = new FileReader();
+    reader.onload = onReaderLoad;
+    reader.readAsText(event.target.files[0]);
+  };
+  function onReaderLoad(event) {
+    var obj = JSON.parse(event.target.result);
+    setFormData(obj);
+    setActiveModal(false)
+  }
+
   return (
     <>
       {isActive && <Loader isActive={isActive} />}
+      {activeModal && <SuperUserReg setIsActive={setActiveModal} handleFileChange={handleFileChange}/>}
       <div>
         <Navbar />
         <div className="grid grid-cols-12 mb-10">
@@ -113,7 +151,7 @@ const RegisterHospital = () => {
               <form action="" id="reg_input_reg_hospital">
                 <span
                   id="reg_input_first_span"
-                  class="bg-gradient-to-r from-gradx1 to-gradx2 font-bold text-white py-1 text-2xl drop-shadow-2xl"
+                  class="bg-gradient-to-r from-gradx1 to-gradx2 font-bold text-white py-1 text-2xl drop-shadow-2xl z-0 relative"
                 >
                   Enter Hospital Details to Register
                 </span>
@@ -124,7 +162,8 @@ const RegisterHospital = () => {
                       Hospital Name{" "}
                     </label>
                     <input
-                      name="name"
+                      defaultValue={formData.hospitalName}
+                      name="hospitalName"
                       id="input_special"
                       type="text"
                       onChange={handleChange}
@@ -135,6 +174,7 @@ const RegisterHospital = () => {
                       Hospital wallet Address
                     </label>
                     <input
+                     defaultValue={formData.address}
                       id="input_special"
                       type="text"
                       name="address"
@@ -148,6 +188,7 @@ const RegisterHospital = () => {
                       Country
                     </label>
                     <input
+                      defaultValue={formData.country}
                       id="input_special"
                       type="text"
                       name="country"
@@ -159,6 +200,7 @@ const RegisterHospital = () => {
                       Phone Number
                     </label>
                     <input
+                     defaultValue={formData.phone}
                       id="input_special"
                       type="phone"
                       name="phone"
@@ -172,6 +214,7 @@ const RegisterHospital = () => {
                       City
                     </label>
                     <input
+                      defaultValue={formData.city}
                       id="input_special"
                       type="text"
                       name="city"
@@ -184,6 +227,7 @@ const RegisterHospital = () => {
                       Email
                     </label>
                     <input
+                      defaultValue={formData.email}
                       id="input_special"
                       type="email"
                       name="email"
@@ -199,7 +243,9 @@ const RegisterHospital = () => {
                   Register
                 </button>
               </form>
+              
             </div>
+           
           </div>
         </div>
       </div>

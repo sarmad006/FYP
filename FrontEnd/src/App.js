@@ -36,10 +36,12 @@ import UpdateGlobalModel from "./Pages/superUser/UpdateGlobalModel";
 import GetSpecificModel from "./Pages/Receptionist/GetSpecificModel";
 import ModelController from "./Pages/Receptionist/ModelController";
 import LatestHash from "./Pages/superUser/LatestHash";
-import SnackbarProvider from "react-simple-snackbar";
 import RegisterHospital from "./Pages/superUser/registerHospital";
 import ActiveModelsHospital from "./Pages/Receptionist/ActiveModelsHospital";
 import CustomModel from "./Pages/Receptionist/CustomModel";
+
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const getLibrary = (provider) => {
   return new Web3Provider(provider);
@@ -58,7 +60,7 @@ const ProtectedRoute = ({ redirectPath = "/", children }) => {
 function App() {
   return (
     // @Sarmad add this in Route <RegisterComponent/>
-    <SnackbarProvider>
+  
       <Web3ReactProvider getLibrary={getLibrary}>
         <MetaMask>
           <BrowserRouter>
@@ -142,8 +144,8 @@ function App() {
             </Routes>
           </BrowserRouter>
         </MetaMask>
+       <ToastContainer/>
       </Web3ReactProvider>
-    </SnackbarProvider>
   );
 }
 

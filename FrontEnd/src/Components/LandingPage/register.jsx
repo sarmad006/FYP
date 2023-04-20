@@ -1,18 +1,23 @@
-import React, { useRef } from "react";
+import React from "react";
 import Nav from "./Nav";
 import "./register.css";
 import metaContext from "../../context/metaContext";
 import { useContext, useEffect, useState } from "react";
-import emailjs from "emailjs-com";
 import Loader from "../utils/Loader";
-import { useSnackbar } from "react-simple-snackbar";
+import { toast } from "react-toastify";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const RegisterComponent = () => {
   const location = useNavigate();
-  
-  const [openSnackbar, closeSnackbar] = useSnackbar();
-  const form = useRef();
+  const [formData,setFormData]=useState({
+    email:"",
+    HospitalName:"",
+    CountryName:"",
+    City:"",
+    phone:""
+
+  })
   const [isActive, setLoader] = useState(false);
   const [add, setAdd] = useState("");
   const con = useContext(metaContext);
@@ -32,6 +37,10 @@ const RegisterComponent = () => {
     setAdd(con.acn.address);
   };
 
+  const handleChange=(e)=>{
+    setFormData({...formData,[e.target.name]:e.target.value})
+  }
+
   async function getAccount() {
     const accounts = await window.ethereum.enable();
     window.location.reload(false);
@@ -40,78 +49,41 @@ const RegisterComponent = () => {
   async function registerHospital(e) {
     setLoader(true);
     e.preventDefault();
-    await emailjs
-      .sendForm(
-        process.env.REACT_APP_SERVICE_ID,
-        process.env.REACT_APP_TEMPLATE_ID,
-        form.current,
-        process.env.REACT_APP_USER_ID
-      )
-      .then((result) => {
-        console.log(result);
-        setTimeout(() => {
-          setLoader(false);
-          openSnackbar(
-            "Email has been sent to our directive will be shortly in touch with you"
-          );
-          location("/thanks");
-        }, 500);
-      })
-
-      .catch((error) => {
-        setTimeout(() => {
-          setLoader(false);
-          openSnackbar("Error occured please try again");
-        }, 500);
-        console.log(error);
-      });
-    setLoader(false);
-    // var f = new File([formData.name], `${formData.name}.pkl`, { type: "text/plain" });
-    // let formdata = new FormData();
-    // formdata.append("file", f);
-    // let res;
-    // try {
-    //   res = await axios({
-    //     method: "post",
-    //     url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
-    //     data: formdata,
-    //     headers: {
-    //       pinata_api_key: API_KEY,
-    //       pinata_secret_api_key: API_Secret,
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   });
-    //   console.log(res.data.IpfsHash)
-    //   setHash(res.data.IpfsHash)
-    //   console.log(formData)
-    // } catch (error) {
-    //   console.log(error);
-    // }
-
-    // const provider = new ethers.providers.Web3Provider(window.ethereum);
-    // const signer = provider.getSigner();
-    // const Contract = new ethers.Contract(
-    //   hospitalAddress,
-    //   abi,
-    //   signer
-    // );
-    // let tx;
-
-    // try {
-    //   tx = await Contract.registerHospital(
-    //     formData.name,
-    //     formData.city,
-    //     formData.email,
-    //     formData.phone,
-    //     res.data.IpfsHash,
-    //     add
-
-    //   );
-    //   console.log(tx);
-    //   location('/thanks')
-    // } catch (error) {
-    //   console.log(error);
-    // }
+   
+   await axios.post("http://localhost:5000/api/sendmail",{
+    ...formData,
+    address:add
+   }).then((res)=>{
+    console.log(res)
+    setTimeout(() => {
+      setLoader(false)
+      toast.success('Email sent to our directive', {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
+    }, 1000);
+    location('/thanks')
+   }).catch((error)=>{
+    setTimeout(() => {
+      setLoader(false)
+      toast.error("Error occured ", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
+    }, 1000);
+   
+   })
+    
   }
 
   return (
@@ -131,7 +103,7 @@ const RegisterComponent = () => {
           <span class="reg_desc_span">LETS GO !</span>
         </div>
 
-        <form action="" id="reg_input" ref={form}>
+        <form action="" id="reg_input" >
           <span
             id="reg_input_first_span"
             class="bg-gradient-to-r from-gradx1 to-gradx2 font-bold text-white py-1 text-2xl drop-shadow-2xl"
@@ -144,7 +116,7 @@ const RegisterComponent = () => {
                 {" "}
                 Hospital Name{" "}
               </label>
-              <input name="name" id="input_special" type="text" />
+              <input name="HospitalName" id="input_special" type="text" onChange={handleChange} />
             </span>
             <span className="reg_input_lower_box">
               <label id="reg_label" htmlFor="">
@@ -164,13 +136,13 @@ const RegisterComponent = () => {
               <label id="reg_label" htmlFor="">
                 Country
               </label>
-              <input id="input_special" type="text" name="country" />
+              <input id="input_special" type="text" name="CountryName" onChange={handleChange} />
             </span>
             <span className="reg_input_lower_box">
               <label id="reg_label" htmlFor="">
                 Phone Number
               </label>
-              <input id="input_special" type="phone" name="phone" />
+              <input id="input_special" type="phone" name="phone" onChange={handleChange} />
             </span>
           </span>
           <span id="reg_input_box">
@@ -178,14 +150,14 @@ const RegisterComponent = () => {
               <label id="reg_label" htmlFor="">
                 City
               </label>
-              <input id="input_special" type="text" name="city" />
+              <input id="input_special" type="text" name="City" onChange={handleChange}/>
             </span>
             <span className="reg_input_lower_box">
               <label id="reg_label" htmlFor="">
                 {" "}
                 Email
               </label>
-              <input id="input_special" type="email" name="email" />
+              <input id="input_special" type="email" name="email" onChange={handleChange} />
             </span>
           </span>
           <button

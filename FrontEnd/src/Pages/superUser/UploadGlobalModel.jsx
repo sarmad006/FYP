@@ -12,7 +12,7 @@ import { AiOutlineFileText } from "react-icons/ai";
 import { BsFiletypeJson } from "react-icons/bs";
 import getContractInstance from "../../Contracts/ContractInstance";
 import Loader from "../../Components/utils/Loader";
-import { useSnackbar } from "react-simple-snackbar";
+import {toast} from "react-toastify"
 import modelAbi from "../../Contracts/model.json";
 import { modelAddress } from "../../Contracts/contractAddress";
 
@@ -26,7 +26,7 @@ const UploadModel = () => {
   const [metadata, setMetaData] = useState();
   const con = useContext(metaContext);
   const [address, setAddress] = useState("");
-  const [openSnackbar, closeSnackbar] = useSnackbar();
+
   const [selectedDisease,setSelectedDisease]=useState("none")
 
   useEffect(() => {
@@ -67,10 +67,26 @@ const UploadModel = () => {
         metadata.accuracy,
         metadata.models
       );
-      openSnackbar("Successfully uploaded Global model");
+      toast.success("Successfully uploaded Global model",{
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
     } catch (error) {
       console.log(error);
-      openSnackbar("error occured during transaction");
+      toast.error("error occured during transaction",{
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
     }
     setActive(false);
     setStepper(1);
@@ -123,7 +139,15 @@ const UploadModel = () => {
       setModelHash(response.data.IpfsHash);
     } catch (error) {
       console.log(error);
-      openSnackbar("Error uploading model");
+      toast.error("Error uploading model",{
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
     }
   };
   const sendJsonFileToPinata = async (e) => {
@@ -145,7 +169,15 @@ const UploadModel = () => {
       setJsonHash(response.data.IpfsHash);
     } catch (error) {
       console.log(error);
-      openSnackbar("error uploading metadata");
+      toast.error("error uploading metadata",{
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+        });
     }
   };
 
