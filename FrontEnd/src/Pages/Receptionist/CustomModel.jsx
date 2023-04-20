@@ -14,7 +14,7 @@ import {
 import abi from "../../Contracts/model.json";
 import metaContext from "../../context/metaContext";
 import FileSaver from "file-saver";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import getContractInstance from "../../Contracts/ContractInstance";
 
 
