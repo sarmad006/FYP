@@ -31,6 +31,7 @@ const LatestHash = () => {
   const location = useLocation();
   const [version, setversion] = useState(0);
   const [arr, setArr] = useState([]);
+  const [jsonData, setJsonData] = useState(null);
   let x = [];
   let y = [];
 
@@ -130,15 +131,19 @@ const LatestHash = () => {
       })
       .then((response) => {
         FileSaver.saveAs(response.data, "jsonfile.json");
+        console.log("Raw data",response.data.name)
+        let result = JSON.stringify(response.data)
+        setJsonData(JSON.parse(result));
+        console.log("Json Data Recieved",jsonData.name)
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  function downloadFile() {
-    downloadFileIpfs();
-    downloadFileJson();
+  async function downloadFile() {
+   await downloadFileIpfs();
+    await downloadFileJson();
   }
   console.log(arr.length)
   return (

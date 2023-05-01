@@ -127,11 +127,6 @@
 				"internalType": "uint256",
 				"name": "_accuracy",
 				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_modelsCombined",
-				"type": "uint256"
 			}
 		],
 		"name": "registerModel",

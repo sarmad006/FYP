@@ -1,8 +1,9 @@
 export const contractAddress="0x11db3f5068de393b3bD2A144Be97a129e76b3cFa";
-export const modelAddress="0xb247868b62d420d96d6F1A3b6F5FB4459962a513";
-export const hospitalAddress="0x7a26b7a8D75694bdeFC80ebCb7518853a102a0Da";
-export const superuserAddress="0x3f9dFA8B5Ed95219D4D91d63e14cD06B50Da2d56";
-export const authenticationAdrress = "0x2769880F3C61AfE846fC7aae6D995cdd2EFc860F";
+export const modelAddress="0xDf3dE830B7d57cE4dD7594cdb56A3e4A336c1FAb";
+export const hospitalAddress="0xb594B870095B7Bf914064b02267bBC440D9C9bc7";
+export const superuserAddress="0x6326BcC9Df5a8320b47de80580bA5a9C1DcdAF81";
+export const authenticationAdrress = "0xAa8D6A5B7c36efEC0E9Fd51bDe83c6487c55cb18";
+const tokenAddress = "0x6AF1D20A968eFaED25Ed9616B5ECaeB5D93af0ac"; //DOC-Token
 
 // export const modelAddress="0x1D71411De98837B759e6aDD6Ab152fB93b3E1171";
 // export const hospitalAddress="0xfe2CeEDFBA6AAA7560257189588c95E1b95bFC39";

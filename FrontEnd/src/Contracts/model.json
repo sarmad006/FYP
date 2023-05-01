@@ -36,11 +36,6 @@
 			},
 			{
 				"internalType": "uint256",
-				"name": "accuracy",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
 				"name": "modelsCombined",
 				"type": "uint256"
 			},
@@ -52,6 +47,11 @@
 			{
 				"internalType": "uint256",
 				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "accuracy",
 				"type": "uint256"
 			}
 		],
@@ -164,6 +164,25 @@
 		"inputs": [
 			{
 				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"name": "MinAccuracyRequired",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
 				"name": "_name",
 				"type": "string"
 			},
@@ -180,11 +199,6 @@
 			{
 				"internalType": "uint256",
 				"name": "_accuracy",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_modelsCombined",
 				"type": "uint256"
 			}
 		],
@@ -498,11 +512,6 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "accuracy",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
 						"name": "modelsCombined",
 						"type": "uint256"
 					},
@@ -514,6 +523,11 @@
 					{
 						"internalType": "uint256",
 						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "accuracy",
 						"type": "uint256"
 					}
 				],
@@ -552,11 +566,6 @@
 			},
 			{
 				"internalType": "uint256",
-				"name": "accuracy",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
 				"name": "modelsCombined",
 				"type": "uint256"
 			},
@@ -568,6 +577,11 @@
 			{
 				"internalType": "uint256",
 				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "accuracy",
 				"type": "uint256"
 			}
 		],
