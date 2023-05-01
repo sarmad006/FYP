@@ -47,13 +47,11 @@ const getLibrary = (provider) => {
   return new Web3Provider(provider);
 };
 
-const ProtectedRoute = ({ redirectPath = "/", children }) => {
-  const account = useContext(metaContext);
-  console.log(account);
-  //  if(account.acn.address)
-  //  {
-  // return <Navigate to={redirectPath} replace/>
-  //  }
+const ProtectedRoute = ({  children }) => {
+   if(!window.sessionStorage.getItem("key"))
+   {
+  return <Navigate to="/" replace/>
+   }
   return children ? children : <Outlet />;
 };
 
@@ -71,7 +69,6 @@ function App() {
               <Route path="/about" element={<About />}></Route>
               <Route path="/login" element={<Login />}></Route>
               {/* Only Authenticated Routes goes here */}
-              <Route element={<ProtectedRoute />}>
                 <Route path="/doctor" element={<Home />}></Route>
                 <Route
                   path="/doctor/recommendation"
@@ -108,6 +105,7 @@ function App() {
                   path="/superuser/latest"
                   element={<LatestHash />}
                 ></Route>
+                 <Route element={<ProtectedRoute />}>
                 <Route exact path="/recep" element={<Receptionist />}></Route>
                 <Route path="recep/modelr" element={<ModelReq />}></Route>
                 <Route path="recep/entry" element={<PatientEntry />}></Route>
@@ -129,7 +127,7 @@ function App() {
                   element={<UpdateModel />}
                 ></Route>
                 <Route
-                  path="/recep/GetSModel"
+                  path="/recep/GetGModel"
                   element={<GetSpecificModel />}
                 ></Route>
                 <Route

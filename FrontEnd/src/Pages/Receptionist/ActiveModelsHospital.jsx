@@ -81,7 +81,7 @@ const ActiveModelsHospital = () => {
       navigate("/recep/CustomModel",{state:id})
   }
   function handleClick4(id) {
-    navigate("/superuser/latest",{state:id})
+    navigate("/recep/GetGModel",{state:id})
 }
   
 

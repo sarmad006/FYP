@@ -45,7 +45,7 @@ const Sidebar = () => {
     {
       name: "Model",
       icon: <AiOutlineForm />,
-      path: "/superuser/models"
+      path: "/superuser/UploadModel"
     }
   ];
   return (

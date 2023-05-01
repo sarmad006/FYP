@@ -62,6 +62,7 @@ const CustomModel = () => {
     let contract = getContractInstance(abi, modelAddress);
      const modelHash= await contract.getLocalIpfs(location.state, index, address);
     const JsonHash = await contract.getLocalJson(location.state, index, address);
+    console.log(JsonHash)
     await downloadFile(modelHash,`${location.state}.pkl`)
     await downloadFile(JsonHash,`${location.state}.json`)
     setTimeout(()=>{
@@ -71,7 +72,7 @@ const CustomModel = () => {
 
   const downloadFile = async(hash,name) => {
    await axios
-      .get(`https://ipfs.io/ipfs//${hash}`, {
+      .get(`https://gateway.pinata.cloud/ipfs/${hash}`, {
         responseType: "blob",
       })
       .then((response) => {

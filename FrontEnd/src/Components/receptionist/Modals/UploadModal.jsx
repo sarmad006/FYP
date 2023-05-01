@@ -23,6 +23,9 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
 
   async function updateLModel() {
     setActive(true);
+    console.log(modelHash)
+    console.log(jsonHash)
+    if(selectedModel.name===metadata.name){
     const Contract = getContractInstance(abi, hospitalAddress);
     console.log(Contract);
     let tx;
@@ -58,7 +61,20 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
     setStepper(1);
     setFile("");
   }
-
+  else
+  {
+  setActive(false)
+  toast.error("selected Disease and metadata should be same",{
+    position: "bottom-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+    });
+  }
+  }
   const handleFileChange1 = (event) => {
     setFile(event.target.files[0]);
     console.log(event.target.files[0]);
@@ -77,9 +93,7 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
 
   const handleUpload = async () => {
     await sendModelFileToPinata(file);
-    setTimeout(() => {
-      sendJsonFileToPinata(file1);
-    }, 3000);
+     await sendJsonFileToPinata(file1);
   };
 
 

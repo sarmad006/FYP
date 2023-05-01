@@ -58,6 +58,7 @@ const UploadModel = () => {
 
   async function uploadLModel() {
     setActive(true);
+    if(selectedDisease === metadata.name){
     const Contract = getContractInstance(abi, hospitalAddress);
     await handleUpload();
     console.log(Contract);
@@ -94,7 +95,20 @@ const UploadModel = () => {
     setStepper(1);
     setFile("");
   }
-
+  else
+  {
+  setActive(false)
+  toast.error("selected Disease and metadata should be same",{
+    position: "bottom-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+    });
+  }
+  }
   const handleFileChange1 = (event) => {
     setFile(event.target.files[0]);
     console.log(event.target.files[0]);

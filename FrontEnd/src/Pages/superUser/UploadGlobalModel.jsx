@@ -64,8 +64,7 @@ const UploadModel = () => {
         metadata.name.toLowerCase(),
         modelHash,
         jsonHash,
-        metadata.accuracy,
-        metadata.models
+        parseInt(metadata.accuracy)
       );
       toast.success("Successfully uploaded Global model",{
         position: "bottom-center",
@@ -182,14 +181,14 @@ const UploadModel = () => {
   };
 
   return (
-    <div className="uploadModel">
+    <div >
       {isActive && <Loader isActive={isActive} />}
       <Navbar />
-      <div className="grid grid-cols-12 mb-10 mt-20 mx-4">
+      <div className="grid grid-cols-12 mb-10  mx-4">
         <Sidebar />
 
         {stepper === 1 && (
-          <div className="col-span-10">
+          <div className="col-span-10 mt-8">
             <div className="flex justify-center space-y-4  flex-col items-center px-28">
               
               
@@ -280,7 +279,7 @@ const UploadModel = () => {
           </div>
         )}
         {stepper === 2 && (
-          <div className="col-span-10">
+          <div className="col-span-10 mt-8">
             <div className="flex justify-center  flex-col items-center space-y-4 px-28">
           
               <Stepper value={stepper} />
@@ -372,7 +371,7 @@ const UploadModel = () => {
           </div>
         )}
         {stepper === 3 && (
-          <div className="col-span-10">
+          <div className="col-span-10 mt-8">
             <div className="flex justify-center  flex-col items-center space-y-4 px-28">
           
               <Stepper value={3} />

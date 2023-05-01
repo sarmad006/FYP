@@ -43,7 +43,8 @@ const Login = () => {
     const contract = getContractInstance(abi,authenticationAdrress)
     tx = await contract.authenticate(address);
     setType(tx)
-    console.log("Verification successful you are a :",type)
+    if(tx === "Hospital")
+    window.sessionStorage.setItem("key",tx)
   }
 
   function checkAddressPassword(){
