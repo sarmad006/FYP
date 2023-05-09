@@ -8,6 +8,7 @@ import { Link, useLocation } from "react-router-dom";
 import abi  from "../../Contracts/hospital.json";
 import axios from "axios";
 import { ethers } from "ethers";
+import { useSelector } from "react-redux";
 
 const Receptionist = () => {
   const location=useLocation();
@@ -16,6 +17,7 @@ const Receptionist = () => {
   const [info,setInfo] = useState("")
   const [number,setNumber] = useState("");
   const hexToDecimal = (hex) => parseInt(hex, 16);
+  const userAddress=useSelector((state)=>state.user.value)
   
   useEffect(() => {
     if (typeof window.ethereum !== "undefined") {
@@ -24,7 +26,6 @@ const Receptionist = () => {
       window.ethereum.on("accountsChanged", function (accounts) {
         getAccount();
       });
-      console.log("hello2345");
     }
   }, [address]);
 

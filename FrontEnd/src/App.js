@@ -17,8 +17,6 @@ import About from "./Components/LandingPage/About";
 import MetaMask from "./context/Metamask";
 import Login from "./Components/LandingPage/Login";
 import Receptionist from "./Pages/Receptionist/Home";
-import { useContext, useEffect } from "react";
-import metaContext from "./context/metaContext";
 import Prediction from "./Pages/Doctors/Prediction";
 import RegisteredHospitals from "./Pages/superUser/RegisteredHospitals";
 import ModelReq from "./Pages/Receptionist/ModelReq";

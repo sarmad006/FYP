@@ -1,8 +1,6 @@
 import React from "react";
 import "./index.css";
-import { AiOutlineHome, AiOutlineForm } from "react-icons/ai";
-import { RiFileCloudLine } from "react-icons/ri";
-import { MdOutlineFileUpload } from "react-icons/md";
+import { AiOutlineHome, AiOutlineForm,AiOutlineStar } from "react-icons/ai";
 import { BsHospital } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
 
@@ -25,6 +23,11 @@ const Sidebar = () => {
       icon: <AiOutlineForm />,
       path: "/recep/UploadModel",
     },
+    {
+      name:"Rating",
+      icon:<AiOutlineStar/>,
+      path:"/recep/rating"
+    }
   ];
   const superUser = [
     {

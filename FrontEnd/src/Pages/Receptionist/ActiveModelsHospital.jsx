@@ -1,15 +1,14 @@
 import Navbar from "../../Components/Navbar";
 import Sidebar from "../../Components/Sidebar";
 import React, { useState } from "react";
-import axios from "axios";
 import { modelAddress } from "../../Contracts/contractAddress";
 import metaContext from "../../context/metaContext";
 import { useContext, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
 import abi  from "../../Contracts/model.json";
 import { ethers } from "ethers";
 import { useNavigate } from 'react-router-dom';
 import UploadModal from "../../Components/receptionist/Modals/UploadModal";
+import { useSelector } from "react-redux";
 
 
 const ActiveModelsHospital = () => {
@@ -19,6 +18,8 @@ const ActiveModelsHospital = () => {
     const con = useContext(metaContext);
     const [address, setAddress] = useState("");
     const [pending,setpending]= useState(true);
+    const userAddress=useSelector((state)=>state.user.value)
+    console.log(userAddress)
 
     useEffect(() => {
       if (typeof window.ethereum !== "undefined") {

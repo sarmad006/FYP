@@ -2,7 +2,6 @@ import React from 'react'
 import './UpdateGlobalModel.css'
 import Navbar from '../../Components/Navbar'
 import Sidebar from '../../Components/Sidebar'
-
 import {useState } from "react";
 import axios from "axios";
 import { superuserAddress } from "../../Contracts/contractAddress";

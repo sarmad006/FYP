@@ -58,7 +58,7 @@ const UploadModel = () => {
 
   async function uploadLModel() {
     setActive(true);
-    if(selectedDisease === metadata.name){
+    if(selectedDisease.toLowerCase() === metadata.name.toLowerCase()){
     const Contract = getContractInstance(abi, hospitalAddress);
     await handleUpload();
     console.log(Contract);

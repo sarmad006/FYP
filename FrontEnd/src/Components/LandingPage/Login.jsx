@@ -6,7 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import getContractInstance from "../../Contracts/ContractInstance";
 import abi from "../../Contracts/authentication.json"
 import { authenticationAdrress } from "../../Contracts/contractAddress";
-
+import { useDispatch,useSelector } from 'react-redux'
+import { addUser } from "../../redux/userSlice";
 
 
 const Login = () => {
@@ -14,6 +15,8 @@ const Login = () => {
   const [type,setType]=useState("")
   const con = useContext(metaContext);
   const navigate = useNavigate();
+  const dispatch=useDispatch()
+  const userAddress=useSelector((state)=>state.user.value)
 
    
   useEffect(() => {
@@ -44,7 +47,10 @@ const Login = () => {
     tx = await contract.authenticate(address);
     setType(tx)
     if(tx === "Hospital")
+    {
     window.sessionStorage.setItem("key",tx)
+    dispatch(addUser(address))
+    }
   }
 
   function checkAddressPassword(){

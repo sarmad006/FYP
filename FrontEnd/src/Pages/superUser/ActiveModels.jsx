@@ -71,20 +71,16 @@ const ActiveModels = () => {
     const navigate = useNavigate ();
     function handleClick(id) {
       navigate('/superuser/disease',{state:models[parseInt(id._hex)]})
-      // console.log(parseInt(id._hex))
-      // console.log(models[parseInt(id._hex)])
     }
 
     function handleClick2(id) {
-        navigate('/recep/retrieveModel',{state:id})
+        navigate('/superuser/aggregate',{state:id})
     }
 
     function handleClick3(id) {
       navigate('/superuser/latest',{state:id})
   }
-  function handleClick4(id) {
-    navigate("/superuser/latest",{state:id})
-}
+
   
 
 

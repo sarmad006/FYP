@@ -154,9 +154,10 @@ const CustomModel = () => {
                 Total Versions Available : {version}
               </h1>
               <h1 className="text-white font-poppins text-2xl">
-                Version Selected : {parseInt(index)+1}
+                Version Selected : {version > 0 ? parseInt(index)+1 : "None"}
               </h1>
             </div>
+            
               <select onChange={handleSelect} className="block py-2.5 mb-6 px-0 w-40 text-center shadow-2xl focus:shadow-2xl text-md text-white bg-transparent border-2 rounded-lg border-purple appearance-none focus:outline-none">
                 {createArray(version).map((num, index) => (
                   <option className="text-black" key={index} value={index}>
