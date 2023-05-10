@@ -4,21 +4,25 @@ import { useContext, useEffect, useState } from "react";
 import Nav from "./Nav";
 import { Link, useNavigate } from "react-router-dom";
 import getContractInstance from "../../Contracts/ContractInstance";
-import abi from "../../Contracts/authentication.json"
-import { authenticationAdrress } from "../../Contracts/contractAddress";
-import { useDispatch,useSelector } from 'react-redux'
+import abi from "../../Contracts/authentication.json";
+import hospitalAbi from "../../Contracts/hospital.json";
+import {
+  authenticationAdrress,
+  hospitalAddress,
+} from "../../Contracts/contractAddress";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../../redux/userSlice";
-
 
 const Login = () => {
   const [address, setAddress] = useState("");
-  const [type,setType]=useState("")
+  const [type, setType] = useState("");
+  const [hospitalarray, setHospitalArray] = useState([]);
+  const [hospitalName, setHospitalName] = useState("");
   const con = useContext(metaContext);
   const navigate = useNavigate();
-  const dispatch=useDispatch()
-  const userAddress=useSelector((state)=>state.user.value)
+  const dispatch = useDispatch();
+  const userAddress = useSelector((state) => state.user.value);
 
-   
   useEffect(() => {
     if (typeof window.ethereum !== "undefined") {
       fetchAddress();
@@ -28,7 +32,7 @@ const Login = () => {
       });
       console.log("hello");
     }
-  }, [address,type]);
+  }, [address, type,hospitalName]);
 
   const fetchAddress = async () => {
     await con.accountSet();
@@ -41,32 +45,37 @@ const Login = () => {
     // do something with new account here
   }
 
-  let tx
-  async function authenticateUser(){
-    const contract = getContractInstance(abi,authenticationAdrress)
+  let tx, tx2, tx3;
+  async function authenticateUser() {
+    let contract = getContractInstance(abi, authenticationAdrress);
     tx = await contract.authenticate(address);
-    setType(tx)
-    if(tx === "Hospital")
-    {
-    window.sessionStorage.setItem("key",tx)
-    dispatch(addUser(address))
+    setType(tx);
+    contract = getContractInstance(hospitalAbi, hospitalAddress);
+    tx2 = await contract.getHospitals();
+    const hos = tx2.filter((item) => item.metamask === address);
+    setHospitalName(hos[0].name);
+    console.log(hospitalName);
+
+    if (tx === "Hospital") {
+      window.sessionStorage.setItem("key", tx);
+      dispatch(addUser(address));
     }
   }
 
-  function checkAddressPassword(){
-    // send address + password to smart contract and receive SuperUser/Hospital Against it    
-    console.log("I am in the block now")
+  function checkAddressPassword() {
+    // send address + password to smart contract and receive SuperUser/Hospital Against it
+    console.log("I am in the block now");
     // address => BlockChain
-    
-    if(type === "SuperUser")
-       navigate("/superuser");
-    else if(type === "Hospital"){
-      navigate("/recep");
+
+    if (type === "SuperUser")
+      //  navigate("/superuser");
+      console.log("first");
+    else if (type === "Hospital") {
+      // navigate("/recep");
+      console.log("first");
+    } else if (type === "Account Doesn't Exists") {
+      console.log("Account not found");
     }
-    else if(type === "Account Doesn't Exists"){
-      console.log("Account not found")
-    }
-  
   }
 
   return (
@@ -81,12 +90,24 @@ const Login = () => {
               </div>
               <div id="field">
                 <label class="text-slate-100">Metamask Address</label>
-                <input id="inp" type="text" defaultValue={address} readOnly></input>
+                <input
+                  id="inp"
+                  type="text"
+                  defaultValue={address}
+                  readOnly
+                ></input>
               </div>
-              {type.length>0? (
-              <button id="btn1" onClick={checkAddressPassword} class="font-poppins bg-slate-200 rounded-full mt-6 ml-2 w-120 text-sm drop-shadow-2xl tracking-widest">
+              {type.length > 0 ? (
+                <button
+                  id="btn1"
+                  onClick={checkAddressPassword}
+                  class="font-poppins bg-slate-200 rounded-full mt-6 ml-2 w-120 text-sm drop-shadow-2xl tracking-widest"
+                >
                   Login
-              </button>):("")}
+                </button>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>
