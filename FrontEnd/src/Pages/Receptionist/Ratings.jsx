@@ -12,7 +12,7 @@ import Loader from "../../Components/utils/Loader";
 import { useSelector } from "react-redux";
 
 const Ratings = () => {
-  const userAddress=useSelector((state)=>state.user.value)
+  const userAddress=useSelector((state)=>state.user.value.address)
   const [docTokens, setDocTokens] = useState(0);
   const [penaltyCount, setPenaltyCount] = useState(0);
   const [datex,setdatex]=useState("")
