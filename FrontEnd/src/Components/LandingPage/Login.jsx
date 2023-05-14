@@ -57,22 +57,21 @@ const Login = () => {
     console.log(hospitalName);
 
     if (tx === "Hospital") {
-      window.sessionStorage.setItem("key", tx);
-      dispatch(addUser(address));
+      dispatch(addUser({
+        address:address,
+        name:hos[0].name
+      }));
     }
   }
 
   function checkAddressPassword() {
-    // send address + password to smart contract and receive SuperUser/Hospital Against it
-    console.log("I am in the block now");
+
     // address => BlockChain
 
     if (type === "SuperUser")
-      //  navigate("/superuser");
-      console.log("first");
+      navigate("/superuser");
     else if (type === "Hospital") {
-      // navigate("/recep");
-      console.log("first");
+       navigate("/recep");
     } else if (type === "Account Doesn't Exists") {
       console.log("Account not found");
     }

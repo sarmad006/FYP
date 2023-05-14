@@ -6,9 +6,9 @@ import metaContext from "../../context/metaContext";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import abi  from "../../Contracts/hospital.json";
-import axios from "axios";
 import { ethers } from "ethers";
 import { useSelector } from "react-redux";
+import getContractInstance from "../../Contracts/ContractInstance";
 
 const Receptionist = () => {
   const location=useLocation();
@@ -42,34 +42,23 @@ const Receptionist = () => {
   };
 
   async function getHospitalInfo() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const Contract = new ethers.Contract(
-      hospitalAddress,
-      abi,
-      signer
-    );
-    console.log(Contract);
+    const Contract=getContractInstance(abi,hospitalAddress)
     let tx;
     try {
-      console.log(address)
       tx = await Contract.index(address);
-      console.log(hexToDecimal(tx._hex));
       setNumber(hexToDecimal(tx._hex));
 
     } catch (error) {
       console.log(error);
-      console.log("failing ....")
     }
     let tx2;
     try {
       tx2 = await Contract.hospitals(tx);
-      console.log(tx2);
+      console.log(tx2)
       setInfo(tx2);
 
     } catch (error) {
       console.log(error);
-      console.log("failing ....")
     }
   }
 
@@ -82,18 +71,31 @@ const Receptionist = () => {
         <div className="col-span-10">
           <div className="flex justify-center mt-20">
             <h1 className="bg-gradient-to-r from-gradx1 to-gradx2 text-white text-3xl mt-8 font-poppins font-bold mr-2 py-1 px-10 rounded-2xl tracking-widest">
-                Hospital : {info.name} <br />
+                Hospital Detail <br />
             </h1>
           </div>
-          <div>
-            <h1 className="text-white font-poppins Box2 flex flex-col items-center">Details</h1>
-          </div>
-          <div id="hospitalInfo" className="text-white font-poppins Box flex flex-col items-center">
-                Email : {info.email} <br />
-                Phone : {info.phone} <br />
-                City : {info.city}
-          </div>
-          <img id="homesvg" src="./image/line.svg" style={{ height: "120px", width: "550px" }} alt="MetaMask pic 2"/>
+          <div className="flex justify-center my-12">
+         <div className="w-5/12 justify  p-4 bg-transparent border-2 border-purple rounded-lg shadow-xl sm:p-6 md:p-8 ">
+         <div className="flex gap-x-6 items-center justify-between">
+            <label className="block  text-md font-medium text-gray-300 font-poppins">Hospital Name</label>
+            <input type="text" class="bg-transparent border-b-2 border-borderPurple shadow-2xl text-white p-1.5 text-md font-poppins" readOnly defaultValue={info.name}/>
+        </div>
+        <div className="flex gap-x-6 items-center justify-between my-4">
+            <label className="block  text-md font-medium text-gray-300 font-poppins">Email Address</label>
+            <input type="text" class="bg-transparent border-b-2 border-borderPurple shadow-2xl text-white p-1.5 text-md font-poppins" readOnly defaultValue={info.email}/>
+        </div>
+        <div className="flex gap-x-6 items-center justify-between ">
+            <label className="block  text-md font-medium text-gray-300 font-poppins">Phone Number</label>
+            <input type="text" class="bg-transparent border-b-2 border-borderPurple shadow-2xl text-white p-1.5 text-md font-poppins" readOnly defaultValue={info.phone}/>
+        </div>
+        <div className="flex gap-x-6 items-center justify-between my-4">
+            <label className="block  text-md font-medium text-gray-300 font-poppins">City Name</label>
+            <input type="text" class="bg-transparent border-b-2 border-borderPurple shadow-2xl text-white p-1.5 text-md font-poppins" readOnly defaultValue={info.city}/>
+        </div>
+      </div>
+         </div>
+
+          
           
         </div>
       </div>

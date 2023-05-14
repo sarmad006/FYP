@@ -40,13 +40,16 @@ import CustomModel from "./Pages/Receptionist/CustomModel";
 
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AnimatedText from "./Components/utils/AnimatedText";
+import { useSelector } from "react-redux";
 
 const getLibrary = (provider) => {
   return new Web3Provider(provider);
 };
 
 const ProtectedRoute = ({  children }) => {
-   if(!window.sessionStorage.getItem("key"))
+   const user=useSelector((state)=>state.user.value.address)
+   if(!user)
    {
   return <Navigate to="/" replace/>
    }
@@ -61,7 +64,8 @@ function App() {
         <MetaMask>
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<LandingPage />}></Route>
+              <Route path="/" element={<AnimatedText text="DEDOC" />}></Route>
+              <Route path="/landing" element={<LandingPage/>}></Route>
               <Route path="/reg" element={<RegisterComponent />}></Route>
               <Route path="/thanks" element={<Thankyou />}></Route>
               <Route path="/about" element={<About />}></Route>
