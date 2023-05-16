@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../../Components/Navbar";
 import Sidebar from "../../Components/Sidebar";
 import axios from "axios";
-import { modelAddress } from "../../Contracts/contractAddress";
+import { modelAddress,hospitalAddress } from "../../Contracts/contractAddress";
 import abi from "../../Contracts/model.json";
+import hospitalabi from "../../Contracts/hospital.json";
 import metaContext from "../../context/metaContext";
 import FileSaver from "file-saver";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -20,6 +21,8 @@ const CustomModel = () => {
   const [isActive,setIsActive]=useState(false)
   const location = useLocation();
   const [version, setversion] = useState(0);
+  const [accuracy, setAccuracy] = useState(0);
+  const [click, setClick]=useState(true)
  
   const fetchAddress = async () => {
     await con.accountSet();
@@ -60,8 +63,11 @@ const CustomModel = () => {
   const getHash = async () => {
     setIsActive(true)
     let contract = getContractInstance(abi, modelAddress);
+    
      const modelHash= await contract.getLocalIpfs(location.state, index, address);
     const JsonHash = await contract.getLocalJson(location.state, index, address);
+    console.log("Accuracy",hexToDecimal(accuracy[1]._hex))
+    console.log("Version ",hexToDecimal(accuracy[2]._hex))
     console.log(JsonHash)
     await downloadFile(modelHash,`${location.state}.pkl`)
     await downloadFile(JsonHash,`${location.state}.json`)
@@ -70,9 +76,22 @@ const CustomModel = () => {
     },1000)
   };
 
+  const getAccuracy = async () => {
+    setIsActive(true)
+    let contract2 = getContractInstance(hospitalabi,hospitalAddress)
+    const inf = await contract2.getModelInfo(location.state,index)
+    setAccuracy(hexToDecimal(inf[1]._hex))
+    console.log("Accuracy",hexToDecimal(inf[1]._hex))
+    console.log("Version ",hexToDecimal(inf[2]._hex))
+    setClick(true)
+    setTimeout(()=>{
+      setIsActive(false)
+      },1000)
+  }
+
   const downloadFile = async(hash,name) => {
    await axios
-      .get(`https://gateway.pinata.cloud/ipfs/${hash}`, {
+      .get(`https://ipfs.io/ipfs/${hash}`, {
         responseType: "blob",
       })
       .then((response) => {
@@ -92,7 +111,7 @@ const CustomModel = () => {
   };
 
   // const downloadFileJson = () => {
-  //   let ipfsi = "https://gateway.pinata.cloud/ipfs/";
+  //   let ipfsi = "https://ipfs.io/ipfs/";
   //   jsonHash.trimStart();
   //   var substring = jsonHash.slice(1);
   //   let ipfs = ipfsi + jsonHash;
@@ -156,6 +175,9 @@ const CustomModel = () => {
               <h1 className="text-white font-poppins text-2xl">
                 Version Selected : {version > 0 ? parseInt(index)+1 : "None"}
               </h1>
+              {click?(<h1 className="text-white font-poppins text-2xl">
+                Accuracy : {accuracy}
+              </h1>):("")}
             </div>
             
               <select onChange={handleSelect} className="block py-2.5 mb-6 px-0 w-40 text-center shadow-2xl focus:shadow-2xl text-md text-white bg-transparent border-2 rounded-lg border-purple appearance-none focus:outline-none">
@@ -165,6 +187,13 @@ const CustomModel = () => {
                   </option>
                ))}
               </select>
+              <button
+                className="text-purple bg-transparent border-2 border-purple p-3 rounded-md shadow-xl w-60 font-poppins tracking-widest inline-flex items-center justify-center"
+                onClick={getAccuracy}
+              >
+              <span className="mr-2">  View Accuracy </span>
+                <HiOutlineDownload/>
+              </button>
               <button
                 className="text-purple bg-transparent border-2 border-purple p-3 rounded-md shadow-xl w-60 font-poppins tracking-widest inline-flex items-center justify-center"
                 onClick={getHash}

@@ -69,8 +69,9 @@ const GetSpecificModel = () => {
   };
 
   const downloadFile = async(hash,name) => {
+    console.log("Recieved hash : ",hash)
    await axios
-      .get(`https://gateway.pinata.cloud/ipfs/${hash}`, {
+      .get(`https://ipfs.io/ipfs/${hash}`, {
         responseType: "blob",
       })
       .then((response) => {
