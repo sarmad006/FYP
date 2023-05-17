@@ -23,6 +23,7 @@ const CustomModel = () => {
   const location = useLocation();
   const [version, setversion] = useState(0);
   const [accuracy, setAccuracy] = useState(0);
+  const [modelExists,setmodelExist]=useState(false)
  
   const fetchAddress = async () => {
     await con.accountSet();
@@ -45,8 +46,10 @@ const CustomModel = () => {
   async function getModelVersion() {
     let contract = getContractInstance(abi, modelAddress);
 
-    let tx;
+    let tx,tx2;
     try {
+      tx2 = await contract.registerLModel(location.state, address);
+      setmodelExist(tx2)
       tx = await contract.LVersion(location.state, address);
       console.log(hexToDecimal(tx._hex))
       setversion(hexToDecimal(tx._hex));
@@ -177,7 +180,7 @@ const CustomModel = () => {
                 Accuracy : {accuracy===0 ? "None" : accuracy}
               </h1>
             </div>
-            
+            {modelExists===false ? <p className="font-poppins text-red-500 text-xl">None</p> :(       
               <select onChange={handleSelect} className="block py-2.5 mb-6 px-0 w-40 text-center shadow-2xl focus:shadow-2xl text-md text-white bg-transparent border-2 rounded-lg border-purple appearance-none focus:outline-none">
                 {createArray(version).map((num, index) => (
                   <option className="text-black" key={index} value={index}>
@@ -185,6 +188,7 @@ const CustomModel = () => {
                   </option>
                ))}
               </select>
+            )}
               <div className="flex space-x-8">
               <button
                 className="text-limgreen bg-transparent border-2 border-limgreen p-3 rounded-md shadow-xl w-60 font-poppins tracking-widest inline-flex items-center justify-center"
