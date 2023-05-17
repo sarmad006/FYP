@@ -21,15 +21,31 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
   const [jsonHash, setJsonHash] = useState("");
   const [isActive, setActive] = useState(false);
 
+  const hexToDecimal = (hex) => parseInt(hex, 16);
+
   async function updateLModel() {
     setActive(true);
     console.log(modelHash)
     console.log(jsonHash)
-    if(selectedModel.name===metadata.name){
+    if(selectedModel.name.toLowerCase()===metadata.name.toLowerCase()){
     const Contract = getContractInstance(abi, hospitalAddress);
     console.log(Contract);
-    let tx;
+    let tx,tx2;
     try {
+      tx2 = await Contract.MinimumAccuracy(selectedModel.name)
+      if(parseInt(metadata.accuracy)<hexToDecimal(tx2._hex))
+      {
+        toast.error("Accuracy is below par policies",{
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+        })
+      }
+      else{
       tx = await Contract.updateModel(
        selectedModel.name,
         modelHash,
@@ -45,9 +61,10 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
         draggable: true,
         theme: "dark",
         });
-    } catch (error) {
+    }
+   } catch (error) {
       console.log(error);
-      toast.error("error occured during transaction",{
+      toast.error(error.error.data.message,{
         position: "bottom-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -60,6 +77,7 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
     setActive(false);
     setStepper(1);
     setFile("");
+    setFile1("")
   }
   else
   {
@@ -101,7 +119,7 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
     const formData = new FormData();
     formData.append("file", e);
 
-    const url = "https://ipfs.io/ipfs/";
+    const url = "https://api.pinata.cloud/pinning/pinFileToIPFS";
     const options = {
       headers: {
         pinata_api_key: `${process.env.REACT_APP_API_KEY}`,
@@ -131,7 +149,7 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
     const formData = new FormData();
     formData.append("file", e);
 
-    const url = "https://ipfs.io/ipfs/";
+    const url = "https://api.pinata.cloud/pinning/pinFileToIPFS";
     const options = {
       headers: {
         pinata_api_key: `${process.env.REACT_APP_API_KEY}`,

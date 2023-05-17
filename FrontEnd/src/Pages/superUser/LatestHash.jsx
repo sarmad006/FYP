@@ -61,6 +61,7 @@ const LatestHash = () => {
     setIsActive(true)
     let contract = getContractInstance(abi, superuserAddress);
      const Hash= await contract.retrieveGlobalModelHashes(location.state,index);
+     console.log(Hash)
      await downloadFile(Hash[0],`${location.state}.pkl`)
      await downloadFile(Hash[1],`${location.state}.json`)
     setTimeout(()=>{

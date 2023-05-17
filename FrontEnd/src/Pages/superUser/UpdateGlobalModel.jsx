@@ -132,8 +132,8 @@ const UpdateGlobalModel = () => {
 
     const handleUpload = async () => {
       await sendModelFileToPinata(file);
-      setTimeout(() => {
-        sendJsonFileToPinata(file1);
+      setTimeout(async() => {
+       await sendJsonFileToPinata(file1);
       }, 3000);
     };
   

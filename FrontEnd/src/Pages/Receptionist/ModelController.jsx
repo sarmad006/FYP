@@ -76,8 +76,8 @@ const ModelController = () => {
       <Navbar />
       <div className="grid grid-cols-12 mb-10 ">
         <Sidebar />
-        <div className="col-span-10">
-          <div id="Div1" className="flex justify-center mt-20">
+        <div className="col-span-10 ml-8">
+          <div  className="flex justify-center my-8">
             <h1 className="bg-gradient-to-r from-gradx1 to-gradx2 text-white text-3xl  font-poppins mr-2 py-1 px-8 rounded-2xl tracking-widest">
               Get Null Models
             </h1>

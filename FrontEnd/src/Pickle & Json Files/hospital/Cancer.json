@@ -1,0 +1,5 @@
+{
+    "name":"cancer",
+    "accuracy":"80",
+     "batch":"400"
+}

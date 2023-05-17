@@ -1,5 +1,5 @@
 {
     "name":"Lung",
     "accuracy":"80",
-    "modelsCombined":"3"
+     "batch":"400"
 }

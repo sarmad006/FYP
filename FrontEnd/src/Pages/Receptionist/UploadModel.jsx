@@ -49,6 +49,7 @@ const UploadModel = () => {
     window.location.reload(false);
     // do something with new account here
   }
+  const hexToDecimal = (hex) => parseInt(hex, 16);
 
   const fetchAddress = async () => {
     await con.accountSet();
@@ -60,15 +61,28 @@ const UploadModel = () => {
     setActive(true);
     if(selectedDisease.toLowerCase() === metadata.name.toLowerCase()){
     const Contract = getContractInstance(abi, hospitalAddress);
-    await handleUpload();
     console.log(Contract);
-    let tx;
+    let tx,tx2;
     try {
+      tx2 = await Contract.MinimumAccuracy(selectedDisease)
+      if(parseInt(metadata.accuracy)<hexToDecimal(tx2._hex))
+      {
+        toast.error("Model Accuracy is below our policy",{
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+          })
+      }
+      else{
       tx = await Contract.addLocalModel(
         selectedDisease,
         modelHash,
         jsonHash,
-        metadata.accuracy
+        parseInt(metadata.accuracy)
       );
       toast.success("Successfully uploaded Local Model",{
         position: "bottom-center",
@@ -79,9 +93,11 @@ const UploadModel = () => {
         draggable: true,
         theme: "dark",
         });
-    } catch (error) {
+    } 
+  }
+    catch (error) {
       console.log(error);
-      toast.error("error occured during transaction",{
+      toast.error(error.error.data.message,{
         position: "bottom-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -91,9 +107,11 @@ const UploadModel = () => {
         theme: "dark",
         });
     }
+  
     setActive(false);
     setStepper(1);
     setFile("");
+    setFile1("")
   }
   else
   {
@@ -127,8 +145,8 @@ const UploadModel = () => {
 
   const handleUpload = async () => {
     await sendModelFileToPinata(file);
-    setTimeout(() => {
-      sendJsonFileToPinata(file1);
+    setTimeout(async() => {
+     await sendJsonFileToPinata(file1);
     }, 3000);
   };
 
@@ -141,7 +159,7 @@ const UploadModel = () => {
     const formData = new FormData();
     formData.append("file", e);
 
-    const url = "https://ipfs.io/ipfs/";
+    const url = "https://api.pinata.cloud/pinning/pinFileToIPFS";
     const options = {
       headers: {
         pinata_api_key: `${process.env.REACT_APP_API_KEY}`,
@@ -171,7 +189,7 @@ const UploadModel = () => {
     const formData = new FormData();
     formData.append("file", e);
 
-    const url = "https://ipfs.io/ipfs/";
+    const url = "https://api.pinata.cloud/pinning/pinFileToIPFS";
     const options = {
       headers: {
         pinata_api_key: `${process.env.REACT_APP_API_KEY}`,
@@ -364,7 +382,11 @@ const UploadModel = () => {
                 </div>
               )}
               <button
-                onClick={() => setStepper(3)}
+                onClick={async() => 
+                  {
+                    setStepper(3)
+                   await handleUpload()
+                  }}
                 type="button"
                 className="rounded-full bg-limgreen text-sm font-poppins drop-shadow-2xl tracking-widest px-6 py-2.5"
               >
