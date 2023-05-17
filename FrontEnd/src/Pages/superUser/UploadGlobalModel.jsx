@@ -76,8 +76,8 @@ const UploadModel = () => {
         theme: "dark",
         });
     } catch (error) {
-      console.log(error);
-      toast.error("error occured during transaction",{
+      console.log(error.error);
+      toast.error(error.error.data.message,{
         position: "bottom-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -184,7 +184,7 @@ const UploadModel = () => {
     <div >
       {isActive && <Loader isActive={isActive} />}
       <Navbar />
-      <div className="grid grid-cols-12 mb-10  mx-4">
+      <div className="grid grid-cols-12 mb-10 ">
         <Sidebar />
 
         {stepper === 1 && (
@@ -402,26 +402,9 @@ const UploadModel = () => {
                     for="floating_password"
                     className="peer-focus:font-medium absolute text-md text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
-                    Accuracy
+                  Minimum Accuracy
                   </label>
                 </div>
-                <div className="grid md:grid-cols-2 md:gap-6">
-                  <div className="relative z-0 w-full mb-6 group">
-                    <input
-                      type="text"
-                      value={metadata.models}
-                      className="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                      readOnly
-                    />
-                    <label
-                      for="floating_first_name"
-                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                    >
-                      Models Combined
-                    </label>
-                  </div>
-                </div>
-
                 <button
                   onClick={() => uploadGModel()}
                   type="button"

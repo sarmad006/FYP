@@ -55,7 +55,7 @@ const RegisteredHospitals = () => {
       <div className="grid grid-cols-12 ">
         <Sidebar />
 
-        <div className="col-span-10 px-4 mb-8">
+        <div className="col-span-10 px-4 mb-8 ml-8">
           <div className="flex justify-center mt-6 mb-10">
             <h1 className="bg-indigo-300  text-white text-3xl font-thin font-poppins py-1.5 px-5 rounded-3xl tracking-widest">
               Registered Hospitals

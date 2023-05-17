@@ -101,7 +101,7 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
     const formData = new FormData();
     formData.append("file", e);
 
-    const url = "https://api.pinata.cloud/pinning/pinFileToIPFS";
+    const url = "https://ipfs.io/ipfs/";
     const options = {
       headers: {
         pinata_api_key: `${process.env.REACT_APP_API_KEY}`,
@@ -131,7 +131,7 @@ const UploadModal = ({ setIsActive, selectedModel }) => {
     const formData = new FormData();
     formData.append("file", e);
 
-    const url = "https://api.pinata.cloud/pinning/pinFileToIPFS";
+    const url = "https://ipfs.io/ipfs/";
     const options = {
       headers: {
         pinata_api_key: `${process.env.REACT_APP_API_KEY}`,

@@ -89,7 +89,7 @@ const ActiveModels = () => {
     <Navbar />
     <div className="grid grid-cols-12 mb-10 ">
       <Sidebar />
-      <div className="col-span-10">
+      <div className="col-span-10 ml-8">
         <div id="Div1" className="flex justify-center mt-20">
           <h1 className="bg-gradient-to-r from-gradx1 to-gradx2 text-white text-3xl  font-poppins mr-2 py-1 px-8 rounded-2xl tracking-widest">
             Global Models 
@@ -117,9 +117,14 @@ const ActiveModels = () => {
                 <button className="bg-limgreen px-8 rounded-full text-black font-medium" onClick={()=>handleClick2(item.name)}>
                   Aggregate
                 </button>
-                <button className="bg-slate-100 px-8 rounded-full text-black font-medium" onClick={()=>handleClick(item.id)}>
-                  Details
+                <button className="bg-purple px-8 rounded-full text-black font-medium" onClick={()=>{
+                 navigate("/superuser/UpdateModel")                
+                }}>
+                  Update Model
                 </button>
+                {/* <button className="bg-slate-100 px-8 rounded-full text-black font-medium" onClick={()=>handleClick(item.id)}>
+                  Details
+                </button> */}
               </div>
             </div>
           ))}

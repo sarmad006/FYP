@@ -12,6 +12,7 @@ import getContractInstance from "../../Contracts/ContractInstance";
 import Loader from "../../Components/utils/Loader";
 import {HiOutlineDownload} from "react-icons/hi"
 import { toast } from "react-toastify";
+import {AiOutlineEye} from "react-icons/ai"
 
 
 const CustomModel = () => {
@@ -22,7 +23,6 @@ const CustomModel = () => {
   const location = useLocation();
   const [version, setversion] = useState(0);
   const [accuracy, setAccuracy] = useState(0);
-  const [click, setClick]=useState(true)
  
   const fetchAddress = async () => {
     await con.accountSet();
@@ -66,8 +66,6 @@ const CustomModel = () => {
     
      const modelHash= await contract.getLocalIpfs(location.state, index, address);
     const JsonHash = await contract.getLocalJson(location.state, index, address);
-    console.log("Accuracy",hexToDecimal(accuracy[1]._hex))
-    console.log("Version ",hexToDecimal(accuracy[2]._hex))
     console.log(JsonHash)
     await downloadFile(modelHash,`${location.state}.pkl`)
     await downloadFile(JsonHash,`${location.state}.json`)
@@ -79,11 +77,11 @@ const CustomModel = () => {
   const getAccuracy = async () => {
     setIsActive(true)
     let contract2 = getContractInstance(hospitalabi,hospitalAddress)
+    console.log(location.state,index)
     const inf = await contract2.getModelInfo(location.state,index)
     setAccuracy(hexToDecimal(inf[1]._hex))
     console.log("Accuracy",hexToDecimal(inf[1]._hex))
     console.log("Version ",hexToDecimal(inf[2]._hex))
-    setClick(true)
     setTimeout(()=>{
       setIsActive(false)
       },1000)
@@ -159,7 +157,7 @@ const CustomModel = () => {
 
   return (
     <div>
-          {isActive && <Loader isActive={isActive} />}
+        {isActive && <Loader isActive={isActive} />}
       <Navbar />
       <div className="grid grid-cols-12 mb-10">
         <Sidebar />
@@ -175,9 +173,9 @@ const CustomModel = () => {
               <h1 className="text-white font-poppins text-2xl">
                 Version Selected : {version > 0 ? parseInt(index)+1 : "None"}
               </h1>
-              {click?(<h1 className="text-white font-poppins text-2xl">
-                Accuracy : {accuracy}
-              </h1>):("")}
+              <h1 className="text-white font-poppins text-2xl">
+                Accuracy : {accuracy===0 ? "None" : accuracy}
+              </h1>
             </div>
             
               <select onChange={handleSelect} className="block py-2.5 mb-6 px-0 w-40 text-center shadow-2xl focus:shadow-2xl text-md text-white bg-transparent border-2 rounded-lg border-purple appearance-none focus:outline-none">
@@ -187,12 +185,13 @@ const CustomModel = () => {
                   </option>
                ))}
               </select>
+              <div className="flex space-x-8">
               <button
-                className="text-purple bg-transparent border-2 border-purple p-3 rounded-md shadow-xl w-60 font-poppins tracking-widest inline-flex items-center justify-center"
+                className="text-limgreen bg-transparent border-2 border-limgreen p-3 rounded-md shadow-xl w-60 font-poppins tracking-widest inline-flex items-center justify-center"
                 onClick={getAccuracy}
               >
               <span className="mr-2">  View Accuracy </span>
-                <HiOutlineDownload/>
+                <AiOutlineEye fontSize={20}/>
               </button>
               <button
                 className="text-purple bg-transparent border-2 border-purple p-3 rounded-md shadow-xl w-60 font-poppins tracking-widest inline-flex items-center justify-center"
@@ -201,6 +200,7 @@ const CustomModel = () => {
               <span className="mr-2">  Download File </span>
                 <HiOutlineDownload/>
               </button>
+            </div>
             </div>
           </div>
         </div>

@@ -98,7 +98,7 @@ const UpdateModel = () => {
         const formData = new FormData();
         formData.append('file', e);
       
-        const url = 'https://api.pinata.cloud/pinning/pinFileToIPFS';
+        const url = 'https://ipfs.io/ipfs/';
         const options = {
           headers: {
             pinata_api_key: API_KEY,
@@ -120,7 +120,7 @@ const UpdateModel = () => {
         const formData = new FormData();
         formData.append('file', e);
       
-        const url = 'https://api.pinata.cloud/pinning/pinFileToIPFS';
+        const url = 'https://ipfs.io/ipfs/';
         const options = {
           headers: {
             pinata_api_key: API_KEY,

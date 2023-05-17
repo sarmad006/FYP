@@ -61,7 +61,7 @@ const RegisterHospital = () => {
     try {
       res = await axios({
         method: "post",
-        url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+        url: "https://ipfs.io/ipfs/",
         data: formdata,
         headers: {
           pinata_api_key: `${process.env.REACT_APP_API_KEY}`,

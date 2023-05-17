@@ -12,6 +12,7 @@ import getContractInstance from "../../Contracts/ContractInstance";
 import Loader from "../../Components/utils/Loader";
 import { HiOutlineDownload } from "react-icons/hi";
 import { toast } from "react-toastify";
+import {AiOutlineEye} from "react-icons/ai"
 
 const AggregateModel = () => {
   const con = useContext(metaContext);
@@ -21,6 +22,8 @@ const AggregateModel = () => {
   const [selectedOption, setSelectedOption] = useState(0);
   const location = useLocation();
   const [version, setVersion] = useState(0);
+  const [modelExists,setmodelExist]=useState(false)
+  const [accuracy, setAccuracy] = useState(0);
 
   useEffect(() => {
     if (typeof window.ethereum !== "undefined") {
@@ -38,7 +41,9 @@ const AggregateModel = () => {
     try {
       tx = await contract.registerLModel(location.state, z);
       tx2 = await contract.LVersion(location.state, z);
+      setmodelExist(tx)
       setVersion(hexToDecimal(tx2._hex));
+      console.log(hexToDecimal(tx2._hex))
     } catch (error) {
       console.log(error);
     }
@@ -63,23 +68,39 @@ const AggregateModel = () => {
     }
   }
 
+  const getAccuracy = async () => {
+    setActive(true)
+    let contract2 = getContractInstance(modelabi,modelAddress)
+    console.log(location.state,selectedHospital)
+    const inf = await contract2.getLocalModelInfo(location.state,selectedOption,selectedHospital)
+    setAccuracy(hexToDecimal(inf[1]._hex))
+    console.log("Accuracy",hexToDecimal(inf[1]._hex))
+    console.log("Version ",hexToDecimal(inf[2]._hex))
+    setTimeout(()=>{
+      setActive(false)
+      },1000)
+  }
+
   const handleSelect = async (event) => {
     setActive(true);
     setselectedHospital(event.target.value);
     await getModelVersion(event.target.value);
     setTimeout(() => {
       setActive(false);
+      setAccuracy(0)
     }, 3000);
   };
 
   const handleVersions = (e) => {
     setSelectedOption(e.target.value);
+    setAccuracy(0)
   };
 
   const getHash = async (e) => {
     setActive(true);
     let tx4, tx5, contract;
     contract = getContractInstance(modelabi, modelAddress);
+    console.log(location.state,selectedOption,selectedHospital)
     tx4 = await contract.getLocalIpfs(
       location.state,
       selectedOption,
@@ -90,12 +111,14 @@ const AggregateModel = () => {
       selectedOption,
       selectedHospital
     );
+    console.log(tx4)
     downloadFile(tx4, `${location.state}.pkl`);
     downloadFile(tx5, `${location.state}.json`);
     setActive(false);
   };
 
   const downloadFile = (hash, name) => {
+    console.log(hash)
     axios
       .get(`https://ipfs.io/ipfs/${hash}`, {
         responseType: "blob",
@@ -132,6 +155,9 @@ const AggregateModel = () => {
               <h1 className="text-white font-poppins text-2xl">
                 Hospitals Participated : {hospital.length}
               </h1>
+              <h1 className="text-white font-poppins text-2xl">
+                Accuracy : {accuracy===0 ? "None" : accuracy}
+              </h1>
             </div>
             <div className="flex space-y-4 items-center flex-col">
               <label className="text-white font-poppins text-xl border-b-2 border-limgreen">
@@ -152,6 +178,7 @@ const AggregateModel = () => {
               <label className="text-white font-poppins text-xl border-b-2 border-limgreen">
                 Versions
               </label>
+              {modelExists===false ? <p className="font-poppins text-red-500 text-xl">None</p> :(
               <select
                 onChange={handleVersions}
                 className="block py-2.5 mb-6 px-0 w-40 text-center shadow-2xl focus:shadow-2xl text-md text-white bg-transparent border-2 rounded-lg border-purple appearance-none focus:outline-none"
@@ -162,14 +189,24 @@ const AggregateModel = () => {
                   </option>
                 ))}
               </select>
+              )}
             </div>
-            <button
-              className="text-purple bg-transparent border-2 border-purple p-3 rounded-md shadow-xl w-60 font-poppins tracking-widest inline-flex items-center justify-center"
-              onClick={getHash}
-            >
-              <span className="mr-2"> Download File </span>
-              <HiOutlineDownload />
-            </button>
+            <div className="flex space-x-8">
+              <button
+                className="text-limgreen bg-transparent border-2 border-limgreen p-3 rounded-md shadow-xl w-60 font-poppins tracking-widest inline-flex items-center justify-center"
+                onClick={getAccuracy}
+              >
+              <span className="mr-2">  View Accuracy </span>
+                <AiOutlineEye fontSize={20}/>
+              </button>
+              <button
+                className="text-purple bg-transparent border-2 border-purple p-3 rounded-md shadow-xl w-60 font-poppins tracking-widest inline-flex items-center justify-center"
+                onClick={getHash}
+              >
+              <span className="mr-2">  Download File </span>
+                <HiOutlineDownload/>
+              </button>
+            </div>
           </div>
         </div>
       </div>
