@@ -20,19 +20,25 @@ const SuperUser = () => {
               <h1 className="head">
                 Aggregate <br /> Model
               </h1>
-              <button className="bg-limgreen btn w-20 text-black font-semibold">Click</button>
+              <a href="http://localhost:3000/superuser/models" target='_blank'>
+                <button className="bg-limgreen btn w-20 text-black font-semibold">Click</button>
+              </a>
             </div>
             <div className="text-white font-poppins Box flex flex-col items-center">
               <h1 className="head">
                 Request <br /> Hospitals
               </h1>
-              <button className="bg-limgreen btn w-20 text-black font-semibold">Click</button>
+              <a href="http://localhost:3000/superuser/hospitals" target='_blank'>
+                <button className="bg-limgreen btn w-20 text-black font-semibold">Click</button>
+              </a>
             </div>
             <div className="text-white font-poppins Box flex flex-col items-center">
               <h1 className="head">
                 Add <br /> Hospitals
               </h1>
-              <button className="bg-limgreen btn w-20 text-black font-semibold">Click</button>
+              <a href="http://localhost:3000/superuser/reg" target='blank'>
+                <button className="bg-limgreen btn w-20 text-black font-semibold">Click</button>
+              </a>
             </div>
           </div>
         </div>
